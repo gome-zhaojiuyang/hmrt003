@@ -17,8 +17,7 @@ import com.thinkgem.jeesite.test.dao.TestDataDao;
  * 单表生成Service
  * @author ThinkGem
  * @version 2015-04-06
- */
-@Service
+ */@Service
 @Transactional(readOnly = true)
 public class TestDataService extends CrudService<TestDataDao, TestData> {
 
