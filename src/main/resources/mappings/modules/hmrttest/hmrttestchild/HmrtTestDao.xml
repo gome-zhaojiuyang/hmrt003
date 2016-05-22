@@ -72,13 +72,13 @@
 	
 	<insert id="insert">
 		INSERT INTO hmrt_test(
-			id,
+			
 			name,
 			age,
 			birthday,
 			sex
 		) VALUES (
-			#{id},
+			
 			#{name},
 			#{age},
 			#{birthday},
