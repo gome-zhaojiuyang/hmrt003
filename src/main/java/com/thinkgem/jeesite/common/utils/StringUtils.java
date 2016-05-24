@@ -379,4 +379,36 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     	return result.toString();
     }
     
+    public static String toString(String value) {
+		return value == null ? "" : value.trim();
+	}
+
+	public static String toString(String value, String defaultValue) {
+		return value == null ? defaultValue : value.trim();
+	}
+
+	public static String toString(int value) {
+		return String.valueOf(value);
+	}
+
+	public static String toString(double value) {
+		return String.valueOf(value);
+	}
+
+	public static String toString(Integer value) {
+		return value == null ? "" : String.valueOf(value);
+	}
+
+	public static String toString(Integer value, String defaultValue) {
+		return value == null ? defaultValue : String.valueOf(value);
+	}
+
+	public static String toString(Double value) {
+		return value == null ? "" : String.valueOf(value);
+	}
+
+	public static String toString(Object value) {
+		return value == null ? "" : String.valueOf(value);
+	}
+    
 }

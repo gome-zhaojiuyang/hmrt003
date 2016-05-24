@@ -5,9 +5,11 @@ package com.thinkgem.jeesite.common.web;
 
 import java.beans.PropertyEditorSupport;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
@@ -29,6 +31,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.thinkgem.jeesite.common.beanvalidator.BeanValidators;
 import com.thinkgem.jeesite.common.mapper.JsonMapper;
 import com.thinkgem.jeesite.common.utils.DateUtils;
+import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
+import com.thinkgem.jeesite.modules.cms.utils.Md5;
+import com.thinkgem.jeesite.modules.cms.utils.ResponseData;
 
 /**
  * 控制器支持类
@@ -211,6 +217,51 @@ public abstract class BaseController {
 //				return value != null ? DateUtils.formatDateTime((Date)value) : "";
 //			}
 		});
+	}
+	
+	
+	protected void outputJson(HttpServletResponse response, String result) throws Exception {
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(result);
+		out.flush();
+		out.close();
+	}
+
+	protected boolean validate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		/*int code = validate(request);
+		if (code == -1) {
+			outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求的公共参数不能为空！")));
+			return false;
+		} else if (code == 0) {
+			outputJson(response, JsonUtil.beanToJson(putResponseData(400, "请求非法！")));
+			return false;
+		}*/
+
+		return true;
+	}
+
+	protected int validate(HttpServletRequest request) throws Exception {
+		if (StringUtils.isEmpty(request.getParameter("key")) || StringUtils.isEmpty(request.getParameter("sign")) || StringUtils.isEmpty(request.getParameter("t"))) {
+			return -1;
+		}
+		String key = StringUtils.toString(request.getParameter("key"));
+		String sign = StringUtils.toString(request.getParameter("sign"));
+		String t = StringUtils.toString(request.getParameter("t"));
+		String md5 = Md5.encrypt(key + t + ConstantsConfig.SECRET_KEY);
+		if (!md5.equals(sign)) {
+			return 0;
+		}
+
+		return 1;
+	}
+	protected ResponseData putResponseData(int code, String msg, Object object) throws Exception {
+		ResponseData responseData = new ResponseData();
+		responseData.setCode(code);
+		responseData.setMsg(msg);
+		responseData.setData(object);
+		return responseData;
 	}
 	
 }
