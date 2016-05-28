@@ -37,10 +37,7 @@ public class FrontController2 extends BaseController{
 //				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,cityId不能为空！", "")));
 //				return;
 //			}
-			 
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", "吕玉环吃大屁")));
-			
-			
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", "测试数据OK")));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
