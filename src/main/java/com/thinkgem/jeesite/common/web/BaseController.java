@@ -33,6 +33,7 @@ import com.thinkgem.jeesite.common.mapper.JsonMapper;
 import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
+import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.cms.utils.Md5;
 import com.thinkgem.jeesite.modules.cms.utils.ResponseData;
 
@@ -261,6 +262,13 @@ public abstract class BaseController {
 		responseData.setCode(code);
 		responseData.setMsg(msg);
 		responseData.setData(object);
+		return responseData;
+	}
+	protected ResponseData putResponseData(int code, String msg) throws Exception {
+		ResponseData responseData = new ResponseData();
+		responseData.setCode(code);
+		responseData.setMsg(msg);
+//		responseData.setData(object);
 		return responseData;
 	}
 	

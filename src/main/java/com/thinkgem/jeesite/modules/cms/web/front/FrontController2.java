@@ -38,7 +38,7 @@ public class FrontController2 extends BaseController{
 //				return;
 //			}
 			 
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", "ok")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", "吕玉环吃大屁")));
 			
 			
 		} catch (Exception e) {
