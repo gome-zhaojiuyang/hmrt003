@@ -28,6 +28,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializeConfig;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
 import com.thinkgem.jeesite.common.beanvalidator.BeanValidators;
 import com.thinkgem.jeesite.common.mapper.JsonMapper;
 import com.thinkgem.jeesite.common.utils.DateUtils;
@@ -257,11 +262,21 @@ public abstract class BaseController {
 
 		return 1;
 	}
+	
 	protected ResponseData putResponseData(int code, String msg, Object object) throws Exception {
+		SerializeConfig mapping = new SerializeConfig(); 
+        mapping.put(Date.class, new SimpleDateFormatSerializer("yyyy-MM-dd")); 
+        System.out.println("object>>>>"+object); 
+        //DisableCircularReferenceDetect来禁止循环引用检测：
+        SerializerFeature feature = SerializerFeature.DisableCircularReferenceDetect;  
+        String strObj =  JSON.toJSONString(object, mapping,feature); 
+        
+//        String strObj = JSON.toJSONString(object, mapping,SerializerFeature.DisableCircularReferenceDetect); 
+        System.out.println("strObj>>>>"+strObj); 
 		ResponseData responseData = new ResponseData();
 		responseData.setCode(code);
 		responseData.setMsg(msg);
-		responseData.setData(object);
+		responseData.setData(strObj);
 		return responseData;
 	}
 	protected ResponseData putResponseData(int code, String msg) throws Exception {

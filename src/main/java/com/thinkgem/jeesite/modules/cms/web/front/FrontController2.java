@@ -20,7 +20,7 @@ import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
  * @version 2013-5-29
  */
 @Controller
-@RequestMapping(value = "${frontPath}/api")
+@RequestMapping(value = "${frontPath}/apitest")
 public class FrontController2 extends BaseController{
 	 
 	
