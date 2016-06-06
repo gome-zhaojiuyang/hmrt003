@@ -38,7 +38,7 @@ public class HmrtTagsService extends CrudService<HmrtTagsDao, HmrtTags> {
 	
 	@Transactional(readOnly = false)
 	public void save(HmrtTags hmrtTags) {
-		hmrtTags.setUserid(UserUtils.getUser().getId());
+//		hmrtTags.setUserid(UserUtils.getUser().getId());
 		if (StringUtils.isBlank(hmrtTags.getId())){
 			hmrtTags.preInsert();
 			dao.insert(hmrtTags);
