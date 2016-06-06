@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.CrudService;
+import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.hmrtarticletags.entity.HmrtArticleTags;
 import com.thinkgem.jeesite.modules.hmrtarticletags.dao.HmrtArticleTagsDao;
 
@@ -36,7 +37,14 @@ public class HmrtArticleTagsService extends CrudService<HmrtArticleTagsDao, Hmrt
 	
 	@Transactional(readOnly = false)
 	public void save(HmrtArticleTags hmrtArticleTags) {
-		super.save(hmrtArticleTags);
+		if (StringUtils.isBlank(hmrtArticleTags.getId())){
+			hmrtArticleTags.preInsert();
+			dao.insert(hmrtArticleTags);
+		}else{
+			hmrtArticleTags.preUpdate();
+			dao.update(hmrtArticleTags);
+		}
+//		super.save(hmrtArticleTags);
 	}
 	
 	@Transactional(readOnly = false)

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.CrudService;
+import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.hmrtgroupchat.entity.HmrtGroupChat;
 import com.thinkgem.jeesite.modules.hmrtgroupchat.dao.HmrtGroupChatDao;
 
@@ -36,7 +37,14 @@ public class HmrtGroupChatService extends CrudService<HmrtGroupChatDao, HmrtGrou
 	
 	@Transactional(readOnly = false)
 	public void save(HmrtGroupChat hmrtGroupChat) {
-		super.save(hmrtGroupChat);
+		if (StringUtils.isBlank(hmrtGroupChat.getId())){
+			hmrtGroupChat.preInsert();
+			dao.insert(hmrtGroupChat);
+		}else{
+			hmrtGroupChat.preUpdate();
+			dao.update(hmrtGroupChat);
+		}
+//		super.save(hmrtGroupChat);
 	}
 	
 	@Transactional(readOnly = false)
