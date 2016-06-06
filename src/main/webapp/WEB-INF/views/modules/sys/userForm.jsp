@@ -166,7 +166,7 @@
 		<div class="control-group">
 			<label class="control-label">等级:</label>
 			<div class="controls">
-				<form:input path="level" htmlEscape="false" maxlength="100"/>
+				<form:input path="level" htmlEscape="false" maxlength="100"/>C：普通医生 E：专家医生
 			</div>
 		</div>
 		<div class="control-group">
@@ -178,7 +178,7 @@
 		<div class="control-group">
 			<label class="control-label">是否接受转诊:</label>
 			<div class="controls">
-				<form:input path="isturn" htmlEscape="false" maxlength="100"/>
+				<form:input path="isturn" htmlEscape="false" maxlength="100"/>0：否 1：是
 			</div>
 		</div>
 		<div class="control-group">
