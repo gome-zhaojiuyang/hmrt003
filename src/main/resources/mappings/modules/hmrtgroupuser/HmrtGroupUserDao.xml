@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.hmrtgroupuser.dao.HmrtGroupUserDao">
+    
+	<sql id="hmrtGroupUserColumns">
+		a.id AS "id",
+		a.userid AS "userid",
+		a.groupid AS "groupid"
+	</sql>
+	
+	<sql id="hmrtGroupUserJoins">
+	</sql>
+    
+	<select id="get" resultType="HmrtGroupUser">
+		SELECT 
+			<include refid="hmrtGroupUserColumns"/>
+		FROM hmrt_group_user a
+		<include refid="hmrtGroupUserJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="HmrtGroupUser">
+		SELECT 
+			<include refid="hmrtGroupUserColumns"/>
+		FROM hmrt_group_user a
+		<include refid="hmrtGroupUserJoins"/>
+		<where>
+			
+			<if test="userid != null and userid != ''">
+				AND a.userid = #{userid}
+			</if>
+			<if test="groupid != null and groupid != ''">
+				AND a.groupid = #{groupid}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="HmrtGroupUser">
+		SELECT 
+			<include refid="hmrtGroupUserColumns"/>
+		FROM hmrt_group_user a
+		<include refid="hmrtGroupUserJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO hmrt_group_user(
+			id,
+			userid,
+			groupid
+		) VALUES (
+			#{id},
+			#{userid},
+			#{groupid}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE hmrt_group_user SET 	
+			userid = #{userid},
+			groupid = #{groupid}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM hmrt_group_user
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

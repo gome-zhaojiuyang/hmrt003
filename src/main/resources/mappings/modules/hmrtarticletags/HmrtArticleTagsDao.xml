@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.hmrtarticletags.dao.HmrtArticleTagsDao">
+    
+	<sql id="hmrtArticleTagsColumns">
+		a.id AS "id",
+		a.articleid AS "articleid",
+		a.tagsid AS "tagsid"
+	</sql>
+	
+	<sql id="hmrtArticleTagsJoins">
+	</sql>
+    
+	<select id="get" resultType="HmrtArticleTags">
+		SELECT 
+			<include refid="hmrtArticleTagsColumns"/>
+		FROM hmrt_article_tags a
+		<include refid="hmrtArticleTagsJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="HmrtArticleTags">
+		SELECT 
+			<include refid="hmrtArticleTagsColumns"/>
+		FROM hmrt_article_tags a
+		<include refid="hmrtArticleTagsJoins"/>
+		<where>
+			
+			<if test="articleid != null and articleid != ''">
+				AND a.articleid = #{articleid}
+			</if>
+			<if test="tagsid != null and tagsid != ''">
+				AND a.tagsid = #{tagsid}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="HmrtArticleTags">
+		SELECT 
+			<include refid="hmrtArticleTagsColumns"/>
+		FROM hmrt_article_tags a
+		<include refid="hmrtArticleTagsJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO hmrt_article_tags(
+			id,
+			articleid,
+			tagsid
+		) VALUES (
+			#{id},
+			#{articleid},
+			#{tagsid}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE hmrt_article_tags SET 	
+			articleid = #{articleid},
+			tagsid = #{tagsid}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM hmrt_article_tags
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

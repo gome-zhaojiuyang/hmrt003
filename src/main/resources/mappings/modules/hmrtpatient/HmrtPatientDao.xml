@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.hmrtpatient.dao.HmrtPatientDao">
+    
+	<sql id="hmrtPatientColumns">
+		a.id AS "id",
+		a.userid AS "userid",
+		a.name AS "name",
+		a.sex AS "sex",
+		a.birthday AS "birthday",
+		a.age AS "age",
+		a.mobile AS "mobile",
+		a.id_number AS "idNumber",
+		a.visit_dt AS "visitDt",
+		a.department AS "department",
+		a.sn_type1 AS "snType1",
+		a.sn_no1 AS "snNo1",
+		a.sn_type2 AS "snType2",
+		a.sn_no2 AS "snNo2",
+		a.phone AS "phone",
+		a.email AS "email",
+		a.address AS "address",
+		a.profession AS "profession",
+		a.contact AS "contact",
+		a.introduce AS "introduce",
+		a.remark AS "remark",
+		a.create_dt AS "createDt"
+	</sql>
+	
+	<sql id="hmrtPatientJoins">
+	</sql>
+    
+	<select id="get" resultType="HmrtPatient">
+		SELECT 
+			<include refid="hmrtPatientColumns"/>
+		FROM hmrt_patient a
+		<include refid="hmrtPatientJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="HmrtPatient">
+		SELECT 
+			<include refid="hmrtPatientColumns"/>
+		FROM hmrt_patient a
+		<include refid="hmrtPatientJoins"/>
+		<where>
+			
+			<if test="userid != null and userid != ''">
+				AND a.userid = #{userid}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND a.mobile = #{mobile}
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				AND a.id_number = #{idNumber}
+			</if>
+			<if test="department != null and department != ''">
+				AND a.department LIKE 
+					<if test="dbName == 'oracle'">'%'||#{department}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{department}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{department},'%')</if>
+			</if>
+			<if test="profession != null and profession != ''">
+				AND a.profession LIKE 
+					<if test="dbName == 'oracle'">'%'||#{profession}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{profession}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{profession},'%')</if>
+			</if>
+			<if test="contact != null and contact != ''">
+				AND a.contact LIKE 
+					<if test="dbName == 'oracle'">'%'||#{contact}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{contact}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{contact},'%')</if>
+			</if>
+			<if test="introduce != null and introduce != ''">
+				AND a.introduce LIKE 
+					<if test="dbName == 'oracle'">'%'||#{introduce}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{introduce}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{introduce},'%')</if>
+			</if>
+			<if test="createDt != null and createDt != ''">
+				AND a.create_dt = #{createDt}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="HmrtPatient">
+		SELECT 
+			<include refid="hmrtPatientColumns"/>
+		FROM hmrt_patient a
+		<include refid="hmrtPatientJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO hmrt_patient(
+			id,
+			userid,
+			name,
+			sex,
+			birthday,
+			age,
+			mobile,
+			id_number,
+			visit_dt,
+			department,
+			sn_type1,
+			sn_no1,
+			sn_type2,
+			sn_no2,
+			phone,
+			email,
+			address,
+			profession,
+			contact,
+			introduce,
+			remark,
+			create_dt
+		) VALUES (
+			#{id},
+			#{userid},
+			#{name},
+			#{sex},
+			#{birthday},
+			#{age},
+			#{mobile},
+			#{idNumber},
+			#{visitDt},
+			#{department},
+			#{snType1},
+			#{snNo1},
+			#{snType2},
+			#{snNo2},
+			#{phone},
+			#{email},
+			#{address},
+			#{profession},
+			#{contact},
+			#{introduce},
+			#{remark},
+			#{createDt}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE hmrt_patient SET 	
+			userid = #{userid},
+			name = #{name},
+			sex = #{sex},
+			birthday = #{birthday},
+			age = #{age},
+			mobile = #{mobile},
+			id_number = #{idNumber},
+			visit_dt = #{visitDt},
+			department = #{department},
+			sn_type1 = #{snType1},
+			sn_no1 = #{snNo1},
+			sn_type2 = #{snType2},
+			sn_no2 = #{snNo2},
+			phone = #{phone},
+			email = #{email},
+			address = #{address},
+			profession = #{profession},
+			contact = #{contact},
+			introduce = #{introduce},
+			remark = #{remark},
+			create_dt = #{createDt}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM hmrt_patient
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
