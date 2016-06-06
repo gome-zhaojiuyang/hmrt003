@@ -54,12 +54,14 @@ public class User extends DataEntity<User> {
 	
 	private List<Role> roleList = Lists.newArrayList(); // 拥有角色列表
 	
-	private String level ;
-	private String hospital ;
-	private String isturn ;
-	private String score ;
-	private String token ;
-	private String openid;
+	private String level ;//级别 C普通 E专家
+	private String hospital ;//医院名称
+	private String isturn ;//是否接受转诊
+	private String score ;//积分
+	private String token ;//
+	private String openid;//第三方登录ID
+	private String income;//收入
+	
 
 //	map.put("easemobId", Constants.EMCHAT_PREFIX+member.getId());
 //	map.put("easemobPassword", member.getPassword());
@@ -69,6 +71,14 @@ public class User extends DataEntity<User> {
 
 	public String getLevel() {
 		return level;
+	}
+
+	public String getIncome() {
+		return income;
+	}
+
+	public void setIncome(String income) {
+		this.income = income;
 	}
 
 	public String getToken() {

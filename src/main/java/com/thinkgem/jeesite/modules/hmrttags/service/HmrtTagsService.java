@@ -12,6 +12,7 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.CrudService;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.hmrttags.entity.HmrtTags;
+import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 import com.thinkgem.jeesite.modules.hmrttags.dao.HmrtTagsDao;
 
 /**
@@ -37,6 +38,7 @@ public class HmrtTagsService extends CrudService<HmrtTagsDao, HmrtTags> {
 	
 	@Transactional(readOnly = false)
 	public void save(HmrtTags hmrtTags) {
+		hmrtTags.setUserid(UserUtils.getUser().getId());
 		if (StringUtils.isBlank(hmrtTags.getId())){
 			hmrtTags.preInsert();
 			dao.insert(hmrtTags);

@@ -109,6 +109,7 @@
     	,a.score AS "score"
     	,a.token AS "token"
     	,a.openid AS "openid"
+    	,a.income AS "income"
     	<!-- ,
         r.id AS "roleList.id",
         r.office_id AS "roleList.office.id",
@@ -259,6 +260,7 @@
 			,score
 			,token
 			,openid
+			,income
 		) VALUES (
 			#{id}, 
 			#{company.id}, 
@@ -285,6 +287,7 @@
 			,#{score}
 			,#{token}
 			,#{openid}
+			,#{income}
 		)
 	</insert>
 	
@@ -312,6 +315,7 @@
 			,score =#{score}
 			,token =#{token}
 			,openid =#{openid}
+			,income =#{income}
 		WHERE id = #{id}
 	</update>
 	
@@ -347,6 +351,7 @@
 			,score =#{score}
 			,token =#{token}
 			,openid =#{openid}
+			,income =#{income}
 		WHERE id = #{id}
 	</update>
 	

@@ -33,12 +33,12 @@
 	<form:form id="inputForm" modelAttribute="hmrtTags" action="${ctx}/hmrttags/hmrtTags/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
-		<div class="control-group">
+		<%-- <div class="control-group">
 			<label class="control-label">userid：</label>
 			<div class="controls">
 				<form:input path="userid" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
-		</div>
+		</div> --%>
 		<div class="control-group">
 			<label class="control-label">name：</label>
 			<div class="controls">
