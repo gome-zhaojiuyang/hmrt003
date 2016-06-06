@@ -25,6 +25,11 @@
 		a.del_flag AS "delFlag",
 		c.name AS "category.name",
 		u.name AS "user.name"
+		
+		,a.patientid as "patientid"
+		,a.diagnose_info as "diagnoseInfo"
+		,a.condition_info as "conditionInfo"
+		,a.isarchive as "isarchive"
 	</sql>
 	
 	<sql id="cmsArticleJoins">
@@ -127,6 +132,10 @@
 			update_date,
 			remarks,
 			del_flag
+			,patientid
+			,diagnose_info
+			,condition_info
+			,isarchive
 		) VALUES (
 			#{id},
 			#{category.id},
@@ -148,6 +157,10 @@
 			#{updateDate},
 			#{remarks},
 			#{delFlag}
+			,#{patientid}
+			,#{diagnoseInfo}
+			,#{conditionInfo}
+			,#{isarchive}
 		)
 	</insert>
 	
@@ -171,6 +184,10 @@
 			update_date = #{updateDate},
 			remarks = #{remarks},
 			del_flag = #{delFlag}
+			,patientid=#{patientid}
+			,diagnose_info=#{diagnoseInfo}
+			,condition_info=#{conditionInfo}
+			,isarchive=#{isarchive}
 		WHERE id = #{id}
 	</update>
 	

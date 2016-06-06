@@ -186,6 +186,36 @@
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
+		
+		
+		
+		
+		<div class="control-group">
+			<label class="control-label">患者ID:</label>
+			<div class="controls">
+				<form:input path="patientid" htmlEscape="false" maxlength="64" class="input-xlarge"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">诊断信息:</label>
+			<div class="controls">
+				<form:textarea path="diagnoseInfo" htmlEscape="true" maxlength="64" class="input-xlarge"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">病情信息:</label>
+			<div class="controls">
+				<form:textarea path="conditionInfo" htmlEscape="true" maxlength="64" class="input-xlarge"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">是否归档到病例库:</label>
+			<div class="controls">
+				<form:input path="isarchive" htmlEscape="false" maxlength="64" class="input-xlarge"/>
+			</div>
+		</div>
+		
+		
 		<shiro:hasPermission name="cms:article:audit">
 			<div class="control-group">
 				<label class="control-label">发布状态:</label>

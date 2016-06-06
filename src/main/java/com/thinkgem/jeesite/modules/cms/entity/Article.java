@@ -46,7 +46,49 @@ public class Article extends DataEntity<Article> {
 	private Date endDate;	// 结束时间
 	
 	private User user;
+	
+	/** 病例信息*/
+    private String patientid ;//患者ID  
+    private String diagnoseInfo ;//诊断信息
+    private String conditionInfo ;//病情信息
+    private String isarchive ;//  0否 1是   是否归档到病例库   默认1
     
+	public String getPatientid() {
+		return patientid;
+	}
+
+	public void setPatientid(String patientid) {
+		this.patientid = patientid;
+	}
+
+	 
+
+	 
+
+	public String getDiagnoseInfo() {
+		return diagnoseInfo;
+	}
+
+	public void setDiagnoseInfo(String diagnoseInfo) {
+		this.diagnoseInfo = diagnoseInfo;
+	}
+
+	public String getConditionInfo() {
+		return conditionInfo;
+	}
+
+	public void setConditionInfo(String conditionInfo) {
+		this.conditionInfo = conditionInfo;
+	}
+
+	public String getIsarchive() {
+		return isarchive;
+	}
+
+	public void setIsarchive(String isarchive) {
+		this.isarchive = isarchive;
+	}
+
 	public Article() {
 		super();
 		this.weight = 0;
