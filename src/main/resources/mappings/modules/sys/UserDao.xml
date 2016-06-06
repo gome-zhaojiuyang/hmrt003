@@ -101,7 +101,15 @@
     	ou.id AS "office.primaryPerson.id",
     	ou.name AS "office.primaryPerson.name",
     	ou2.id AS "office.deputyPerson.id",
-    	ou2.name AS "office.deputyPerson.name"<!-- ,
+    	ou2.name AS "office.deputyPerson.name"
+    	
+    	,a.level AS "level"
+    	,a.hospital AS "hospital"
+    	,a.isturn AS "isturn"
+    	,a.score AS "score"
+    	,a.token AS "token"
+    	,a.openid AS "openid"
+    	<!-- ,
         r.id AS "roleList.id",
         r.office_id AS "roleList.office.id",
         r.name AS "roleList.name",
@@ -245,6 +253,12 @@
 			login_flag, 
 			photo, 
 			del_flag
+			,level
+			,hospital
+			,isturn
+			,score
+			,token
+			,openid
 		) VALUES (
 			#{id}, 
 			#{company.id}, 
@@ -265,6 +279,12 @@
 			#{loginFlag}, 
 			#{photo}, 
 			#{delFlag}
+			,#{level}
+			,#{hospital}
+			,#{isturn}
+			,#{score}
+			,#{token}
+			,#{openid}
 		)
 	</insert>
 	
@@ -286,6 +306,12 @@
 			remarks = #{remarks},
 			login_flag = #{loginFlag},
 			photo = #{photo}
+			,level =#{level}
+			,hospital =#{hospital}
+			,isturn =#{isturn}
+			,score =#{score}
+			,token =#{token}
+			,openid =#{openid}
 		WHERE id = #{id}
 	</update>
 	
@@ -315,6 +341,12 @@
 			update_date = #{updateDate}, 
 			remarks = #{remarks},
 			photo = #{photo}
+			,level =#{level}
+			,hospital =#{hospital}
+			,isturn =#{isturn}
+			,score =#{score}
+			,token =#{token}
+			,openid =#{openid}
 		WHERE id = #{id}
 	</update>
 	

@@ -53,6 +53,67 @@ public class User extends DataEntity<User> {
 	private Role role;	// 根据角色查询用户条件
 	
 	private List<Role> roleList = Lists.newArrayList(); // 拥有角色列表
+	
+	private String level ;
+	private String hospital ;
+	private String isturn ;
+	private String score ;
+	private String token ;
+	private String openid;
+
+//	map.put("easemobId", Constants.EMCHAT_PREFIX+member.getId());
+//	map.put("easemobPassword", member.getPassword());
+	
+	
+	
+
+	public String getLevel() {
+		return level;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public String getOpenid() {
+		return openid;
+	}
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	public String getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(String hospital) {
+		this.hospital = hospital;
+	}
+
+	public String getIsturn() {
+		return isturn;
+	}
+
+	public void setIsturn(String isturn) {
+		this.isturn = isturn;
+	}
+
+	public String getScore() {
+		return score;
+	}
+
+	public void setScore(String score) {
+		this.score = score;
+	}
 
 	public User() {
 		super();

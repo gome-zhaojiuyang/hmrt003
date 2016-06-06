@@ -161,6 +161,32 @@
 				</div>
 			</div>
 		</c:if>
+		
+		
+		<div class="control-group">
+			<label class="control-label">等级:</label>
+			<div class="controls">
+				<form:input path="level" htmlEscape="false" maxlength="100"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">医院名称:</label>
+			<div class="controls">
+				<form:input path="hospital" htmlEscape="false" maxlength="100"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">是否接受转诊:</label>
+			<div class="controls">
+				<form:input path="isturn" htmlEscape="false" maxlength="100"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">积分:</label>
+			<div class="controls">
+				<form:input path="score" htmlEscape="false" maxlength="100"/>
+			</div>
+		</div>
 		<div class="form-actions">
 			<shiro:hasPermission name="sys:user:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>
 			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
