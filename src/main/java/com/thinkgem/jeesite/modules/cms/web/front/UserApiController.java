@@ -31,9 +31,6 @@ import com.thinkgem.jeesite.modules.sys.entity.User;
 @Controller
 @RequestMapping(value = "${frontPath}/userApi")
 public class UserApiController extends BaseController{
-//	@Autowired
-//	private SystemService systemService;
-	 
 	/**
 	 * 注册接口
 	 */

@@ -26,7 +26,9 @@
 		FROM hmrt_tags a
 		<include refid="hmrtTagsJoins"/>
 		<where>
-			
+			<if test="userid != null and userid != ''">
+				AND a.userid = #{userid} 
+			</if>
 			<if test="name != null and name != ''">
 				AND a.name LIKE 
 					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
@@ -89,5 +91,6 @@
 		DELETE FROM hmrt_tags
 		WHERE id = #{id}
 	</update>
+	
 	
 </mapper>
