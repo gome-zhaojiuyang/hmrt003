@@ -84,7 +84,9 @@ public abstract class BaseService {
 			if (!isDataScopeAll){
 				if (StringUtils.isNotBlank(userAlias)){
 					for (String ua : StringUtils.split(userAlias, ",")){
-						sqlString.append(" OR " + ua + ".id = '" + user.getId() + "'");
+						if(StringUtils.isNotEmpty(user.getId())){
+							sqlString.append(" OR " + ua + ".id = '" + user.getId() + "'");
+						} 
 					}
 				}else {
 					for (String oa : StringUtils.split(officeAlias, ",")){

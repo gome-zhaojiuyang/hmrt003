@@ -37,7 +37,7 @@ public class ConstantsConfig {
 	// DEFAULT_PASSWORD
 	public static String DEFAULT_PASSWORD = "123456";
 	//EMCHAT_PREFIX
-	public static String EMCHAT_PREFIX = "baidai_";
+	public static String EMCHAT_PREFIX = "hmrt_";
 	
 	//极光发送通知
 	// APPKEY
@@ -66,4 +66,6 @@ public class ConstantsConfig {
 	public static String SFTP_USERNAME 	= "bdsftp" ;
 	public static String SFTP_PASSWORD 	= "!QAZXSW@" ;
 	public static String SFTP_ROOT 		= "/shared/" ;
+	
+	public static String USER_SALT 		= "hmrt" ;
 }

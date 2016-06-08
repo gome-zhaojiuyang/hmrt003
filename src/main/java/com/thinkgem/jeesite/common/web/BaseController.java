@@ -41,6 +41,8 @@ import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.cms.utils.Md5;
 import com.thinkgem.jeesite.modules.cms.utils.ResponseData;
+import com.thinkgem.jeesite.modules.sys.entity.User;
+import com.thinkgem.jeesite.modules.sys.service.SystemService;
 
 /**
  * 控制器支持类
@@ -48,6 +50,8 @@ import com.thinkgem.jeesite.modules.cms.utils.ResponseData;
  * @version 2013-3-23
  */
 public abstract class BaseController {
+	@Autowired
+	protected SystemService systemService;
 
 	/**
 	 * 日志对象
@@ -236,15 +240,43 @@ public abstract class BaseController {
 	}
 
 	protected boolean validate(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		/*int code = validate(request);
+		if(true){
+			return true;
+		}
+		int code = validate(request);
 		if (code == -1) {
 			outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求的公共参数不能为空！")));
 			return false;
 		} else if (code == 0) {
 			outputJson(response, JsonUtil.beanToJson(putResponseData(400, "请求非法！")));
 			return false;
-		}*/
+		}
 
+		return true;
+	}
+	protected boolean validateToken(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if(true){
+			return true;
+		}
+		if (StringUtils.isEmpty(request.getParameter("loginName"))) {
+			outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,loginName不能为空！", "")));
+			return false;
+		}
+		if (StringUtils.isEmpty(request.getParameter("token"))) {
+			outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,token不能为空！", "")));
+			return false;
+		}
+		String token = StringUtils.toString(request.getParameter("token"));
+		String loginName = StringUtils.toString(request.getParameter("loginName"));
+		
+		User user = new User();
+		user.setToken(token);
+		user.setLoginName(loginName);
+		List<User> userList = systemService.findUser(user);
+		if(userList==null ||  userList.size()==0){
+			outputJson(response, JsonUtil.beanToJson(putResponseData(401, "token错误，请重新登录！")));
+			return false;
+		}
 		return true;
 	}
 

@@ -20,12 +20,10 @@ import com.thinkgem.jeesite.common.utils.StringUtils;
  * @version 2014-06-25
  */
 public class Global {
-
 	/**
 	 * 当前对象实例
 	 */
 	private static Global global = new Global();
-	
 	/**
 	 * 保存全局属性值
 	 */
