@@ -14,5 +14,10 @@ import com.thinkgem.jeesite.modules.hmrtarticletags.entity.HmrtArticleTags;
  */
 @MyBatisDao
 public interface HmrtArticleTagsDao extends CrudDao<HmrtArticleTags> {
-	
+	/**
+	 * 删除数据  根据病例ID 删除病例标签
+	 * @param entity
+	 * @return
+	 */
+	public int deleteByArticleId(String articleid);
 }

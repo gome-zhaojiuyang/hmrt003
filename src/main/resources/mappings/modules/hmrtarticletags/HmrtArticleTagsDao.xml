@@ -82,5 +82,9 @@
 		DELETE FROM hmrt_article_tags
 		WHERE id = #{id}
 	</update>
+	<update id="deleteByArticleId">
+		DELETE FROM hmrt_article_tags
+		WHERE articleid = #{articleid}
+	</update>
 	
 </mapper>

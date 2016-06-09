@@ -52,5 +52,9 @@ public class HmrtArticleTagsService extends CrudService<HmrtArticleTagsDao, Hmrt
 	public void delete(HmrtArticleTags hmrtArticleTags) {
 		super.delete(hmrtArticleTags);
 	}
+	@Transactional(readOnly = false)
+	public void deleteByArticleId(String articleid) {
+		dao.deleteByArticleId(articleid);
+	}
 	
 }

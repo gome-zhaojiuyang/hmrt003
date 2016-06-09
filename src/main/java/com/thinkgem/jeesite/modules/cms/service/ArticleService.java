@@ -120,6 +120,11 @@ public class ArticleService extends CrudService<ArticleDao, Article> {
 		//Article article = dao.get(id);
 		//article.setDelFlag(isRe!=null&&isRe?Article.DEL_FLAG_NORMAL:Article.DEL_FLAG_DELETE);
 		//dao.insert(article);
+		
+		super.delete(article);
+	}
+	@Transactional(readOnly = false)
+	public void delete(Article article) {
 		super.delete(article);
 	}
 	

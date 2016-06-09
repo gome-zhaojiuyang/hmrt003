@@ -255,10 +255,12 @@ public abstract class BaseController {
 		return true;
 	}
 	protected boolean validateToken(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if(true){
-			return true;
-		}
-		if (StringUtils.isEmpty(request.getParameter("loginName"))) {
+//		if(true){
+//			return true;
+//		}
+		String token = StringUtils.toString(request.getParameter("token"));
+		String userid = StringUtils.toString(request.getParameter("userid"));
+		if (StringUtils.isEmpty(request.getParameter("userid"))) {
 			outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,loginName不能为空！", "")));
 			return false;
 		}
@@ -266,17 +268,16 @@ public abstract class BaseController {
 			outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,token不能为空！", "")));
 			return false;
 		}
-		String token = StringUtils.toString(request.getParameter("token"));
-		String loginName = StringUtils.toString(request.getParameter("loginName"));
-		
 		User user = new User();
 		user.setToken(token);
-		user.setLoginName(loginName);
+		user.setId(userid);
 		List<User> userList = systemService.findUser(user);
-		if(userList==null ||  userList.size()==0){
+		if(userList==null ||  userList.size()==0 || userList.size()>1){
 			outputJson(response, JsonUtil.beanToJson(putResponseData(401, "token错误，请重新登录！")));
 			return false;
 		}
+		request.setAttribute("user", userList.get(0));
+
 		return true;
 	}
 

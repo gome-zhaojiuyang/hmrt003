@@ -68,4 +68,6 @@ public class ConstantsConfig {
 	public static String SFTP_ROOT 		= "/shared/" ;
 	
 	public static String USER_SALT 		= "hmrt" ;
+	public static String RESULT_SUCCESS  = "success" ;
+	public static String RESULT_ERROR    = "error" ;
 }

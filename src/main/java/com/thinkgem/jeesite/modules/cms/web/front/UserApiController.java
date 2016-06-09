@@ -38,9 +38,6 @@ import com.thinkgem.jeesite.modules.sys.entity.User;
 @Controller
 @RequestMapping(value = "${frontPath}/userApi")
 public class UserApiController extends BaseController{
-//	@Autowired
-//	private SystemService systemService;
-	 
 	/**
 	 * 注册接口
 	 */
@@ -127,7 +124,7 @@ public class UserApiController extends BaseController{
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",map)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		 
@@ -172,13 +169,14 @@ public class UserApiController extends BaseController{
 			systemService.updateUserInfo(user_update);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("userid", user.getId());
 			map.put("token", token);
 			map.put("easemobId", Md5.encrypt(loginName));
 			map.put("easemobPassword", Md5.encrypt(password));
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",map)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		 
@@ -213,7 +211,7 @@ public class UserApiController extends BaseController{
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",user)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		 
@@ -256,13 +254,14 @@ public class UserApiController extends BaseController{
 			//更新环信密码
 			
 			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("userid", userid);
 			map.put("token", tokenNew);
 			map.put("easemobId", Md5.encrypt(loginName));
 			map.put("easemobPassword", Md5.encrypt(passwordNew));
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",map)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		 
@@ -305,10 +304,10 @@ public class UserApiController extends BaseController{
 			}
 			systemService.updateUserInfo(user);
 			
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"","OK")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",ConstantsConfig.RESULT_SUCCESS)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		 
@@ -341,7 +340,7 @@ public class UserApiController extends BaseController{
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",userMapList)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		
