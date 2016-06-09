@@ -12,15 +12,22 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.modules.cms.service.HuanXinService;
 import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.cms.utils.Md5;
+import com.thinkgem.jeesite.modules.cms.utils.huanxin.Constants;
+import com.thinkgem.jeesite.modules.sys.entity.Office;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 
 /**
@@ -83,6 +90,17 @@ public class UserApiController extends BaseController{
 				return ;
 			}
 			
+			ObjectNode datanode = JsonNodeFactory.instance.objectNode();
+		    datanode.put("username",loginName);
+		    datanode.put("password", password);
+		    ObjectNode createNewIMUserSingleNode = HuanXinService.createNewIMUserSingle(datanode);
+		    if (null != createNewIMUserSingleNode) {
+		    	logger.info("注册IM用户[单个]: " + createNewIMUserSingleNode.toString());
+		    }
+		    if(createNewIMUserSingleNode.get("statusCode").equals("200")){
+		    	
+		    }
+		    
 			password = Md5.encrypt(ConstantsConfig.USER_SALT+Md5.encrypt(password));
 			
 			user.setPassword(password);
@@ -90,6 +108,16 @@ public class UserApiController extends BaseController{
 			user.setLevel(level);
 			user.setHospital(hospital);
 			user.setToken(token);
+			//必填 不填 报错   测试
+			Office company = new Office("5f6d0636685b4639b2d7c64b238bfa0e");
+			user.setCompany(company);
+			//必填 不填 报错   测试
+			Office off = new Office("5f6d0636685b4639b2d7c64b238bfa0e");
+			user.setOffice(off);
+			//必填 不填 报错   测试
+			user.setCreateBy(new User("1"));
+			//必填 不填 报错   测试
+			user.setUpdateBy(new User("1"));
 			systemService.saveUser(user);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
