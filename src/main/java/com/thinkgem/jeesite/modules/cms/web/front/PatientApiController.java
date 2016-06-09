@@ -17,9 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
-import com.thinkgem.jeesite.modules.cms.service.ArticleService;
+import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
-import com.thinkgem.jeesite.modules.hmrtarticletags.service.HmrtArticleTagsService;
 import com.thinkgem.jeesite.modules.hmrtpatient.entity.HmrtPatient;
 import com.thinkgem.jeesite.modules.hmrtpatient.service.HmrtPatientService;
 import com.thinkgem.jeesite.modules.sys.entity.User;
@@ -101,10 +100,10 @@ public class PatientApiController extends BaseController{
 			hmrtPatient.setSnType2(snType2);
 			hmrtPatient.setSnNo2(snNo2);
 			hmrtPatientService.save(hmrtPatient);
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"","OK")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",ConstantsConfig.RESULT_SUCCESS)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		
@@ -136,7 +135,7 @@ public class PatientApiController extends BaseController{
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",hmrtPatient)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		

@@ -96,7 +96,7 @@ public class UserApiController extends BaseController{
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",map)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		 
@@ -147,7 +147,7 @@ public class UserApiController extends BaseController{
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",map)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		 
@@ -182,7 +182,7 @@ public class UserApiController extends BaseController{
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",user)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		 
@@ -231,7 +231,7 @@ public class UserApiController extends BaseController{
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",map)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		 
@@ -274,10 +274,10 @@ public class UserApiController extends BaseController{
 			}
 			systemService.updateUserInfo(user);
 			
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"","OK")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",ConstantsConfig.RESULT_SUCCESS)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		 
@@ -310,7 +310,7 @@ public class UserApiController extends BaseController{
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",userMapList)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		

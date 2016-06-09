@@ -21,6 +21,7 @@ import com.thinkgem.jeesite.modules.cms.entity.Article;
 import com.thinkgem.jeesite.modules.cms.entity.Category;
 import com.thinkgem.jeesite.modules.cms.service.ArticleDataService;
 import com.thinkgem.jeesite.modules.cms.service.ArticleService;
+import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.hmrtarticletags.entity.HmrtArticleTags;
 import com.thinkgem.jeesite.modules.hmrtarticletags.service.HmrtArticleTagsService;
@@ -100,10 +101,10 @@ public class CaseApiController extends BaseController {
 				hmrtArticleTags.setTagsid(tagsid);
 				hmrtArticleTagsService.save(hmrtArticleTags);
 			}
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", "OK")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ConstantsConfig.RESULT_SUCCESS)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 
@@ -161,10 +162,10 @@ public class CaseApiController extends BaseController {
 				hmrtArticleTagsService.save(hmrtArticleTags);
 			}
 
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", "OK")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ConstantsConfig.RESULT_SUCCESS)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 
@@ -200,10 +201,10 @@ public class CaseApiController extends BaseController {
 			caseinfo.setUser(user);
 			caseinfo.setDelFlag(Article.DEL_FLAG_DELETE);
 			articleService.delete(caseinfo);// 有主键id 调用修改方法
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", "OK")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ConstantsConfig.RESULT_SUCCESS)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 
@@ -236,7 +237,7 @@ public class CaseApiController extends BaseController {
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", page)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		
@@ -254,29 +255,21 @@ public class CaseApiController extends BaseController {
 			if (!validateToken(request, response)) {
 				return;
 			}
-			if (StringUtils.isEmpty(request.getParameter("userid"))) {
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,userid不能为空！", "")));
-				return;
-			}
 			if (StringUtils.isEmpty(request.getParameter("id"))) {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,id不能为空！", "")));
 				return;
 			}
 			String id = StringUtils.toString(request.getParameter("id"));
 
-			User user = (User) request.getAttribute("user");
-			// 删除病例表 Article
-			Article caseinfo = new Article();
-			caseinfo.setDelFlag(Article.DEL_FLAG_DELETE);
-			caseinfo.setUser(user);
-			caseinfo.setId(id);
-			caseinfo.setIsarchive("0");//0普通病例 1归档病例 属于病例库
-			List<Article> list = articleService.findList(caseinfo);
-			
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", list)));
+			Article caseinfo = articleService.get(id);
+			if(caseinfo==null){
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,id["+id+"]错误！", "")));
+				return;
+			}
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ApiUtils.article2Map(caseinfo, articleDataService))));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		
@@ -304,7 +297,7 @@ public class CaseApiController extends BaseController {
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ApiUtils.articleList2MapList(list, articleDataService))));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		
@@ -345,10 +338,12 @@ public class CaseApiController extends BaseController {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,id["+id+"]错误！", "")));
 				return;
 			}
+			// 文章阅读次数+1
+			articleService.updateHitsAddOne(id);
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ApiUtils.article2Map(caseinfo, articleDataService))));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		

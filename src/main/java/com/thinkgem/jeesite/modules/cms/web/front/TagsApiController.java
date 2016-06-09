@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.hmrttags.entity.HmrtTags;
 import com.thinkgem.jeesite.modules.hmrttags.service.HmrtTagsService;
@@ -58,7 +59,7 @@ public class TagsApiController extends BaseController{
 			hmrtTags.setName(name);
 			hmrtTags.setCreateDate(new Date());
 			hmrtTagsService.save(hmrtTags);
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"","OK")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",ConstantsConfig.RESULT_SUCCESS)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
@@ -87,10 +88,10 @@ public class TagsApiController extends BaseController{
 			HmrtTags hmrtTags = new HmrtTags();
 			hmrtTags.setUserid(userid);
 			hmrtTagsService.findList(hmrtTags);
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"","OK")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",ConstantsConfig.RESULT_SUCCESS)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		
@@ -117,10 +118,10 @@ public class TagsApiController extends BaseController{
 			HmrtTags hmrtTags = new HmrtTags();
 			hmrtTags.setId(id);
 			hmrtTagsService.delete(hmrtTags);
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"","OK")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",ConstantsConfig.RESULT_SUCCESS)));
 		} catch (Exception e) {
 			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
 			return;
 		}
 		
