@@ -111,11 +111,12 @@ public class SystemService extends BaseService implements InitializingBean {
 	}
 	/**
 	 * 验证用户是否存在
+	 * 存在 返回 false
+	 * 不存在 返回 true
 	 * @param user
 	 * @return
 	 */
 	public boolean validateUser(User user){
-		// 生成数据权限过滤条件（dsf为dataScopeFilter的简写，在xml中使用 ${sqlMap.dsf}调用权限SQL）
 		int count = userDao.validateUser(user);
 		if(count>0){
 			return false;

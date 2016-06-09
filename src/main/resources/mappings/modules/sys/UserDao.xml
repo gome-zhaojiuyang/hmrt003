@@ -394,6 +394,9 @@
 		<if test="loginName != null and loginName != ''">
 			and a.login_name = #{loginName}
 		</if>
+		<if test="password != null and password != ''">
+			and a.password = #{password}
+		</if>
 	</select>
 	
 </mapper>

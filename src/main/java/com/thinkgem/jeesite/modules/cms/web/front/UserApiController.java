@@ -139,13 +139,19 @@ public class UserApiController extends BaseController{
 			User user = new User();
 			user.setLoginName(loginName);
 			user.setPassword(password);
-			List<User> userList = systemService.findUser(user);
-			if(userList ==null || userList.size()==0 || userList.size()>1){
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "用户名或者密码错误，请重新输入！", "")));
+			//验证用户名密码
+			if(systemService.validateUser(user)){
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,此用户已经被注册！", "")));
 				return ;
 			}
-			User user_update = new User();
-			user_update.setId(userList.get(0).getId());
+//			List<User> userList = systemService.findUser(user);
+//			if(userList ==null || userList.size()==0 || userList.size()>1){
+//				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "用户名或者密码错误，请重新输入！", "")));
+//				return ;
+//			}
+			
+			User user_update = systemService.getUserByLoginName(loginName);
+//			user_update.setId(userList.get(0).getId());
 			user_update.setToken(token);
 			systemService.updateUserInfo(user_update);
 			
