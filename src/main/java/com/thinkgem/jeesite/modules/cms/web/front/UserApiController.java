@@ -141,6 +141,7 @@ public class UserApiController extends BaseController{
 			systemService.updateUserInfo(user_update);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("userid", user.getId());
 			map.put("token", token);
 			map.put("easemobId", Md5.encrypt(loginName));
 			map.put("easemobPassword", Md5.encrypt(password));
@@ -225,6 +226,7 @@ public class UserApiController extends BaseController{
 			//更新环信密码
 			
 			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("userid", userid);
 			map.put("token", tokenNew);
 			map.put("easemobId", Md5.encrypt(loginName));
 			map.put("easemobPassword", Md5.encrypt(passwordNew));
