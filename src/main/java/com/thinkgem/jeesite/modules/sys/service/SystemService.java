@@ -109,7 +109,19 @@ public class SystemService extends BaseService implements InitializingBean {
 		List<User> list = userDao.findList(user);
 		return list;
 	}
-
+	/**
+	 * 验证用户是否存在
+	 * @param user
+	 * @return
+	 */
+	public boolean validateUser(User user){
+		// 生成数据权限过滤条件（dsf为dataScopeFilter的简写，在xml中使用 ${sqlMap.dsf}调用权限SQL）
+		int count = userDao.validateUser(user);
+		if(count>0){
+			return false;
+		}
+		return true;
+	}
 	/**
 	 * 通过部门ID获取用户列表，仅返回用户id和name（树查询用户时用）
 	 * @param user

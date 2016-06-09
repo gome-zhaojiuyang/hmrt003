@@ -383,4 +383,17 @@
 		WHERE id = #{id}
 	</update>
 	
+	
+	<select id="validateUser" resultType="int">
+		SELECT
+			count(1)
+		FROM sys_user a
+		<include refid="userJoins"/>
+		
+		WHERE a.del_flag = '0'
+		<if test="loginName != null and loginName != ''">
+			and a.login_name = #{loginName}
+		</if>
+	</select>
+	
 </mapper>

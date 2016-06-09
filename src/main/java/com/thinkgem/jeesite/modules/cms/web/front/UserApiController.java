@@ -16,11 +16,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.google.common.collect.Lists;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.cms.utils.Md5;
+import com.thinkgem.jeesite.modules.sys.entity.Role;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 
 /**
@@ -74,19 +76,26 @@ public class UserApiController extends BaseController{
 			user.setLoginName(loginName);
 			
 			//判断是否已经注册过
-			List<User> userList = systemService.findUser(user);
-			if(userList!=null && userList.size()>0){
+			if(!systemService.validateUser(user)){
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,此用户已经被注册！", "")));
 				return ;
 			}
 			
 			password = Md5.encrypt(ConstantsConfig.USER_SALT+Md5.encrypt(password));
 			
+			// 角色数据有效性验证，过滤不在授权内的角色
+			List<Role> roleList = Lists.newArrayList();
+			Role role = new Role("6");
+			roleList.add(role);
+			user.setRoleList(roleList);
+			
+			
 			user.setPassword(password);
 			user.setName(name);
 			user.setLevel(level);
 			user.setHospital(hospital);
 			user.setToken(token);
+			user.setCreateDate(new Date());
 			systemService.saveUser(user);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
