@@ -12,14 +12,17 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
+import com.thinkgem.jeesite.modules.cms.utils.Entity2Map;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.cms.utils.Md5;
 import com.thinkgem.jeesite.modules.sys.entity.Role;
@@ -98,11 +101,11 @@ public class UserApiController extends BaseController{
 			user.setCreateDate(new Date());
 			systemService.saveUser(user);
 			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("token", token);
-			map.put("easemobId", Md5.encrypt(loginName));
-			map.put("easemobPassword", Md5.encrypt(password));
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",map)));
+//			Map<String, Object> map = new HashMap<String, Object>();
+//			map.put("token", token);
+//			map.put("easemobId", Md5.encrypt(loginName));
+//			map.put("easemobPassword", Md5.encrypt(password));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",user)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
@@ -154,13 +157,13 @@ public class UserApiController extends BaseController{
 //			user_update.setId(userList.get(0).getId());
 			user_update.setToken(token);
 			systemService.updateUserInfo(user_update);
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("userid", user.getId());
-			map.put("token", token);
-			map.put("easemobId", Md5.encrypt(loginName));
-			map.put("easemobPassword", Md5.encrypt(password));
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",map)));
+//			user.setToken(token);
+//			Map<String, Object> map = new HashMap<String, Object>();
+//			map.put("userid", user.getId());
+//			map.put("token", token);
+//			map.put("easemobId", Md5.encrypt(loginName));
+//			map.put("easemobPassword", Md5.encrypt(password));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",user_update)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
@@ -181,20 +184,12 @@ public class UserApiController extends BaseController{
 				return;
 			}
 			 
-			String token = StringUtils.toString(request.getParameter("token"));
-			String loginName = StringUtils.toString(request.getParameter("loginName"));
-			String password = StringUtils.toString(request.getParameter("password"));
-			
-			User user = new User();
-			user.setToken(token);
-			user.setLoginName(loginName);
-			user.setPassword(password);
-			List<User> userList = systemService.findUser(user);
-			if(userList ==null || userList.size()==0 || userList.size()>1){
+			String userid = StringUtils.toString(request.getParameter("userid"));
+			User user = systemService.getUser(userid);
+			if(user ==null){
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "用户名或者密码错误，请重新输入！", "")));
 				return ;
 			}
-			user = userList.get(0);
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",user)));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -316,15 +311,15 @@ public class UserApiController extends BaseController{
 			User user = new User();
 			user.setLevel("E");
 			List<User> userList = systemService.findUser(user);
-			List<Map<String,String>> userMapList = new ArrayList<Map<String,String>>();
-			for(User u : userList){
-				Map<String,String> userMap = new HashMap<String,String>();
-				userMap.put("hospital", u.getHospital());
-				userMap.put("name", u.getName());
-				userMap.put("id", u.getId());
-				userMapList.add(userMap);
-			}
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",userMapList)));
+//			List<Map<String,String>> userMapList = new ArrayList<Map<String,String>>();
+//			for(User u : userList){
+//				Map<String,String> userMap = new HashMap<String,String>();
+//				userMap.put("hospital", u.getHospital());
+//				userMap.put("name", u.getName());
+//				userMap.put("id", u.getId());
+//				userMapList.add(userMap);
+//			}
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",userList)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
