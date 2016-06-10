@@ -184,8 +184,8 @@ public class UserApiController extends BaseController{
 				return;
 			}
 			 
-			String userid = StringUtils.toString(request.getParameter("userid"));
-			User user = systemService.getUser(userid);
+			String targetUserid = StringUtils.toString(request.getParameter("targetUserid"));
+			User user = systemService.getUser(targetUserid);
 			if(user ==null){
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "用户名或者密码错误，请重新输入！", "")));
 				return ;
