@@ -44,6 +44,7 @@ public class Entity2Map<T> {
 			
 			map.remove("category");
 			map.remove("posidList");
+			map.remove("posid");
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
