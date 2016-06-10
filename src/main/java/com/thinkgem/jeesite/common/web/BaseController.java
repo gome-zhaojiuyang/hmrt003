@@ -322,7 +322,11 @@ public abstract class BaseController {
         	map.put("next", page.getNext());
         	map.put("prev", page.getPrev());
         	responseData.setData(map);
-        }else{
+        }
+        else if (object instanceof String){
+        	responseData.setData(object);
+        }
+        else{
         	Map<String,Object> map =  new Entity2Map<Object>().entity2map(object);
 //        	map.put("page", "");
         	responseData.setData(map);

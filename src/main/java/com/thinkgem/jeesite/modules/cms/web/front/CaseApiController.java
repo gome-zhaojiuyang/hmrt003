@@ -25,6 +25,8 @@ import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.hmrtarticletags.entity.HmrtArticleTags;
 import com.thinkgem.jeesite.modules.hmrtarticletags.service.HmrtArticleTagsService;
+import com.thinkgem.jeesite.modules.hmrtpatient.entity.HmrtPatient;
+import com.thinkgem.jeesite.modules.hmrtpatient.service.HmrtPatientService;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 
 /**
@@ -42,6 +44,8 @@ public class CaseApiController extends BaseController {
 	private ArticleService articleService;
 	@Autowired
 	private ArticleDataService articleDataService;
+	@Autowired
+	private HmrtPatientService hmrtPatientService;
 	/**
 	 * 
 	 * 创建病例接口
@@ -82,6 +86,11 @@ public class CaseApiController extends BaseController {
 			String diagnoseInfo = StringUtils.toString(request.getParameter("diagnoseInfo"));
 			String conditionInfo = StringUtils.toString(request.getParameter("conditionInfo"));
 
+			HmrtPatient hmrtPatient = hmrtPatientService.get(patientid);
+			if(hmrtPatient==null){
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,patientid["+patientid+"]错误，无此患者！", "")));
+				return;
+			}
 			User user = (User) request.getAttribute("user");
 			// 保存病例表 Article
 			Article caseinfo = new Article();
@@ -224,6 +233,10 @@ public class CaseApiController extends BaseController {
 			}
 			if (StringUtils.isEmpty(request.getParameter("userid"))) {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,userid不能为空！", "")));
+				return;
+			}
+			if (StringUtils.isEmpty(request.getParameter("pageNo"))) {
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,pageNo不能为空！", "")));
 				return;
 			}
 

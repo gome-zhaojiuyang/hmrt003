@@ -530,7 +530,7 @@
 		
 		<!-- GENERAL UTILS end -->
 		
-		<!-- CKFinder begin -->
+		<!-- CKFinder begin --> 
 		<dependency>
 			<groupId>net.coobird</groupId>
 			<artifactId>thumbnailator</artifactId>
