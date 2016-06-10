@@ -235,12 +235,12 @@ public class UserApiController extends BaseController{
 			systemService.updateUserInfo(userUpdate);
 			//更新环信密码
 			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("userid", userid);
-			map.put("token", tokenNew);
-			map.put("easemobId", Md5.encrypt(loginName));
-			map.put("easemobPassword", Md5.encrypt(passwordNew));
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",map)));
+//			Map<String, Object> map = new HashMap<String, Object>();
+//			map.put("userid", userid);
+//			map.put("token", tokenNew);
+//			map.put("easemobId", Md5.encrypt(loginName));
+//			map.put("easemobPassword", Md5.encrypt(passwordNew));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",userUpdate)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
