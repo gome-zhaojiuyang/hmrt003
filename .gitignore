@@ -10,7 +10,11 @@
 *.iml
 .settings/*
 /indexes/*
-/target/*
+/target/generated-sources/*
+/target/jeesite/*
+/target/maven-archiver/*
+/target/generated-test-sources/*
+/target/test-classes/*
 /src/main/webapp/WEB-INF/classes/*
 /src/main/webapp/userfiles/*
-/target/
+
