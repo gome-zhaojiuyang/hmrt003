@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Lists;
@@ -93,8 +94,11 @@ public class UserApiController extends BaseController{
 		    ObjectNode createNewIMUserSingleNode = HuanXinService.createNewIMUserSingle(datanode);
 		    if (null != createNewIMUserSingleNode) {
 		    	logger.info("注册IM用户[单个]: " + createNewIMUserSingleNode.toString());
-		    	if(createNewIMUserSingleNode.get("statusCode").equals("200")){
+		    	if(createNewIMUserSingleNode.get("statusCode").toString().equals("200")){
 		    		logger.info("用户名："+loginName+" 注册成功");
+		    		JsonNode jsonnode=createNewIMUserSingleNode.get("entities");
+		    		JsonNode json=jsonnode.get(0).get("uuid");
+		    		user.setOpenid(json.asText());
 			    }
 		    }
 			
