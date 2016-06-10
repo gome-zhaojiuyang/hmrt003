@@ -1,4 +1,4 @@
-package com.thinkgem.jeesite.common.utils;
+package com.thinkgem.jeesite.modules.cms.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

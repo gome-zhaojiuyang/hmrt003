@@ -12,22 +12,20 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
-import com.thinkgem.jeesite.modules.cms.service.HuanXinService;
 import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
+import com.thinkgem.jeesite.modules.cms.utils.Entity2Map;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.cms.utils.Md5;
-import com.thinkgem.jeesite.modules.cms.utils.huanxin.Constants;
-import com.thinkgem.jeesite.modules.sys.entity.Office;
+import com.thinkgem.jeesite.modules.sys.entity.Role;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 
 /**
@@ -81,47 +79,33 @@ public class UserApiController extends BaseController{
 			user.setLoginName(loginName);
 			
 			//判断是否已经注册过
-			List<User> userList = systemService.findUser(user);
-			if(userList!=null && userList.size()>0){
+			if(!systemService.validateUser(user)){
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,此用户已经被注册！", "")));
 				return ;
 			}
 			
-			ObjectNode datanode = JsonNodeFactory.instance.objectNode();
-		    datanode.put("username",loginName);
-		    datanode.put("password", password);
-		    ObjectNode createNewIMUserSingleNode = HuanXinService.createNewIMUserSingle(datanode);
-		    if (null != createNewIMUserSingleNode) {
-		    	logger.info("注册IM用户[单个]: " + createNewIMUserSingleNode.toString());
-		    }
-		    if(createNewIMUserSingleNode.get("statusCode").equals("200")){
-		    	
-		    }
-		    
 			password = Md5.encrypt(ConstantsConfig.USER_SALT+Md5.encrypt(password));
+			
+			// 角色数据有效性验证，过滤不在授权内的角色
+			List<Role> roleList = Lists.newArrayList();
+			Role role = new Role("6");
+			roleList.add(role);
+			user.setRoleList(roleList);
+			
 			
 			user.setPassword(password);
 			user.setName(name);
 			user.setLevel(level);
 			user.setHospital(hospital);
 			user.setToken(token);
-			//必填 不填 报错   测试
-			Office company = new Office("5f6d0636685b4639b2d7c64b238bfa0e");
-			user.setCompany(company);
-			//必填 不填 报错   测试
-			Office off = new Office("5f6d0636685b4639b2d7c64b238bfa0e");
-			user.setOffice(off);
-			//必填 不填 报错   测试
-			user.setCreateBy(new User("1"));
-			//必填 不填 报错   测试
-			user.setUpdateBy(new User("1"));
+			user.setCreateDate(new Date());
 			systemService.saveUser(user);
 			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("token", token);
-			map.put("easemobId", Md5.encrypt(loginName));
-			map.put("easemobPassword", Md5.encrypt(password));
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",map)));
+//			Map<String, Object> map = new HashMap<String, Object>();
+//			map.put("token", token);
+//			map.put("easemobId", Md5.encrypt(loginName));
+//			map.put("easemobPassword", Md5.encrypt(password));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",user)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
@@ -158,22 +142,28 @@ public class UserApiController extends BaseController{
 			User user = new User();
 			user.setLoginName(loginName);
 			user.setPassword(password);
-			List<User> userList = systemService.findUser(user);
-			if(userList ==null || userList.size()==0 || userList.size()>1){
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "用户名或者密码错误，请重新输入！", "")));
+			//验证用户名密码
+			if(systemService.validateUser(user)){
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,此用户已经被注册！", "")));
 				return ;
 			}
-			User user_update = new User();
-			user_update.setId(userList.get(0).getId());
+//			List<User> userList = systemService.findUser(user);
+//			if(userList ==null || userList.size()==0 || userList.size()>1){
+//				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "用户名或者密码错误，请重新输入！", "")));
+//				return ;
+//			}
+			
+			User user_update = systemService.getUserByLoginName(loginName);
+//			user_update.setId(userList.get(0).getId());
 			user_update.setToken(token);
 			systemService.updateUserInfo(user_update);
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("userid", user.getId());
-			map.put("token", token);
-			map.put("easemobId", Md5.encrypt(loginName));
-			map.put("easemobPassword", Md5.encrypt(password));
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",map)));
+//			user.setToken(token);
+//			Map<String, Object> map = new HashMap<String, Object>();
+//			map.put("userid", user.getId());
+//			map.put("token", token);
+//			map.put("easemobId", Md5.encrypt(loginName));
+//			map.put("easemobPassword", Md5.encrypt(password));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",user_update)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
@@ -194,20 +184,12 @@ public class UserApiController extends BaseController{
 				return;
 			}
 			 
-			String token = StringUtils.toString(request.getParameter("token"));
-			String loginName = StringUtils.toString(request.getParameter("loginName"));
-			String password = StringUtils.toString(request.getParameter("password"));
-			
-			User user = new User();
-			user.setToken(token);
-			user.setLoginName(loginName);
-			user.setPassword(password);
-			List<User> userList = systemService.findUser(user);
-			if(userList ==null || userList.size()==0 || userList.size()>1){
+			String targetUserid = StringUtils.toString(request.getParameter("targetUserid"));
+			User user = systemService.getUser(targetUserid);
+			if(user ==null){
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "用户名或者密码错误，请重新输入！", "")));
 				return ;
 			}
-			user = userList.get(0);
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",user)));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -228,7 +210,7 @@ public class UserApiController extends BaseController{
 			if (!validateToken(request, response)) {
 				return;
 			}
-			String token = StringUtils.toString(request.getParameter("token"));
+//			String token = StringUtils.toString(request.getParameter("token"));
 			String loginName = StringUtils.toString(request.getParameter("loginName"));
 			String password = StringUtils.toString(request.getParameter("password"));
 			password = Md5.encrypt(ConstantsConfig.USER_SALT+Md5.encrypt(password));
@@ -253,12 +235,12 @@ public class UserApiController extends BaseController{
 			systemService.updateUserInfo(userUpdate);
 			//更新环信密码
 			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("userid", userid);
-			map.put("token", tokenNew);
-			map.put("easemobId", Md5.encrypt(loginName));
-			map.put("easemobPassword", Md5.encrypt(passwordNew));
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",map)));
+//			Map<String, Object> map = new HashMap<String, Object>();
+//			map.put("userid", userid);
+//			map.put("token", tokenNew);
+//			map.put("easemobId", Md5.encrypt(loginName));
+//			map.put("easemobPassword", Md5.encrypt(passwordNew));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",userUpdate)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
@@ -329,15 +311,15 @@ public class UserApiController extends BaseController{
 			User user = new User();
 			user.setLevel("E");
 			List<User> userList = systemService.findUser(user);
-			List<Map<String,String>> userMapList = new ArrayList<Map<String,String>>();
-			for(User u : userList){
-				Map<String,String> userMap = new HashMap<String,String>();
-				userMap.put("hospital", u.getHospital());
-				userMap.put("name", u.getName());
-				userMap.put("id", u.getId());
-				userMapList.add(userMap);
-			}
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",userMapList)));
+//			List<Map<String,String>> userMapList = new ArrayList<Map<String,String>>();
+//			for(User u : userList){
+//				Map<String,String> userMap = new HashMap<String,String>();
+//				userMap.put("hospital", u.getHospital());
+//				userMap.put("name", u.getName());
+//				userMap.put("id", u.getId());
+//				userMapList.add(userMap);
+//			}
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",userList)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));

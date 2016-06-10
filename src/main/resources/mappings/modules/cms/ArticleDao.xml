@@ -56,6 +56,12 @@
 			<if test="id != null and id != ''">
 				AND a.id = #{id}  
 			</if>
+			<if test="user.id != null and user.id != ''">
+				AND u.id = #{user.id}  
+			</if>
+			<if test="isarchive != null and isarchive != ''">
+				AND a.isarchive = #{isarchive}  
+			</if>
 			<if test="title != null and title != ''">
 				AND a.title LIKE 
 					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>

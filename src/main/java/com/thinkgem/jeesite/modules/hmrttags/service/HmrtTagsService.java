@@ -11,9 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.CrudService;
 import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.modules.hmrttags.entity.HmrtTags;
-import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 import com.thinkgem.jeesite.modules.hmrttags.dao.HmrtTagsDao;
+import com.thinkgem.jeesite.modules.hmrttags.entity.HmrtTags;
 
 /**
  * 病例标签Service

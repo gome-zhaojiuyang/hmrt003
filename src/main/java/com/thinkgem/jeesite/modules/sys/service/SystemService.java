@@ -109,7 +109,20 @@ public class SystemService extends BaseService implements InitializingBean {
 		List<User> list = userDao.findList(user);
 		return list;
 	}
-
+	/**
+	 * 验证用户是否存在
+	 * 存在 返回 false
+	 * 不存在 返回 true
+	 * @param user
+	 * @return
+	 */
+	public boolean validateUser(User user){
+		int count = userDao.validateUser(user);
+		if(count>0){
+			return false;
+		}
+		return true;
+	}
 	/**
 	 * 通过部门ID获取用户列表，仅返回用户id和name（树查询用户时用）
 	 * @param user

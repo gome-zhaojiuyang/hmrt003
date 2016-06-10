@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,16 +29,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializeConfig;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.thinkgem.jeesite.common.beanvalidator.BeanValidators;
 import com.thinkgem.jeesite.common.mapper.JsonMapper;
+import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
+import com.thinkgem.jeesite.modules.cms.utils.Entity2Map;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.cms.utils.Md5;
 import com.thinkgem.jeesite.modules.cms.utils.ResponseData;
@@ -258,8 +258,7 @@ public abstract class BaseController {
 //		if(true){
 //			return true;
 //		}
-		String token = StringUtils.toString(request.getParameter("token"));
-		String userid = StringUtils.toString(request.getParameter("userid"));
+		
 		if (StringUtils.isEmpty(request.getParameter("userid"))) {
 			outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,loginName不能为空！", "")));
 			return false;
@@ -268,16 +267,17 @@ public abstract class BaseController {
 			outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,token不能为空！", "")));
 			return false;
 		}
+		String token = StringUtils.toString(request.getParameter("token"));
+		String userid = StringUtils.toString(request.getParameter("userid"));
 		User user = new User();
 		user.setToken(token);
 		user.setId(userid);
-		List<User> userList = systemService.findUser(user);
-		if(userList==null ||  userList.size()==0 || userList.size()>1){
+		if(systemService.validateUser(user)){
 			outputJson(response, JsonUtil.beanToJson(putResponseData(401, "token错误，请重新登录！")));
 			return false;
 		}
-		request.setAttribute("user", userList.get(0));
-
+		user = systemService.getUser(userid);
+		request.setAttribute("user", user);
 		return true;
 	}
 
@@ -297,19 +297,49 @@ public abstract class BaseController {
 	}
 	
 	protected ResponseData putResponseData(int code, String msg, Object object) throws Exception {
-		SerializeConfig mapping = new SerializeConfig(); 
-        mapping.put(Date.class, new SimpleDateFormatSerializer("yyyy-MM-dd")); 
-        System.out.println("object>>>>"+object); 
-        //DisableCircularReferenceDetect来禁止循环引用检测：
-        SerializerFeature feature = SerializerFeature.DisableCircularReferenceDetect;  
-        String strObj =  JSON.toJSONString(object, mapping,feature); 
-        
-//        String strObj = JSON.toJSONString(object, mapping,SerializerFeature.DisableCircularReferenceDetect); 
-        System.out.println("strObj>>>>"+strObj); 
 		ResponseData responseData = new ResponseData();
+        if(object instanceof List){
+        	List list = (List)object;
+        	List newList = Lists.newArrayList();
+        	for(Object o:list){
+        		Map<String,Object> map =  new Entity2Map<Object>().entity2map(o);
+        		newList.add(map);
+        	}
+        	responseData.setData(newList);
+        }else if (object instanceof Page){
+        	Page page = (Page)object;
+        	List newList = Lists.newArrayList();
+        	for(Object o:page.getList()){
+        		Map<String,Object> map =  new Entity2Map<Object>().entity2map(o);
+        		newList.add(map);
+        	}
+        	Map<String,Object> map = Maps.newHashMap();
+        	map.put("list", newList);
+        	map.put("count", page.getCount());
+        	map.put("pageSize", page.getPageSize());
+        	map.put("totalPage", page.getTotalPage());
+        	map.put("pageNo", page.getPageNo());
+        	map.put("next", page.getNext());
+        	map.put("prev", page.getPrev());
+        	responseData.setData(map);
+        }else{
+        	Map<String,Object> map =  new Entity2Map<Object>().entity2map(object);
+//        	map.put("page", "");
+        	responseData.setData(map);
+        }
+//        SerializeConfig mapping = new SerializeConfig(); 
+//      mapping.put(Date.class, new SimpleDateFormatSerializer("yyyy-MM-dd")); 
+//      System.out.println("object>>>>"+object); 
+        //DisableCircularReferenceDetect来禁止循环引用检测：
+        //SerializerFeature feature = SerializerFeature.DisableCircularReferenceDetect;  
+//        String strObj =  JSON.toJSONString(object, mapping,feature); 
+//        String strObj =  JSON.toJSONString(object, mapping); 
+//        String strObj = JSON.toJSONString(object, mapping,SerializerFeature.DisableCircularReferenceDetect); 
+//        System.out.println("strObj>>>>"+strObj); 
+//        object =  new Entity2Map<Object>().entity2map(object);
 		responseData.setCode(code);
 		responseData.setMsg(msg);
-		responseData.setData(strObj);
+		
 		return responseData;
 	}
 	protected ResponseData putResponseData(int code, String msg) throws Exception {

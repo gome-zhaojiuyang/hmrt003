@@ -383,4 +383,24 @@
 		WHERE id = #{id}
 	</update>
 	
+	
+	<select id="validateUser" resultType="int">
+		SELECT
+			count(1)
+		FROM sys_user a
+		WHERE a.del_flag = '0'
+		<if test="id != null and id != ''">
+			and a.id = #{id}
+		</if>
+		<if test="loginName != null and loginName != ''">
+			and a.login_name = #{loginName}
+		</if>
+		<if test="password != null and password != ''">
+			and a.password = #{password}
+		</if>
+		<if test="token != null and token != ''">
+			and a.token = #{token}
+		</if>
+	</select>
+	
 </mapper>

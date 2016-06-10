@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.thinkgem.jeesite.common.persistence.Page;
-import com.thinkgem.jeesite.common.utils.ApiUtils;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.cms.entity.Article;
@@ -24,6 +23,7 @@ import com.thinkgem.jeesite.modules.cms.entity.Comment;
 import com.thinkgem.jeesite.modules.cms.service.ArticleDataService;
 import com.thinkgem.jeesite.modules.cms.service.ArticleService;
 import com.thinkgem.jeesite.modules.cms.service.CommentService;
+import com.thinkgem.jeesite.modules.cms.utils.ApiUtils;
 import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
 import com.thinkgem.jeesite.modules.cms.utils.IPUtils;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
@@ -246,7 +246,7 @@ public class activityApiController extends BaseController {
 				return;
 			}
 			
-			String userid = StringUtils.toString(request.getParameter("userid"));
+//			String userid = StringUtils.toString(request.getParameter("userid"));
 			String articleid = StringUtils.toString(request.getParameter("articleid"));
 			String content = StringUtils.replaceHtml(StringUtils.toString(request.getParameter("content")));
 			String name = StringUtils.replaceHtml(StringUtils.toString(request.getParameter("name")));
