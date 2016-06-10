@@ -58,6 +58,7 @@ public class TagsApiController extends BaseController{
 			hmrtTags.setUserid(userid);
 			hmrtTags.setName(name);
 			hmrtTags.setCreateDate(new Date());
+			hmrtTags.setCreateDt(new Date());
 			hmrtTagsService.save(hmrtTags);
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",ConstantsConfig.RESULT_SUCCESS)));
 		} catch (Exception e) {

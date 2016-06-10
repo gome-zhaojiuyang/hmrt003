@@ -17,6 +17,7 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.cms.entity.Article;
+import com.thinkgem.jeesite.modules.cms.entity.ArticleData;
 import com.thinkgem.jeesite.modules.cms.entity.Category;
 import com.thinkgem.jeesite.modules.cms.service.ArticleDataService;
 import com.thinkgem.jeesite.modules.cms.service.ArticleService;
@@ -92,16 +93,21 @@ public class CaseApiController extends BaseController {
 				return;
 			}
 			User user = (User) request.getAttribute("user");
+			
 			// 保存病例表 Article
 			Article caseinfo = new Article();
 			caseinfo.setIsarchive("0");//// 0否 1是 是否归档到病例库 默认1
 			caseinfo.setTitle(user.getName() + "添加病例信息");
 			caseinfo.setCategory(new Category("3d1a11de802c4e99a210c4650c816660"));// 资料库
-																					// 类别ID
 			caseinfo.setDiagnoseInfo(diagnoseInfo);
 			caseinfo.setConditionInfo(conditionInfo);
 			caseinfo.setUser(user);
 			caseinfo.setPatientid(patientid);
+			caseinfo.setCreateBy(user);
+			//需要articleData
+			ArticleData articleData = new ArticleData();
+			articleData.setContent(diagnoseInfo+"-"+conditionInfo);
+			caseinfo.setArticleData(articleData);
 			articleService.save(caseinfo);
 			// 保存标签信息 -- 病例标签关系表
 			for (String tagsid : tagsids.split(",")) {
