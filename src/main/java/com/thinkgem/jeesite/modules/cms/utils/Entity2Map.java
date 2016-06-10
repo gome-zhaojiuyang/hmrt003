@@ -41,6 +41,9 @@ public class Entity2Map<T> {
 			map.remove("admin");
 			map.remove("createDate");
 			map.remove("newPassword");
+			
+			map.remove("category");
+			map.remove("posidList");
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

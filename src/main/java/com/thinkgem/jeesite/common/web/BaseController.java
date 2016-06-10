@@ -29,15 +29,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializeConfig;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.thinkgem.jeesite.common.beanvalidator.BeanValidators;
 import com.thinkgem.jeesite.common.mapper.JsonMapper;
+import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
@@ -310,6 +306,22 @@ public abstract class BaseController {
         		newList.add(map);
         	}
         	responseData.setData(newList);
+        }else if (object instanceof Page){
+        	Page page = (Page)object;
+        	List newList = Lists.newArrayList();
+        	for(Object o:page.getList()){
+        		Map<String,Object> map =  new Entity2Map<Object>().entity2map(o);
+        		newList.add(map);
+        	}
+        	Map<String,Object> map = Maps.newHashMap();
+        	map.put("list", newList);
+        	map.put("count", page.getCount());
+        	map.put("pageSize", page.getPageSize());
+        	map.put("totalPage", page.getTotalPage());
+        	map.put("pageNo", page.getPageNo());
+        	map.put("next", page.getNext());
+        	map.put("prev", page.getPrev());
+        	responseData.setData(map);
         }else{
         	Map<String,Object> map =  new Entity2Map<Object>().entity2map(object);
 //        	map.put("page", "");
