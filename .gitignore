@@ -15,7 +15,7 @@
 /target/maven-archiver/*
 /target/generated-test-sources/*
 /target/test-classes/*
-/target/jeesite.war
+/target/*
 /src/main/webapp/WEB-INF/classes/*
 /src/main/webapp/userfiles/*
 
