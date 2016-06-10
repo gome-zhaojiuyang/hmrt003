@@ -246,7 +246,7 @@ public class activityApiController extends BaseController {
 				return;
 			}
 			
-			String userid = StringUtils.toString(request.getParameter("userid"));
+//			String userid = StringUtils.toString(request.getParameter("userid"));
 			String articleid = StringUtils.toString(request.getParameter("articleid"));
 			String content = StringUtils.replaceHtml(StringUtils.toString(request.getParameter("content")));
 			String name = StringUtils.replaceHtml(StringUtils.toString(request.getParameter("name")));

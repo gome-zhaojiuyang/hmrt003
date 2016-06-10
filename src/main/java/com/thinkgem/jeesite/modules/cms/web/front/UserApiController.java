@@ -215,7 +215,7 @@ public class UserApiController extends BaseController{
 			if (!validateToken(request, response)) {
 				return;
 			}
-			String token = StringUtils.toString(request.getParameter("token"));
+//			String token = StringUtils.toString(request.getParameter("token"));
 			String loginName = StringUtils.toString(request.getParameter("loginName"));
 			String password = StringUtils.toString(request.getParameter("password"));
 			password = Md5.encrypt(ConstantsConfig.USER_SALT+Md5.encrypt(password));
