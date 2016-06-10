@@ -17,10 +17,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.modules.cms.service.HuanXinService;
 import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
 import com.thinkgem.jeesite.modules.cms.utils.Entity2Map;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
@@ -83,6 +86,17 @@ public class UserApiController extends BaseController{
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,此用户已经被注册！", "")));
 				return ;
 			}
+			
+			ObjectNode datanode = JsonNodeFactory.instance.objectNode();
+		    datanode.put("username",loginName);
+		    datanode.put("password", password);
+		    ObjectNode createNewIMUserSingleNode = HuanXinService.createNewIMUserSingle(datanode);
+		    if (null != createNewIMUserSingleNode) {
+		    	logger.info("注册IM用户[单个]: " + createNewIMUserSingleNode.toString());
+		    	if(createNewIMUserSingleNode.get("statusCode").equals("200")){
+		    		logger.info("用户名："+loginName+" 注册成功");
+			    }
+		    }
 			
 			password = Md5.encrypt(ConstantsConfig.USER_SALT+Md5.encrypt(password));
 			
