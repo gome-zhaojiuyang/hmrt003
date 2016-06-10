@@ -56,7 +56,7 @@
 			<if test="id != null and id != ''">
 				AND a.id = #{id}  
 			</if>
-			<if test="user.id != null and user.id != ''">
+			<if test="user!=null and user.id != null and user.id != ''">
 				AND u.id = #{user.id}  
 			</if>
 			<if test="isarchive != null and isarchive != ''">
