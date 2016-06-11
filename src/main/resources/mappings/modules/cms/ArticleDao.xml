@@ -24,7 +24,8 @@
 		a.remarks AS "remarks",
 		a.del_flag AS "delFlag",
 		c.name AS "category.name",
-		u.name AS "user.name"
+		u.id AS "user.id",
+		u.name AS "userName"
 		
 		,a.patientid as "patientid"
 		,a.diagnose_info as "diagnoseInfo"

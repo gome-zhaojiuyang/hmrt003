@@ -52,7 +52,17 @@ public class Article extends DataEntity<Article> {
     private String diagnoseInfo ;//诊断信息
     private String conditionInfo ;//病情信息
     private String isarchive ;//  0否 1是   是否归档到病例库   默认1
+    private String userName ;
     
+    
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	public String getPatientid() {
 		return patientid;
 	}

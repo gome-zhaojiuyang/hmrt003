@@ -252,6 +252,7 @@ public class CaseApiController extends BaseController {
 			caseinfo.setDelFlag(Article.DEL_FLAG_NORMAL);
 			caseinfo.setUser(user);
 			caseinfo.setIsarchive("0");
+//			caseinfo.setUserName(user.getName());
 			Page<Article> page = articleService.findPage(new Page<Article>(request,response), caseinfo,false);
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", page)));
 		} catch (Exception e) {
