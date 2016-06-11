@@ -65,7 +65,7 @@
 			<name>Jeesite Repository</name>
 			<url>http://maven.jeesite.com/nexus/content/groups/public</url>
 		</repository>
-		
+	
 	</repositories>
 	
 	<!-- 设定插件仓库 -->
