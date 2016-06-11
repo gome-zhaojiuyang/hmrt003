@@ -31,6 +31,7 @@
 		,a.diagnose_info as "diagnoseInfo"
 		,a.condition_info as "conditionInfo"
 		,a.isarchive as "isarchive"
+		
 	</sql>
 	
 	<sql id="cmsArticleJoins">

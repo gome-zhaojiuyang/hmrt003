@@ -53,8 +53,19 @@ public class Article extends DataEntity<Article> {
     private String conditionInfo ;//病情信息
     private String isarchive ;//  0否 1是   是否归档到病例库   默认1
     private String userName ;
+    private Date createDate ;
     
     
+	
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
 	public String getUserName() {
 		return userName;
 	}
