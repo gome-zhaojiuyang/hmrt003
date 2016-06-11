@@ -57,17 +57,17 @@ public class MainApiController extends BaseController{
 			article.setCategory(new Category(categoryId));//引导页分类ID
 			List<Article> list = articleService.findList(article);
 			List<Map<String,String>> newList = new ArrayList<Map<String,String>>();
-			for(Article a: list){
-				Map<String,String> anew = new HashMap<String,String>();
-				anew.put("title", a.getTitle());
-//				anew.put("image", a.getImage());
-//				anew.put("imageSrc", a.getImageSrc());
-//				
-				anew.put("content", articleDataService.get(a.getId()).getContent());
-//				anew.setCategory(a.getCategory());
-				newList.add(anew);
-			}
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",newList)));
+//			for(Article a: list){
+//				Map<String,String> anew = new HashMap<String,String>();
+//				anew.put("title", a.getTitle());
+////				anew.put("image", a.getImage());
+////				anew.put("imageSrc", a.getImageSrc());
+////				
+//				anew.put("content", articleDataService.get(a.getId()).getContent());
+////				anew.setCategory(a.getCategory());
+//				newList.add(anew);
+//			}
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",list)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
