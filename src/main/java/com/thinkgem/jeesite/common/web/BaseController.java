@@ -302,7 +302,12 @@ public abstract class BaseController {
         	List list = (List)object;
         	List newList = Lists.newArrayList();
         	for(Object o:list){
-        		Map<String,Object> map =  new Entity2Map<Object>().entity2map(o);
+        		Map<String,Object> map;
+        		if(o instanceof Map){
+        			map = (Map<String, Object>) o;
+        		}else{
+        			map =  new Entity2Map<Object>().entity2map(o);
+        		}
         		newList.add(map);
         	}
         	responseData.setData(newList);
@@ -327,7 +332,8 @@ public abstract class BaseController {
         	responseData.setData(object);
         }
         else{
-        	Map<String,Object> map =  new Entity2Map<Object>().entity2map(object);
+        	//Map<String,Object> map =  new Entity2Map<Object>().entity2map(object);
+        	Map<String,Object> map =  (Map<String, Object>) object;
 //        	map.put("page", "");
         	responseData.setData(map);
         }
