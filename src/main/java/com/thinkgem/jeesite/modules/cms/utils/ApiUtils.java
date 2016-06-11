@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.Maps;
+import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.modules.cms.entity.Article;
 import com.thinkgem.jeesite.modules.cms.service.ArticleDataService;
 
@@ -21,10 +22,16 @@ public class ApiUtils {
 		for(Article article: list){
 			Map<String,String> articleMap = new HashMap<String,String>();
 			articleMap.put("title", article.getTitle());
-//			articleMap.put("image", article.getImage());
-//			articleMap.put("imageSrc", article.getImageSrc());
+			articleMap.put("begindata", DateUtils.formatDateTime(article.getBeginDate()));
+			articleMap.put("enddata", DateUtils.formatDateTime(article.getEndDate()));
+			//articleMap.put("allowcomment", article.getArticleData().getAllowComment());
+			articleMap.put("creatdata", DateUtils.formatDateTime(article.getCreateDate()));
+			articleMap.put("image", article.getImage());
+			articleMap.put("imageSrc", article.getImageSrc());
 			articleMap.put("content", articleDataService.get(article.getId()).getContent());
-//			articleMap.setCategory(article.getCategory());
+			articleMap.put("desc", article.getDescription());
+			articleMap.put("weight", article.getWeight().toString());
+			//articleMap.put("category", article.getCategory());
 			articleMap.put("id", article.getId());
 			articleMapList.add(articleMap);
 		}
@@ -34,7 +41,16 @@ public class ApiUtils {
 	public static Map<String,String> article2Map(Article article,ArticleDataService articleDataService ){
 		Map<String,String> articleMap = Maps.newHashMap();
 		articleMap.put("title", article.getTitle());
+		articleMap.put("begindata", DateUtils.formatDateTime(article.getBeginDate()));
+		articleMap.put("enddata", DateUtils.formatDateTime(article.getEndDate()));
+		//articleMap.put("allowcomment", article.getArticleData().getAllowComment());
+		articleMap.put("creatdata", DateUtils.formatDateTime(article.getCreateDate()));
+		articleMap.put("image", article.getImage());
+		articleMap.put("imageSrc", article.getImageSrc());
 		articleMap.put("content", articleDataService.get(article.getId()).getContent());
+		articleMap.put("desc", article.getDescription());
+		articleMap.put("weight", article.getWeight().toString());
+		//articleMap.put("category", article.getCategory());
 		articleMap.put("id", article.getId());
 		return articleMap ;
 	}

@@ -30,6 +30,7 @@ import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.hmrtlike.entity.HmrtLike;
 import com.thinkgem.jeesite.modules.hmrtlike.service.HmrtLikeService;
 import com.thinkgem.jeesite.modules.sys.entity.User;
+import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 
 /**
  * 网站Controller
@@ -121,9 +122,9 @@ public class activityApiController extends BaseController {
 			if (!validate(request, response)) {
 				return;
 			}
-			if (!validateToken(request, response)) {
-				return;
-			}
+//			if (!validateToken(request, response)) {
+//				return;
+//			}
 			if (StringUtils.isEmpty(request.getParameter("userid"))) {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,userid不能为空！", "")));
 				return;
@@ -172,8 +173,8 @@ public class activityApiController extends BaseController {
 			String articleid = StringUtils.toString(request.getParameter("articleid"));
 			HmrtLike hmrtLike = new HmrtLike();
 			hmrtLike.setArticleid(articleid);
-			hmrtLikeService.findList(hmrtLike);
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ConstantsConfig.RESULT_SUCCESS)));
+			List<HmrtLike> list=hmrtLikeService.findList(hmrtLike);
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", list)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
@@ -205,8 +206,10 @@ public class activityApiController extends BaseController {
 			}
 			String articleid = StringUtils.toString(request.getParameter("articleid"));
 			HmrtLike hmrtLike = new HmrtLike();
-			hmrtLike.setUserid(userid);
+			User user = UserUtils.get(userid);
+			hmrtLike.setUser(user);
 			hmrtLike.setArticleid(articleid);
+			//bug
 			hmrtLikeService.deleteConditon(hmrtLike);
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ConstantsConfig.RESULT_SUCCESS)));
 		} catch (Exception e) {
@@ -226,9 +229,9 @@ public class activityApiController extends BaseController {
 			if (!validate(request, response)) {
 				return;
 			}
-			if (!validateToken(request, response)) {
-				return;
-			}
+//			if (!validateToken(request, response)) {
+//				return;
+//			}
 			if (StringUtils.isEmpty(request.getParameter("userid"))) {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,userid不能为空！", "")));
 				return;
@@ -288,9 +291,9 @@ public class activityApiController extends BaseController {
 			if (!validate(request, response)) {
 				return;
 			}
-			if (!validateToken(request, response)) {
-				return;
-			}
+//			if (!validateToken(request, response)) {
+//				return;
+//			}
 //			if (StringUtils.isEmpty(request.getParameter("userid"))) {
 //				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,userid不能为空！", "")));
 //				return;
@@ -322,6 +325,7 @@ public class activityApiController extends BaseController {
 			comment.setCategory(new Category(caseinfo.getCategory().getId()));
 			comment.setContentId(articleid);
 			Page<Comment> page = commentService.findPage(new Page<Comment>(request,response), comment);
+			//bug
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", page)));
 		} catch (Exception e) {
 			e.printStackTrace();
