@@ -206,10 +206,10 @@ public class activityApiController extends BaseController {
 			}
 			String articleid = StringUtils.toString(request.getParameter("articleid"));
 			HmrtLike hmrtLike = new HmrtLike();
-			User user = UserUtils.get(userid);
-			hmrtLike.setUser(user);
+			//User user = UserUtils.get(userid);
+			//hmrtLike.setUser(user);
+			hmrtLike.setUserid(userid);
 			hmrtLike.setArticleid(articleid);
-			//bug
 			hmrtLikeService.deleteConditon(hmrtLike);
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ConstantsConfig.RESULT_SUCCESS)));
 		} catch (Exception e) {

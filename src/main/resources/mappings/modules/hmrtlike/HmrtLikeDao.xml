@@ -91,13 +91,13 @@
 		DELETE FROM hmrt_like
 		<where>
 			<if test="id != null and id != ''">
-				AND a.id = #{id}
+				AND id = #{id}
 			</if>
 			<if test="userid != null and userid != ''">
-				AND a.userid = #{userid}
+				AND userid = #{userid}
 			</if>
 			<if test="articleid != null and articleid != ''">
-				AND a.articleid = #{articleid}
+				AND articleid = #{articleid}
 			</if>
 		</where>
 	</update>
