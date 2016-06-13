@@ -27,16 +27,16 @@ public class HuanXinService {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		/**
-         * 注册IM用户[单个]
-         */
-        ObjectNode datanode = JsonNodeFactory.instance.objectNode();
-        datanode.put("username","kenshinnuser10001");
-        datanode.put("password", Constants.DEFAULT_PASSWORD);
-        ObjectNode createNewIMUserSingleNode = createNewIMUserSingle(datanode);
-        if (null != createNewIMUserSingleNode) {
-            LOGGER.info("注册IM用户[单个]: " + createNewIMUserSingleNode.toString());
-        }
+//		/**
+//         * 注册IM用户[单个]
+//         */
+//        ObjectNode datanode = JsonNodeFactory.instance.objectNode();
+//        datanode.put("username","kenshinnuser10001");
+//        datanode.put("password", Constants.DEFAULT_PASSWORD);
+//        ObjectNode createNewIMUserSingleNode = createNewIMUserSingle(datanode);
+//        if (null != createNewIMUserSingleNode) {
+//            LOGGER.info("注册IM用户[单个]: " + createNewIMUserSingleNode.toString());
+//        }
         
 //      /**
 //      * IM用户登录
@@ -46,20 +46,20 @@ public class HuanXinService {
 //         LOGGER.info("IM用户登录: " + imUserLoginNode.toString());
 //     }
         
-//      /**
-//      * 重置IM用户密码 提供管理员token
-//      */
-//	   String username = "kenshinnuser100";
-//     ObjectNode json2 = JsonNodeFactory.instance.objectNode();
-//     json2.put("newpassword", Constants.DEFAULT_PASSWORD);
-//     ObjectNode modifyIMUserPasswordWithAdminTokenNode = modifyIMUserPasswordWithAdminToken(username, json2);
-//     if (null != modifyIMUserPasswordWithAdminTokenNode) {
-//         LOGGER.info("重置IM用户密码 提供管理员token: " + modifyIMUserPasswordWithAdminTokenNode.toString());
-//     }
-//     ObjectNode imUserLoginNode2 = imUserLogin(username, json2.get("newpassword").asText());
-//     if (null != imUserLoginNode2) {
-//         LOGGER.info("重置IM用户密码后,IM用户登录: " + imUserLoginNode2.toString());
-//     }
+      /**
+      * 重置IM用户密码 提供管理员token
+      */
+	 String username = "zhuhb";
+     ObjectNode json2 = JsonNodeFactory.instance.objectNode();
+     json2.put("newpassword", Constants.DEFAULT_PASSWORD);
+     ObjectNode modifyIMUserPasswordWithAdminTokenNode = modifyIMUserPasswordWithAdminToken(username, json2);
+     if (null != modifyIMUserPasswordWithAdminTokenNode) {
+         LOGGER.info("重置IM用户密码 提供管理员token: " + modifyIMUserPasswordWithAdminTokenNode.toString());
+     }
+     ObjectNode imUserLoginNode2 = imUserLogin(username, json2.get("newpassword").asText());
+     if (null != imUserLoginNode2) {
+         LOGGER.info("重置IM用户密码后,IM用户登录: " + imUserLoginNode2.toString());
+     }
         
 //      /**
 //      * 获取IM用户[主键查询]
@@ -351,6 +351,55 @@ public class HuanXinService {
 
 			ObjectNode body = factory.objectNode();
 			objectNode = HTTPClientUtils.sendHTTPRequest(addFriendSingleUrl, credential, body, HTTPMethod.METHOD_GET);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return objectNode;
+	}
+	
+	/**
+	 * 重置IM用户密码 提供管理员token
+	 * 
+	 * @param userName
+	 * @param dataObjectNode
+	 * @return
+	 */
+	public static ObjectNode modifyIMUserPasswordWithAdminToken(String userName, ObjectNode dataObjectNode) {
+		ObjectNode objectNode = factory.objectNode();
+
+		// check Constants.APPKEY format
+		if (!HTTPClientUtils.match("^(?!-)[0-9a-zA-Z\\-]+#[0-9a-zA-Z]+", Constants.APPKEY)) {
+			LOGGER.error("Bad format of Constants.APPKEY: " + Constants.APPKEY);
+
+			objectNode.put("message", "Bad format of Constants.APPKEY");
+
+			return objectNode;
+		}
+
+		if (StringUtils.isEmpty(userName)) {
+			LOGGER.error("Property that named userName must be provided，the value is username of imuser.");
+
+			objectNode.put("message",
+					"Property that named userName must be provided，the value is username or imuser.");
+
+			return objectNode;
+		}
+
+		if (null != dataObjectNode && !dataObjectNode.has("newpassword")) {
+			LOGGER.error("Property that named newpassword must be provided .");
+
+			objectNode.put("message", "Property that named newpassword must be provided .");
+
+			return objectNode;
+		}
+
+		try {
+			URL modifyIMUserPasswordWithAdminTokenUrl = HTTPClientUtils.getURL(Constants.APPKEY.replace("#", "/")
+					+ "/users/" + userName + "/password");
+			objectNode = HTTPClientUtils.sendHTTPRequest(modifyIMUserPasswordWithAdminTokenUrl, credential,
+					dataObjectNode, HTTPMethod.METHOD_PUT);
 
 		} catch (Exception e) {
 			e.printStackTrace();

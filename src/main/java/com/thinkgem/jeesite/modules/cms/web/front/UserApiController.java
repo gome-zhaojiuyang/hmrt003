@@ -29,6 +29,8 @@ import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
 import com.thinkgem.jeesite.modules.cms.utils.Entity2Map;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.cms.utils.Md5;
+import com.thinkgem.jeesite.modules.cms.utils.RandomNum;
+import com.thinkgem.jeesite.modules.cms.utils.huanxin.Constants;
 import com.thinkgem.jeesite.modules.sys.entity.Role;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 
@@ -243,6 +245,7 @@ public class UserApiController extends BaseController{
 				return ;
 			}
 			String passwordNew = StringUtils.toString(request.getParameter("passwordNew"));
+			String huanxinnewpassword =  StringUtils.toString(request.getParameter("passwordNew"));
 			passwordNew = Md5.encrypt(ConstantsConfig.USER_SALT+Md5.encrypt(passwordNew));
 			String 	tokenNew	= String.valueOf(Math.abs((int)new Date().getTime()));
 			
@@ -252,6 +255,12 @@ public class UserApiController extends BaseController{
 			userUpdate.setToken(tokenNew);
 			systemService.updateUserInfo(userUpdate);
 			//更新环信密码
+		     ObjectNode json2 = JsonNodeFactory.instance.objectNode();
+		     json2.put("newpassword", huanxinnewpassword);
+		     ObjectNode modifyIMUserPasswordWithAdminTokenNode = HuanXinService.modifyIMUserPasswordWithAdminToken(loginName, json2);
+		     if (null != modifyIMUserPasswordWithAdminTokenNode&&modifyIMUserPasswordWithAdminTokenNode.get("statusCode").toString().equals("200")) {
+		    	 logger.info("重置IM用户密码成功 " + modifyIMUserPasswordWithAdminTokenNode.toString());
+		     }
 			
 //			Map<String, Object> map = new HashMap<String, Object>();
 //			map.put("userid", userid);
@@ -344,6 +353,32 @@ public class UserApiController extends BaseController{
 			return;
 		}
 		
+	}
+	
+	/**
+	 * code
+	 */
+	@RequestMapping(value="getCode")
+	public void getCode(HttpServletRequest request, HttpServletResponse response,Model model) throws Exception{
+		try {
+			String loginName = StringUtils.toString(request.getParameter("loginName"));
+			Map map = new HashMap();
+			if(RandomNum.USERMAP.get(loginName) == null||"".equals(RandomNum.USERMAP.get(loginName))){
+				String code = RandomNum.NextInt(100000,999999)+"";
+				map.put("code", code);
+				map.put("message", "请把验证码填到验证码框内");
+				RandomNum.USERMAP.put(loginName, code);
+			}else{
+				map.put("code", RandomNum.USERMAP.get(loginName));
+				map.put("message", "请把验证码填到验证码框内");
+			}
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",map)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
+			return;
+		}
+		 
 	}
 	
 }
