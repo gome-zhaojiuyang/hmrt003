@@ -332,8 +332,8 @@ public abstract class BaseController {
         	responseData.setData(object);
         }
         else{
-        	//Map<String,Object> map =  new Entity2Map<Object>().entity2map(object);
-        	Map<String,Object> map =  (Map<String, Object>) object;
+        	Map<String,Object> map =  new Entity2Map<Object>().entity2map(object);
+        	//Map<String,Object> map =  (Map<String, Object>) object;
 //        	map.put("page", "");
         	responseData.setData(map);
         }
