@@ -12,20 +12,20 @@ import com.thinkgem.jeesite.common.persistence.DataEntity;
 /**
  * 分组聊天Entity
  * @author 赵九扬
- * @version 2016-06-06
+ * @version 2016-06-18
  */
 public class HmrtGroupChat extends DataEntity<HmrtGroupChat> {
 	
 	private static final long serialVersionUID = 1L;
-	private String groupid;		// groupid
-	private String userid;		// userid
-	private String articleid;		// articleid
-	private String content;		// content
-	private Date createDt;		// create_dt
-	private String beginContent;		// 开始 content
-	private String endContent;		// 结束 content
-	private Date beginCreateDt;		// 开始 create_dt
-	private Date endCreateDt;		// 结束 create_dt
+	private String groupid;		// 分组ID
+	private String userid;		// 用户ID
+	private String articleid;		// 文章ID
+	private String content;		// 内容
+	private Date createDt;		// 创建时间
+	private String beginContent;		// 开始 内容
+	private String endContent;		// 结束 内容
+	private Date beginCreateDt;		// 开始 创建时间
+	private Date endCreateDt;		// 结束 创建时间
 	
 	public HmrtGroupChat() {
 		super();
@@ -35,7 +35,7 @@ public class HmrtGroupChat extends DataEntity<HmrtGroupChat> {
 		super(id);
 	}
 
-	@Length(min=0, max=64, message="groupid长度必须介于 0 和 64 之间")
+	@Length(min=0, max=64, message="分组ID长度必须介于 0 和 64 之间")
 	public String getGroupid() {
 		return groupid;
 	}
@@ -44,7 +44,7 @@ public class HmrtGroupChat extends DataEntity<HmrtGroupChat> {
 		this.groupid = groupid;
 	}
 	
-	@Length(min=0, max=64, message="userid长度必须介于 0 和 64 之间")
+	@Length(min=0, max=64, message="用户ID长度必须介于 0 和 64 之间")
 	public String getUserid() {
 		return userid;
 	}
@@ -53,7 +53,7 @@ public class HmrtGroupChat extends DataEntity<HmrtGroupChat> {
 		this.userid = userid;
 	}
 	
-	@Length(min=0, max=64, message="articleid长度必须介于 0 和 64 之间")
+	@Length(min=0, max=64, message="文章ID长度必须介于 0 和 64 之间")
 	public String getArticleid() {
 		return articleid;
 	}
@@ -62,7 +62,7 @@ public class HmrtGroupChat extends DataEntity<HmrtGroupChat> {
 		this.articleid = articleid;
 	}
 	
-	@Length(min=0, max=512, message="content长度必须介于 0 和 512 之间")
+	@Length(min=0, max=512, message="内容长度必须介于 0 和 512 之间")
 	public String getContent() {
 		return content;
 	}

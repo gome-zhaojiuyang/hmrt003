@@ -10,7 +10,7 @@ import com.thinkgem.jeesite.modules.hmrtpatient.entity.HmrtPatient;
 /**
  * 患者信息维护DAO接口
  * @author 赵九扬
- * @version 2016-06-06
+ * @version 2016-06-18
  */
 @MyBatisDao
 public interface HmrtPatientDao extends CrudDao<HmrtPatient> {

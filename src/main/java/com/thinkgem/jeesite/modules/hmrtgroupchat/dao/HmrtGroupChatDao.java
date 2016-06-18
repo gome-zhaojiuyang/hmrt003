@@ -10,7 +10,7 @@ import com.thinkgem.jeesite.modules.hmrtgroupchat.entity.HmrtGroupChat;
 /**
  * 分组聊天DAO接口
  * @author 赵九扬
- * @version 2016-06-06
+ * @version 2016-06-18
  */
 @MyBatisDao
 public interface HmrtGroupChatDao extends CrudDao<HmrtGroupChat> {

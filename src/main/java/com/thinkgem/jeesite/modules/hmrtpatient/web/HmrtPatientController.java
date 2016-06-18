@@ -25,7 +25,7 @@ import com.thinkgem.jeesite.modules.hmrtpatient.service.HmrtPatientService;
 /**
  * 患者信息维护Controller
  * @author 赵九扬
- * @version 2016-06-06
+ * @version 2016-06-18
  */
 @Controller
 @RequestMapping(value = "${adminPath}/hmrtpatient/hmrtPatient")

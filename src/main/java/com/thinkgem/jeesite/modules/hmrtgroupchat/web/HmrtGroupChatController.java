@@ -25,7 +25,7 @@ import com.thinkgem.jeesite.modules.hmrtgroupchat.service.HmrtGroupChatService;
 /**
  * 分组聊天Controller
  * @author 赵九扬
- * @version 2016-06-06
+ * @version 2016-06-18
  */
 @Controller
 @RequestMapping(value = "${adminPath}/hmrtgroupchat/hmrtGroupChat")

@@ -25,31 +25,31 @@
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
-			<li><label>userid：</label>
+			<li><label>用户ID：</label>
 				<form:input path="userid" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
-			<li><label>name：</label>
+			<li><label>姓名：</label>
 				<form:input path="name" htmlEscape="false" maxlength="128" class="input-medium"/>
 			</li>
-			<li><label>mobile：</label>
+			<li><label>手机号：</label>
 				<form:input path="mobile" htmlEscape="false" maxlength="32" class="input-medium"/>
 			</li>
-			<li><label>id_number：</label>
+			<li><label>身份证号：</label>
 				<form:input path="idNumber" htmlEscape="false" maxlength="32" class="input-medium"/>
 			</li>
-			<li><label>department：</label>
+			<li><label>部门：</label>
 				<form:input path="department" htmlEscape="false" maxlength="128" class="input-medium"/>
 			</li>
-			<li><label>profession：</label>
+			<li><label>患者职业：</label>
 				<form:input path="profession" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
-			<li><label>contact：</label>
+			<li><label>患者联系人：</label>
 				<form:input path="contact" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
-			<li><label>introduce：</label>
+			<li><label>介绍人：</label>
 				<form:input path="introduce" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
-			<li><label>create_dt：</label>
+			<li><label>创建日期：</label>
 				<input name="createDt" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
 					value="<fmt:formatDate value="${hmrtPatient.createDt}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
@@ -62,26 +62,26 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>name</th>
-				<th>sex</th>
-				<th>birthday</th>
-				<th>age</th>
-				<th>mobile</th>
-				<th>id_number</th>
-				<th>visit_dt</th>
-				<th>department</th>
-				<th>sn_type1</th>
-				<th>sn_no1</th>
-				<th>sn_type2</th>
-				<th>sn_no2</th>
-				<th>phone</th>
-				<th>email</th>
-				<th>address</th>
-				<th>profession</th>
-				<th>contact</th>
-				<th>introduce</th>
-				<th>remark</th>
-				<th>create_dt</th>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>生日</th>
+				<th>年龄</th>
+				<th>手机号</th>
+				<th>身份证号</th>
+				<th>就诊日期</th>
+				<th>部门</th>
+				<th>编号类型1</th>
+				<th>编号1</th>
+				<th>编号类型2</th>
+				<th>编号2</th>
+				<th>固定电话</th>
+				<th>邮箱</th>
+				<th>患者地址</th>
+				<th>患者职业</th>
+				<th>患者联系人</th>
+				<th>介绍人</th>
+				<th>备注</th>
+				<th>创建日期</th>
 				<shiro:hasPermission name="hmrtpatient:hmrtPatient:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>

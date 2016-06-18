@@ -25,19 +25,19 @@
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
-			<li><label>groupid：</label>
+			<li><label>分组ID：</label>
 				<form:input path="groupid" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
-			<li><label>userid：</label>
+			<li><label>用户ID：</label>
 				<form:input path="userid" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
-			<li><label>articleid：</label>
+			<li><label>文章ID：</label>
 				<form:input path="articleid" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
-			<li><label>content：</label>
+			<li><label>内容：</label>
 				<form:input path="content" htmlEscape="false" maxlength="512" class="input-medium"/>
 			</li>
-			<li><label>create_dt：</label>
+			<li><label>创建时间：</label>
 				<input name="beginCreateDt" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
 					value="<fmt:formatDate value="${hmrtGroupChat.beginCreateDt}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/> - 
@@ -53,11 +53,11 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>groupid</th>
-				<th>userid</th>
-				<th>articleid</th>
-				<th>content</th>
-				<th>create_dt</th>
+				<th>分组ID</th>
+				<th>用户ID</th>
+				<th>文章ID</th>
+				<th>内容</th>
+				<th>创建时间</th>
 				<shiro:hasPermission name="hmrtgroupchat:hmrtGroupChat:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>

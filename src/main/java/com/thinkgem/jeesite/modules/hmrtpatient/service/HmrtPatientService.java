@@ -10,14 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.CrudService;
-import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.hmrtpatient.entity.HmrtPatient;
 import com.thinkgem.jeesite.modules.hmrtpatient.dao.HmrtPatientDao;
 
 /**
  * 患者信息维护Service
  * @author 赵九扬
- * @version 2016-06-06
+ * @version 2016-06-18
  */
 @Service
 @Transactional(readOnly = true)
@@ -37,14 +36,7 @@ public class HmrtPatientService extends CrudService<HmrtPatientDao, HmrtPatient>
 	
 	@Transactional(readOnly = false)
 	public void save(HmrtPatient hmrtPatient) {
-		if (StringUtils.isBlank(hmrtPatient.getId())){
-			hmrtPatient.preInsert();
-			dao.insert(hmrtPatient);
-		}else{
-			hmrtPatient.preUpdate();
-			dao.update(hmrtPatient);
-		}
-//		super.save(hmrtPatient);
+		super.save(hmrtPatient);
 	}
 	
 	@Transactional(readOnly = false)

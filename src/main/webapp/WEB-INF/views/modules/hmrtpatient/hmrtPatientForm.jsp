@@ -34,25 +34,25 @@
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
 		<div class="control-group">
-			<label class="control-label">userid：</label>
+			<label class="control-label">用户ID：</label>
 			<div class="controls">
 				<form:input path="userid" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">name：</label>
+			<label class="control-label">姓名：</label>
 			<div class="controls">
 				<form:input path="name" htmlEscape="false" maxlength="128" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">sex：</label>
+			<label class="control-label">性别：</label>
 			<div class="controls">
 				<form:input path="sex" htmlEscape="false" maxlength="1" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">birthday：</label>
+			<label class="control-label">生日：</label>
 			<div class="controls">
 				<input name="birthday" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
 					value="<fmt:formatDate value="${hmrtPatient.birthday}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -60,25 +60,25 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">age：</label>
+			<label class="control-label">年龄：</label>
 			<div class="controls">
 				<form:input path="age" htmlEscape="false" maxlength="11" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">mobile：</label>
+			<label class="control-label">手机号：</label>
 			<div class="controls">
 				<form:input path="mobile" htmlEscape="false" maxlength="32" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">id_number：</label>
+			<label class="control-label">身份证号：</label>
 			<div class="controls">
 				<form:input path="idNumber" htmlEscape="false" maxlength="32" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">visit_dt：</label>
+			<label class="control-label">就诊日期：</label>
 			<div class="controls">
 				<input name="visitDt" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
 					value="<fmt:formatDate value="${hmrtPatient.visitDt}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -86,79 +86,79 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">department：</label>
+			<label class="control-label">部门：</label>
 			<div class="controls">
 				<form:input path="department" htmlEscape="false" maxlength="128" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">sn_type1：</label>
+			<label class="control-label">编号类型1：</label>
 			<div class="controls">
 				<form:input path="snType1" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">sn_no1：</label>
+			<label class="control-label">编号1：</label>
 			<div class="controls">
 				<form:input path="snNo1" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">sn_type2：</label>
+			<label class="control-label">编号类型2：</label>
 			<div class="controls">
 				<form:input path="snType2" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">sn_no2：</label>
+			<label class="control-label">编号2：</label>
 			<div class="controls">
 				<form:input path="snNo2" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">phone：</label>
+			<label class="control-label">固定电话：</label>
 			<div class="controls">
 				<form:input path="phone" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">email：</label>
+			<label class="control-label">邮箱：</label>
 			<div class="controls">
 				<form:input path="email" htmlEscape="false" maxlength="128" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">address：</label>
+			<label class="control-label">患者地址：</label>
 			<div class="controls">
 				<form:input path="address" htmlEscape="false" maxlength="512" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">profession：</label>
+			<label class="control-label">患者职业：</label>
 			<div class="controls">
 				<form:input path="profession" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">contact：</label>
+			<label class="control-label">患者联系人：</label>
 			<div class="controls">
 				<form:input path="contact" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">introduce：</label>
+			<label class="control-label">介绍人：</label>
 			<div class="controls">
 				<form:input path="introduce" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">remark：</label>
+			<label class="control-label">备注：</label>
 			<div class="controls">
 				<form:input path="remark" htmlEscape="false" maxlength="512" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">create_dt：</label>
+			<label class="control-label">创建日期：</label>
 			<div class="controls">
 				<input name="createDt" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
 					value="<fmt:formatDate value="${hmrtPatient.createDt}" pattern="yyyy-MM-dd HH:mm:ss"/>"

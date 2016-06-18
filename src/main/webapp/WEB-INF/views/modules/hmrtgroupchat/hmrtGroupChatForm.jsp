@@ -34,31 +34,31 @@
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
 		<div class="control-group">
-			<label class="control-label">groupid：</label>
+			<label class="control-label">分组ID：</label>
 			<div class="controls">
 				<form:input path="groupid" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">userid：</label>
+			<label class="control-label">用户ID：</label>
 			<div class="controls">
 				<form:input path="userid" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">articleid：</label>
+			<label class="control-label">文章ID：</label>
 			<div class="controls">
 				<form:input path="articleid" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">content：</label>
+			<label class="control-label">内容：</label>
 			<div class="controls">
 				<form:textarea path="content" htmlEscape="false" rows="4" maxlength="512" class="input-xxlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">create_dt：</label>
+			<label class="control-label">创建时间：</label>
 			<div class="controls">
 				<input name="createDt" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
 					value="<fmt:formatDate value="${hmrtGroupChat.createDt}" pattern="yyyy-MM-dd HH:mm:ss"/>"
