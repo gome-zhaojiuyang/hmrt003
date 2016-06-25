@@ -255,6 +255,7 @@ public abstract class BaseController {
 		logger.info("url>>>"+url);
 		HmrtScoreRule hmrtScoreRule = new HmrtScoreRule();
 		hmrtScoreRule.setUrl(url);
+		hmrtScoreRule.setStatus("1");
 		List<HmrtScoreRule> list = hmrtScoreRuleService.findList(hmrtScoreRule) ;
 		for(HmrtScoreRule rule : list){
 			int score = Integer.parseInt(rule.getScore());
