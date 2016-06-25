@@ -121,6 +121,7 @@ public class UserApiController extends BaseController{
 			user.setCreateDate(new Date());
 			systemService.saveUser(user);
 			
+			scoreRuleTrigger(user,request);
 //			Map<String, Object> map = new HashMap<String, Object>();
 //			map.put("token", token);
 //			map.put("easemobId", Md5.encrypt(loginName));
@@ -177,6 +178,10 @@ public class UserApiController extends BaseController{
 //			user_update.setId(userList.get(0).getId());
 			user_update.setToken(token);
 			systemService.updateUserInfo(user_update);
+			
+			
+//			request.setAttribute("userid", user.getId());
+			scoreRuleTrigger(user_update,request);
 //			user.setToken(token);
 //			Map<String, Object> map = new HashMap<String, Object>();
 //			map.put("userid", user.getId());

@@ -41,6 +41,10 @@ import com.thinkgem.jeesite.modules.cms.utils.Entity2Map;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.cms.utils.Md5;
 import com.thinkgem.jeesite.modules.cms.utils.ResponseData;
+import com.thinkgem.jeesite.modules.hmrtscorelog.entity.HmrtScoreLog;
+import com.thinkgem.jeesite.modules.hmrtscorelog.service.HmrtScoreLogService;
+import com.thinkgem.jeesite.modules.hmrtscorerule.entity.HmrtScoreRule;
+import com.thinkgem.jeesite.modules.hmrtscorerule.service.HmrtScoreRuleService;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.service.SystemService;
 
@@ -52,6 +56,10 @@ import com.thinkgem.jeesite.modules.sys.service.SystemService;
 public abstract class BaseController {
 	@Autowired
 	protected SystemService systemService;
+	@Autowired
+	protected HmrtScoreRuleService hmrtScoreRuleService;
+	@Autowired
+	protected HmrtScoreLogService hmrtScoreLogService;
 
 	/**
 	 * 日志对象
@@ -238,7 +246,32 @@ public abstract class BaseController {
 		out.flush();
 		out.close();
 	}
-
+	protected void scoreRuleTrigger(User user,HttpServletRequest request){
+		String url = request.getRequestURI() ;
+		if(user==null){
+				logger.info("没有用户id【userid】 无法增加积分");
+				return;
+		}
+		logger.info("url>>>"+url);
+		HmrtScoreRule hmrtScoreRule = new HmrtScoreRule();
+		hmrtScoreRule.setUrl(url);
+		List<HmrtScoreRule> list = hmrtScoreRuleService.findList(hmrtScoreRule) ;
+		for(HmrtScoreRule rule : list){
+			int score = Integer.parseInt(rule.getScore());
+			User uu = new User();
+			uu.setId(user.getId());
+			uu.setScore(String.valueOf(Integer.parseInt(user.getScore())+score));
+			systemService.updateUserInfo(uu);
+			//积分日志
+			HmrtScoreLog hmrtScoreLog = new HmrtScoreLog();
+			hmrtScoreLog.setUserid(user.getId());
+			hmrtScoreLog.setRuleid(rule.getId());
+			hmrtScoreLog.setScore(rule.getScore());
+			hmrtScoreLog.setName(rule.getName());
+			hmrtScoreLog.setCreateDt(new Date());
+			hmrtScoreLogService.save(hmrtScoreLog);
+		}
+	}
 	protected boolean validate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if(true){
 			return true;
@@ -251,6 +284,7 @@ public abstract class BaseController {
 			outputJson(response, JsonUtil.beanToJson(putResponseData(400, "请求非法！")));
 			return false;
 		}
+		
 
 		return true;
 	}
@@ -277,7 +311,9 @@ public abstract class BaseController {
 			return false;
 		}
 		user = systemService.getUser(userid);
-		request.setAttribute("user", user);
+		
+		scoreRuleTrigger(user,request);
+		
 		return true;
 	}
 

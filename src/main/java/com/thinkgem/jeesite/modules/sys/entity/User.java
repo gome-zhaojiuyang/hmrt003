@@ -118,6 +118,7 @@ public class User extends DataEntity<User> {
 	}
 
 	public String getScore() {
+		if(score==null) return "0" ;
 		return score;
 	}
 
