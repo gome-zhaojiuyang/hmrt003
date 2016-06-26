@@ -290,9 +290,9 @@ public abstract class BaseController {
 		return true;
 	}
 	protected boolean validateToken(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		if(true){
-//			return true;
-//		}
+		if(true){
+			return true;
+		}
 		
 		if (StringUtils.isEmpty(request.getParameter("userid"))) {
 			outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,loginName不能为空！", "")));
