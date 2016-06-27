@@ -1,0 +1,67 @@
+简单接口文档：
+1.(测试所有接口暂时不做校验)接口统一数据校验规则如下：
+        String key = StringUtil.toString(request.getParameter(“key"));     公共秘钥
+		String sign = StringUtil.toString(request.getParameter(“sign"));    签名
+		String t = StringUtil.toString(request.getParameter(“t"));               时间
+通过私有秘钥进行验签：Constants.SECRET_KEY
+		String md5 = Md5.encrypt(key + t + Constants.SECRET_KEY);  验签规则
+所有接口都要进行校验  md5 和 sign 进行比对
+
+2.登录查询的信息还需要传入公共参数--公共参数信息登录后会返回：
+                     userid  用户ID
+                     token   登录返回的临时用户校验令牌
+3.服务器IP是120.26.241.215，替换下面URL中的localhost即可！
+
+-----------------------------------华丽丽的分割线--------------------------------------------------
+
+注册
+http://localhost:8181/jeesite/f/userApi/reg?loginName=zjy001&password=zjy001&name=zjy001&level=C&hospital=城北医院
+登录
+http://localhost:8181/jeesite/f/userApi/login?loginName=zjy001&password=zjy001
+重置密码
+http://localhost:8181/jeesite/f/userApi/resetPwd?userid=xxx&loginName=zjy001&password=zjy001&passwordNew=zjy00000001
+查询用户信息
+http://localhost:8181/jeesite/f/userApi/queryUserInfo?token=943619130&userid=480f1b965cb748a18561242d0f7f7f6a&targetUserid=480f1b965cb748a18561242d0f7f7f6a
+
+查询用户积分日志
+http://localhost:8181/jeesite/f/scoreApi/queryByUserid?userid=480f1b965cb748a18561242d0f7f7f6a
+
+添加患者
+http://localhost:8181/jeesite/f/patientApi/save?token=123456&userid=1&name=张三&sex=0&birthday=1990-12-12&age=23&mobile=13720098878&idNumber=130834198789876545&visitDt=2016-09-09&department=无&snType1=snType1&snNo1=snNo1&snType2=snType2&snNo2=snNo2&phone=01098909876&email=1@1.com&address=北京市&profession=医生&contact=李四&introduce=王五&remark=remark
+保存标签
+http://localhost:8181/jeesite/f/tagsApi/save?token=123456&userid=1&name=测试标签
+删除标签
+http://localhost:8181/jeesite/f/tagsApi/deleteUserTag?token=123456&userid=1&id=xxx
+添加病例
+http://localhost:8181/jeesite/f/caseApi/save?token=123456&userid=1&patientid=b7014b49011e4a6489888394806ad7a1&tagsids=994dc7a107574325b99766470f1d3081,81bb226ba28140b38ca34f0e2f0d0fbb&diagnoseInfo=诊断&conditionInfo=病情
+修改病例
+http://localhost:8181/jeesite/f/caseApi/updateById?token=123456&userid=1&id=XXX&patientid=b7014b49011e4a6489888394806ad7a1&tagsids=994dc7a107574325b99766470f1d3081,81bb226ba28140b38ca34f0e2f0d0fbb&diagnoseInfo=诊断&conditionInfo=病情
+删除病例
+http://localhost:8181/jeesite/f/caseApi/deleteById?token=123456&userid=1&id=XXX
+查询患者
+http://localhost:8181/jeesite/f/patientApi/queryById?token=123456&userid=1&id=XXX
+查询我的病例列表
+http://localhost:8181/jeesite/f/caseApi/queryListByUserid?token=123456&userid=1
+查询病例详情
+http://localhost:8181/jeesite/f/caseApi/queryById?token=123456&userid=1&id=XXX
+
+
+查询专家医生
+http://localhost:8181/jeesite/f/userApi/queryTargetDoctor?token=943619130&userid=480f1b965cb748a18561242d0f7f7f6a
+
+查询资料库列表信息
+http://localhost:8181/jeesite/f/infoRepoApi/queryInfoRepoList
+查询资料库资料详情信息
+http://localhost:8181/jeesite/f/infoRepoApi/queryInfoRepoById?id=XXXX
+查询病例库列表信息
+http://localhost:8181/jeesite/f/caseApi/queryArchiveList
+查询病例库资料详情信息
+http://localhost:8181/jeesite/f/caseApi/queryArchiveById?id=XXXX
+
+
+
+
+	
+
+
+--------------------------------成功收尾---------------------------------------
