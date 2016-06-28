@@ -64,6 +64,8 @@ public class UserApiController extends BaseController{
 			String loginName 	= StringUtils.toString(request.getParameter("loginName"));
 			String password 	= StringUtils.toString(request.getParameter("password"));
 			String vcode = StringUtils.toString(request.getParameter("vcode"));
+			//这是邀请码  备用
+			String inviteCode = StringUtils.toString(request.getParameter("inviteCode")); 
 			String cacheCode = RandomNum.USERMAP.get(loginName);
 			String [] code = cacheCode.split("_");
 			if(!vcode.equals(code[0])){
