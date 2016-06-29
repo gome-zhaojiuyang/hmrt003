@@ -31,6 +31,7 @@ import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.cms.utils.Md5;
 import com.thinkgem.jeesite.modules.cms.utils.RandomNum;
 import com.thinkgem.jeesite.modules.cms.utils.huanxin.Constants;
+import com.thinkgem.jeesite.modules.cms.utils.yunzhixun.SmsTemplat;
 import com.thinkgem.jeesite.modules.sys.entity.Role;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 
@@ -57,30 +58,22 @@ public class UserApiController extends BaseController{
 			}
 			if (StringUtils.isEmpty(request.getParameter("password"))) {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,password不能为空！", "")));
-			
-				return ;
-			}
-			if (StringUtils.isEmpty(request.getParameter("name"))) {
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,name不能为空！", "")));
-				return ;
-			}
-			if (StringUtils.isEmpty(request.getParameter("level"))) {
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,level不能为空！", "")));
-				return ;
-			}
-			if (StringUtils.isEmpty(request.getParameter("hospital"))) {
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,hospital不能为空！", "")));
 				return ;
 			}
 			
 			String loginName 	= StringUtils.toString(request.getParameter("loginName"));
 			String password 	= StringUtils.toString(request.getParameter("password"));
-			String name 		= StringUtils.toString(request.getParameter("name"));
-			String level 		= StringUtils.toString(request.getParameter("level"));
-			String hospital 	= StringUtils.toString(request.getParameter("hospital"));
+			String vcode = StringUtils.toString(request.getParameter("vcode"));
+			//这是邀请码  备用
+			String inviteCode = StringUtils.toString(request.getParameter("inviteCode")); 
+			String cacheCode = RandomNum.USERMAP.get(loginName);
+			String [] code = cacheCode.split("_");
+			if(!vcode.equals(code[0])){
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "验证码错误,请重新输入！", "")));
+				return ;
+			}
 			
 			String 	token 	= String.valueOf(Math.abs((int)new Date().getTime()));
-			
 			User user = new User();
 			user.setLoginName(loginName);
 			
@@ -111,12 +104,8 @@ public class UserApiController extends BaseController{
 			Role role = new Role("6");
 			roleList.add(role);
 			user.setRoleList(roleList);
-			
-			
 			user.setPassword(password);
-			user.setName(name);
-			user.setLevel(level);
-			user.setHospital(hospital);
+			user.setName(loginName);
 			user.setToken(token);
 			user.setCreateDate(new Date());
 			systemService.saveUser(user);
@@ -367,17 +356,38 @@ public class UserApiController extends BaseController{
 	public void getCode(HttpServletRequest request, HttpServletResponse response,Model model) throws Exception{
 		try {
 			String loginName = StringUtils.toString(request.getParameter("loginName"));
-			Map map = new HashMap();
+			String flag = StringUtils.toString(request.getParameter("flag"));
+			
+			User user = new User();
+			user.setLoginName(loginName);
+			//判断是否已经注册过
+			if(!systemService.validateUser(user)){
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "此用户已经被注册！", "")));
+				return ;
+			}
+			
+			//Map map = new HashMap();
 			if(RandomNum.USERMAP.get(loginName) == null||"".equals(RandomNum.USERMAP.get(loginName))){
 				String code = RandomNum.NextInt(100000,999999)+"";
-				map.put("code", code);
-				map.put("message", "请把验证码填到验证码框内");
-				RandomNum.USERMAP.put(loginName, code);
+				String cacheCode = code+"_"+new Date().getTime();
+				//map.put("code", code);
+				//map.put("message", "请把验证码填到验证码框内");
+				RandomNum.USERMAP.put(loginName, cacheCode);
+				System.out.println("手机验证码："+code);
+				if("1".equals(flag)){
+					SmsTemplat.templateSMS("25808", loginName, code);
+				}
 			}else{
-				map.put("code", RandomNum.USERMAP.get(loginName));
-				map.put("message", "请把验证码填到验证码框内");
+				//map.put("code", RandomNum.USERMAP.get(loginName));
+				//map.put("message", "请把验证码填到验证码框内");
+				String cacheCode = RandomNum.USERMAP.get(loginName);
+				String [] code = cacheCode.split("_");
+				System.out.println("手机验证码："+code[0]);
+				if("1".equals(flag)){
+					SmsTemplat.templateSMS("25808", loginName, code[0]);
+				}
 			}
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",map)));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"")));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));

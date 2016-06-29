@@ -62,6 +62,91 @@ http://localhost:8181/jeesite/f/caseApi/queryArchiveById?id=XXXX
 
 
 
+
+
+活动列表
+http://localhost:8080/jeesite/f/activityApi/queryActivityList
+
+{
+  "code": 200,
+  "data": [
+    {
+      "id": "5642764ad1374138a309f597c8adfb17",
+      "content": "<p>\r\n\t免费量血压</p>",
+      "enddata": "",
+      "creatdata": "2016-06-10 22:27:57",
+      "title": "免费量血压",
+      "weight": "0",
+      "desc": "免费量血压",
+      "imageSrc": "/jeesite/userfiles/1/_thumbs/images/cms/article/2016/06/IMG_1268.JPG",
+      "begindata": "",
+      "image": "/jeesite/userfiles/1/_thumbs/images/cms/article/2016/06/IMG_1268.JPG"
+    }
+  ]
+}
+
+活动详情
+http://localhost:8080/jeesite/f/activityApi/queryActivityById?id=5642764ad1374138a309f597c8adfb17
+
+{
+  "code": 200,
+  "data": {
+    "id": "5642764ad1374138a309f597c8adfb17",
+    "content": "<p>\r\n\t免费量血压</p>",
+    "enddata": "",
+    "creatdata": "2016-06-10 22:27:57",
+    "title": "免费量血压",
+    "weight": "0",
+    "desc": "免费量血压",
+    "imageSrc": "/jeesite/userfiles/1/_thumbs/images/cms/article/2016/06/IMG_1268.JPG",
+    "begindata": "",
+    "image": "/jeesite/userfiles/1/_thumbs/images/cms/article/2016/06/IMG_1268.JPG"
+  }
+}
+
+喜欢点赞
+http://localhost:8080/jeesite/f/activityApi/activityLike?userid=5a4a5b6577334dcfa2882b35c0daefec&articleid=5642764ad1374138a309f597c8adfb17
+
+{"code":200,"data":"success"}
+
+活动 点赞 查询
+http://localhost:8080/jeesite/f/activityApi/activityLikeList?articleid=5642764ad1374138a309f597c8adfb17
+
+{
+  "code": 200,
+  "data": [
+    {
+      "articleid": "5642764ad1374138a309f597c8adfb17",
+      "userid": "5a4a5b6577334dcfa2882b35c0daefec",
+      "remarks": null,
+      "id": "f316bd9f06cb4c318bc1dce196577b9b",
+      "user": null
+    }
+  ]
+}
+
+保存评论
+http://localhost:8080/jeesite/f/activityApi/saveComment?userid=5a4a5b6577334dcfa2882b35c0daefec&articleid=5642764ad1374138a309f597c8adfb17&content=我是评论内容&name=我是评论标题
+
+{"code":200,"data":"success"}
+
+活动评分+评论列表查询接口   有点问题
+http://localhost:8080/jeesite/f/activityApi/queryCommentList?articleid=5642764ad1374138a309f597c8adfb17
+
+活动 点赞 取消 接口
+http://localhost:8080/jeesite/f/activityApi/activityLikeCancel?userid=5a4a5b6577334dcfa2882b35c0daefec&articleid=5642764ad1374138a309f597c8adfb17
+{"code":200,"data":"success"}
+
+验证码
+http://localhost:8080/jeesite/f/userApi/getCode?loginName=13466658642&flag=1
+{"code":200}
+
+注册
+http://localhost:8080/jeesite/f/userApi/reg?loginName=13466658644&password=000000&vcode=822714
+
+{"code":200,"data":{"phone":null,"no":null,"score":"0","remarks":null,"createDate1":"2016-06-28","id":"41853b7671f74fb2821f25d399f35c8e","level":null,"token":"1768036966","income":null,"name":"13466658644","openid":"0006080a-3d1d-11e6-90fe-f9a4027a1b86","createDate":"Tue Jun 28 18:46:19 CST 2016","createDate3":"2016-06-28 18:46:19","createDate2":"18:46","loginName":"13466658644","photo":null,"email":null,"isturn":null,"hospital":null,"mobile":null}}
+
+
 	
 
 
