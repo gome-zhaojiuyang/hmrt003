@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import com.thinkgem.jeesite.common.utils.DateUtils;
 
 public class Entity2Map<T> {
 	public Map entity2map(T t){
+		Map newMap = Maps.newHashMap();
 		Map map = Maps.newHashMap();
 		try {
 			map  = BeanUtils.describe(t);
@@ -34,6 +36,8 @@ public class Entity2Map<T> {
 				map.put("createDate1", createDate1);
 				map.put("createDate2", createDate2);
 				map.put("createDate3", createDate3);
+				map.remove("createDate");
+				map.remove("url");
 			}
 			map.remove("page");
 			map.remove("class");
@@ -68,6 +72,15 @@ public class Entity2Map<T> {
 			map.remove("category");
 			map.remove("posidList");
 			map.remove("posid");
+			map.remove("keywords");
+			Iterator it = map.keySet().iterator();
+			while(it.hasNext()){
+				Object key = (Object)it.next();
+				Object value = map.get(key);
+				if(value!=null&&!"".equals(String.valueOf(value))){
+					newMap.put(key, value);
+				}
+			}
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,6 +92,6 @@ public class Entity2Map<T> {
 			e.printStackTrace();
 		}  
 		
-		return map;
+		return newMap;
 	}
 }

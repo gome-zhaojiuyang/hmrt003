@@ -4,6 +4,7 @@
 package com.thinkgem.jeesite.modules.cms.web.front;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ import com.thinkgem.jeesite.modules.cms.service.ArticleDataService;
 import com.thinkgem.jeesite.modules.cms.service.ArticleService;
 import com.thinkgem.jeesite.modules.cms.utils.ApiUtils;
 import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
+import com.thinkgem.jeesite.modules.cms.utils.Entity2Map;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.hmrtarticletags.entity.HmrtArticleTags;
 import com.thinkgem.jeesite.modules.hmrtarticletags.service.HmrtArticleTagsService;
@@ -254,6 +256,15 @@ public class CaseApiController extends BaseController {
 			caseinfo.setIsarchive("0");
 //			caseinfo.setUserName(user.getName());
 			Page<Article> page = articleService.findPage(new Page<Article>(request,response), caseinfo,false);
+			for(Article a:page.getList()){
+				a.setIsarchive("");
+				a.setPatientid("");
+				a.setTitle("");
+				a.setWeight(null);
+				a.setDescription("");
+				a.setUser(null);
+				a.setHits(null);
+			}
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", page)));
 		} catch (Exception e) {
 			e.printStackTrace();
