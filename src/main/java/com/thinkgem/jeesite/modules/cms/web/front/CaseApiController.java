@@ -269,13 +269,13 @@ public class CaseApiController extends BaseController {
 				a.setWeightDate(null);
 				String pSex="1".equals(a.getpSex())?"男":"女";
 				String pAge1 = String.valueOf(a.getpAge1()) ;
-				if(pAge1==null||"".equals(pAge1)){
+				if(pAge1==null||"".equals(pAge1)||"null".equals(pAge1)){
 					pAge1 = "";
 				}else{
 					pAge1 = ","+pAge1;
 				}
 				String pProfession = String.valueOf(a.getpProfession()) ;
-				if(pProfession==null||"".equals(pProfession)){
+				if(pProfession==null||"".equals(pProfession)||"null".equals(pProfession)){
 					pProfession = "";
 				}else{
 					pProfession = ","+pProfession;
