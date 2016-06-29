@@ -264,6 +264,27 @@ public class CaseApiController extends BaseController {
 				a.setDescription("");
 				a.setUser(null);
 				a.setHits(null);
+				a.setImage(null);
+				a.setColor(null);
+				a.setWeightDate(null);
+				String pSex="1".equals(a.getpSex())?"男":"女";
+				String pAge1 = String.valueOf(a.getpAge1()) ;
+				if(pAge1==null||"".equals(pAge1)){
+					pAge1 = "";
+				}else{
+					pAge1 = ","+pAge1;
+				}
+				String pProfession = String.valueOf(a.getpProfession()) ;
+				if(pProfession==null||"".equals(pProfession)){
+					pProfession = "";
+				}else{
+					pProfession = ","+pProfession;
+				}
+				a.setConditionInfo("患者"+pSex+pAge1+pProfession+","+a.getConditionInfo());
+				a.setpSex(null);
+				a.setpAge(null);
+				a.setpProfession(null);
+				a.setpName(null);
 			}
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", page)));
 		} catch (Exception e) {

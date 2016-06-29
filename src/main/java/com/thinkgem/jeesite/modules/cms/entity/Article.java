@@ -55,9 +55,58 @@ public class Article extends DataEntity<Article> {
     private String userName ;
     private String userPhoto ;
     private Date createDate ;
+    private String pName ;
+    private Integer pAge	;
+    private Integer pAge1	;
+    private String pSex	;
+    private String pProfession	;
+    
+    
     
     
 	
+
+	public Integer getpAge1() {
+		return pAge1;
+	}
+
+	public void setpAge1(Integer pAge1) {
+		this.pAge1 = pAge1;
+	}
+
+	public String getpName() {
+		return pName;
+	}
+
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+
+	
+
+	public Integer getpAge() {
+		return pAge;
+	}
+
+	public void setpAge(Integer pAge) {
+		this.pAge = pAge;
+	}
+
+	public String getpSex() {
+		return pSex=pSex;
+	}
+
+	public void setpSex(String pSex) {
+		this.pSex = pSex;
+	}
+
+	public String getpProfession() {
+		return pProfession;
+	}
+
+	public void setpProfession(String pProfession) {
+		this.pProfession = pProfession;
+	}
 
 	public String getUserPhoto() {
 		return userPhoto;

@@ -27,10 +27,17 @@
 		u.id AS "user.id",
 		u.name AS "userName",
 		u.photo AS "userPhoto"
+		
 		,a.patientid as "patientid"
 		,a.diagnose_info as "diagnoseInfo"
 		,a.condition_info as "conditionInfo"
 		,a.isarchive as "isarchive"
+		
+		,p.name as "pName"
+		,p.age As "pAge"
+		,p.age As "pAge1"
+		,p.sex as "pSex"
+		,p.profession as "pProfession"
 		
 	</sql>
 	
@@ -38,6 +45,7 @@
 		JOIN cms_category c ON c.id = a.category_id
 		<!-- JOIN sys_office o ON o.id = c.office_id -->
 		JOIN sys_user u ON u.id = a.create_by
+		LEFT JOIN hmrt_patient p on a.patientid=p.id
 	</sql>
     
 	<select id="get" resultType="Article">
