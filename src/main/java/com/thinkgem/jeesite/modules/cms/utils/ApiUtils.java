@@ -58,7 +58,7 @@ public class ApiUtils {
 	}
 	public static Map<String,String> article2MapCaseDetail(Article article,ArticleDataService articleDataService ){
 		Map<String,String> articleMap = Maps.newHashMap();
-		articleMap.put("title", article.getTitle());
+		articleMap.put("userName", article.getUserName());
 //		articleMap.put("begindata", DateUtils.formatDateTime(article.getBeginDate()));
 //		articleMap.put("enddata", DateUtils.formatDateTime(article.getEndDate()));
 		//articleMap.put("allowcomment", article.getArticleData().getAllowComment());
