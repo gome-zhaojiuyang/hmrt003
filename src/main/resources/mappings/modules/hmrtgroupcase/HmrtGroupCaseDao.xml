@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.hmrtgroupcase.dao.HmrtGroupCaseDao">
+    
+	<sql id="hmrtGroupCaseColumns">
+		a.group_id AS "groupId",
+		a.groupname AS "groupname",
+		a.description AS "description",
+		a.owner AS "owner",
+		a.case_id AS "caseId"
+	</sql>
+	
+	<sql id="hmrtGroupCaseJoins">
+	</sql>
+    
+	<select id="get" resultType="HmrtGroupCase">
+		SELECT 
+			<include refid="hmrtGroupCaseColumns"/>
+		FROM hmrt_group_case a
+		<include refid="hmrtGroupCaseJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="HmrtGroupCase">
+		SELECT 
+			<include refid="hmrtGroupCaseColumns"/>
+		FROM hmrt_group_case a
+		<include refid="hmrtGroupCaseJoins"/>
+		<where>
+			
+			<if test="groupId != null and groupId != ''">
+				AND a.group_id = #{groupId}
+			</if>
+			<if test="groupname != null and groupname != ''">
+				AND a.groupname LIKE 
+					<if test="dbName == 'oracle'">'%'||#{groupname}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{groupname}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{groupname},'%')</if>
+			</if>
+			<if test="owner != null and owner != ''">
+				AND a.owner = #{owner}
+			</if>
+			<if test="caseId != null and caseId != ''">
+				AND a.case_id = #{caseId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="HmrtGroupCase">
+		SELECT 
+			<include refid="hmrtGroupCaseColumns"/>
+		FROM hmrt_group_case a
+		<include refid="hmrtGroupCaseJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO hmrt_group_case(
+			group_id,
+			groupname,
+			description,
+			owner,
+			case_id
+		) VALUES (
+			#{groupId},
+			#{groupname},
+			#{description},
+			#{owner},
+			#{caseId}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE hmrt_group_case SET 	
+			group_id = #{groupId},
+			groupname = #{groupname},
+			description = #{description},
+			owner = #{owner},
+			case_id = #{caseId}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM hmrt_group_case
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

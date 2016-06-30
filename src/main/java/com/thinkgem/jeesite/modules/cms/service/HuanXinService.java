@@ -46,20 +46,20 @@ public class HuanXinService {
 //         LOGGER.info("IM用户登录: " + imUserLoginNode.toString());
 //     }
         
-      /**
-      * 重置IM用户密码 提供管理员token
-      */
-	 String username = "zhuhb";
-     ObjectNode json2 = JsonNodeFactory.instance.objectNode();
-     json2.put("newpassword", Constants.DEFAULT_PASSWORD);
-     ObjectNode modifyIMUserPasswordWithAdminTokenNode = modifyIMUserPasswordWithAdminToken(username, json2);
-     if (null != modifyIMUserPasswordWithAdminTokenNode) {
-         LOGGER.info("重置IM用户密码 提供管理员token: " + modifyIMUserPasswordWithAdminTokenNode.toString());
-     }
-     ObjectNode imUserLoginNode2 = imUserLogin(username, json2.get("newpassword").asText());
-     if (null != imUserLoginNode2) {
-         LOGGER.info("重置IM用户密码后,IM用户登录: " + imUserLoginNode2.toString());
-     }
+//      /**
+//      * 重置IM用户密码 提供管理员token
+//      */
+//	 String username = "zhuhb";
+//     ObjectNode json2 = JsonNodeFactory.instance.objectNode();
+//     json2.put("newpassword", Constants.DEFAULT_PASSWORD);
+//     ObjectNode modifyIMUserPasswordWithAdminTokenNode = modifyIMUserPasswordWithAdminToken(username, json2);
+//     if (null != modifyIMUserPasswordWithAdminTokenNode) {
+//         LOGGER.info("重置IM用户密码 提供管理员token: " + modifyIMUserPasswordWithAdminTokenNode.toString());
+//     }
+//     ObjectNode imUserLoginNode2 = imUserLogin(username, json2.get("newpassword").asText());
+//     if (null != imUserLoginNode2) {
+//         LOGGER.info("重置IM用户密码后,IM用户登录: " + imUserLoginNode2.toString());
+//     }
         
 //      /**
 //      * 获取IM用户[主键查询]
@@ -86,14 +86,15 @@ public class HuanXinService {
 //         LOGGER.info("删除IM用户[单个]: " + deleteIMUserByuserNameNode.toString());
 //     }
         
-//        /**
-//        * 聊天消息 获取最新的20条记录
-//        **/
-//        ObjectNode queryStrNode = factory.objectNode();
-//        //queryStrNode.put("ql", "select+*+where+from='fumk'+and+to='mm2'");
-//        queryStrNode.put("ql", "select+*+where+from='fumk'");
-//        queryStrNode.put("limit", "20");
-//        ObjectNode messages = getChatMessages(queryStrNode);
+        /**
+        * 聊天消息 获取最新的20条记录
+        **/
+        ObjectNode queryStrNode = factory.objectNode();
+        //queryStrNode.put("ql", "select+*+where+from='fumk'+and+to='mm2'");
+        queryStrNode.put("ql", "select+*+where+from='fumk'");
+        //queryStrNode.put("ql", "select+*+where+to='1465110593908'");
+        //queryStrNode.put("limit", "20");
+        ObjectNode messages = getChatMessages(queryStrNode);
 		
 	}
 	
