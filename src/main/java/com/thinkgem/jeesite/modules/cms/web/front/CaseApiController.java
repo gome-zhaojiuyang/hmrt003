@@ -70,10 +70,10 @@ public class CaseApiController extends BaseController {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,patientid不能为空！", "")));
 				return;
 			}
-			if (StringUtils.isEmpty(request.getParameter("tagsids"))) {
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,tagsids不能为空！", "")));
-				return;
-			}
+//			if (StringUtils.isEmpty(request.getParameter("tagsids"))) {
+//				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,tagsids不能为空！", "")));
+//				return;
+//			}
 			if (StringUtils.isEmpty(request.getParameter("diagnoseInfo"))) {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,diagnoseInfo不能为空！", "")));
 				return;
@@ -112,12 +112,12 @@ public class CaseApiController extends BaseController {
 			caseinfo.setArticleData(articleData);
 			articleService.save(caseinfo);
 			// 保存标签信息 -- 病例标签关系表
-			for (String tagsid : tagsids.split(",")) {
-				HmrtArticleTags hmrtArticleTags = new HmrtArticleTags();
-				hmrtArticleTags.setArticleid(caseinfo.getId());
-				hmrtArticleTags.setTagsid(tagsid);
-				hmrtArticleTagsService.save(hmrtArticleTags);
-			}
+//			for (String tagsid : tagsids.split(",")) {
+//				HmrtArticleTags hmrtArticleTags = new HmrtArticleTags();
+//				hmrtArticleTags.setArticleid(caseinfo.getId());
+//				hmrtArticleTags.setTagsid(tagsid);
+//				hmrtArticleTagsService.save(hmrtArticleTags);
+//			}
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ConstantsConfig.RESULT_SUCCESS)));
 		} catch (Exception e) {
 			e.printStackTrace();
