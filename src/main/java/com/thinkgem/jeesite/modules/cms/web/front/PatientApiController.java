@@ -5,6 +5,7 @@ package com.thinkgem.jeesite.modules.cms.web.front;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,8 @@ import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.hmrtpatient.entity.HmrtPatient;
 import com.thinkgem.jeesite.modules.hmrtpatient.service.HmrtPatientService;
 import com.thinkgem.jeesite.modules.sys.entity.User;
+
+import jersey.repackaged.com.google.common.collect.Maps;
 
 /**
  * 网站Controller
@@ -100,7 +103,9 @@ public class PatientApiController extends BaseController{
 			hmrtPatient.setSnType2(snType2);
 			hmrtPatient.setSnNo2(snNo2);
 			hmrtPatientService.save(hmrtPatient);
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",ConstantsConfig.RESULT_SUCCESS)));
+			Map map = Maps.newHashMap();
+			map.put("id", hmrtPatient.getId());
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",map)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));

@@ -85,7 +85,7 @@ public class CaseApiController extends BaseController {
 			// String userid =
 			// StringUtils.toString(request.getParameter("userid"));
 			String patientid = StringUtils.toString(request.getParameter("patientid"));
-			String tagsids = StringUtils.toString(request.getParameter("tagsids"));
+//			String tagsids = StringUtils.toString(request.getParameter("tagsids"));
 			String diagnoseInfo = StringUtils.toString(request.getParameter("diagnoseInfo"));
 			String conditionInfo = StringUtils.toString(request.getParameter("conditionInfo"));
 
