@@ -47,9 +47,11 @@ public class ApiUtils {
 		articleMap.put("creatdata", DateUtils.formatDateTime(article.getCreateDate()));
 		articleMap.put("image", article.getImage());
 		articleMap.put("imageSrc", article.getImageSrc());
-		articleMap.put("content", articleDataService.get(article.getId()).getContent());
+		//articleMap.put("content", articleDataService.get(article.getId()).getContent());
+		articleMap.put("diagnoseInfo", article.getDiagnoseInfo());
+		articleMap.put("conditionInfo", article.getConditionInfo());
 		articleMap.put("desc", article.getDescription());
-		articleMap.put("weight", article.getWeight().toString());
+		articleMap.put("weight", null);
 		//articleMap.put("category", article.getCategory());
 		articleMap.put("id", article.getId());
 		return articleMap ;

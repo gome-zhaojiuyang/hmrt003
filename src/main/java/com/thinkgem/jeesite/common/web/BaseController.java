@@ -7,6 +7,7 @@ import java.beans.PropertyEditorSupport;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -367,6 +368,19 @@ public abstract class BaseController {
         }
         else if (object instanceof String){
         	responseData.setData(object);
+        }
+        else if (object instanceof Map){
+        	Map map = (Map)object;
+        	Map newMap = Maps.newHashMap();
+        	Iterator it = map.keySet().iterator();
+			while(it.hasNext()){
+				Object key = (Object)it.next();
+				Object value = map.get(key);
+				if(value!=null&&!"".equals(String.valueOf(value))){
+					newMap.put(key, value);
+				}
+			}
+        	responseData.setData(newMap);
         }
         else{
         	Map<String,Object> map =  new Entity2Map<Object>().entity2map(object);
