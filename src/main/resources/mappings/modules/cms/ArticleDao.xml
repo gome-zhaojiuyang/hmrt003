@@ -28,6 +28,7 @@
 		u.name AS "userName",
 		u.photo AS "userPhoto"
 		
+		
 		,a.patientid as "patientid"
 		,a.diagnose_info as "diagnoseInfo"
 		,a.condition_info as "conditionInfo"
@@ -38,7 +39,7 @@
 		,p.age As "pAge1"
 		,p.sex as "pSex"
 		,p.profession as "pProfession"
-		
+		,p.visit_dt as "visitDt"
 	</sql>
 	
 	<sql id="cmsArticleJoins">

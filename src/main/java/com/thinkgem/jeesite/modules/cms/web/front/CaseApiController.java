@@ -318,7 +318,7 @@ public class CaseApiController extends BaseController {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,id["+id+"]错误！", "")));
 				return;
 			}
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ApiUtils.article2Map(caseinfo, articleDataService))));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ApiUtils.article2MapCaseDetail(caseinfo, articleDataService))));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));

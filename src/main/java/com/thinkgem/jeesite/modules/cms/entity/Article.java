@@ -60,11 +60,20 @@ public class Article extends DataEntity<Article> {
     private Integer pAge1	;
     private String pSex	;
     private String pProfession	;
+    private Date visitDt	;
     
     
     
     
 	
+
+	public Date getVisitDt() {
+		return visitDt;
+	}
+
+	public void setVisitDt(Date visitDt) {
+		this.visitDt = visitDt;
+	}
 
 	public Integer getpAge1() {
 		return pAge1;
