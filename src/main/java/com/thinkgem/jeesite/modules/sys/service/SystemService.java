@@ -196,7 +196,8 @@ public class SystemService extends BaseService implements InitializingBean {
 	@Transactional(readOnly = false)
 	public void updatePasswordById(String id, String loginName, String newPassword) {
 		User user = new User(id);
-		user.setPassword(entryptPassword(newPassword));
+		//user.setPassword(entryptPassword(newPassword));
+		user.setPassword(newPassword);
 		userDao.updatePasswordById(user);
 		// 清除用户缓存
 		user.setLoginName(loginName);

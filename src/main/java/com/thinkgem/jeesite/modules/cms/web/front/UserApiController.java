@@ -157,7 +157,7 @@ public class UserApiController extends BaseController{
 			user.setPassword(password);
 			//验证用户名密码
 			if(systemService.validateUser(user)){
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,此用户已经被注册！", "")));
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "用户不存在，账号密码错误！", "")));
 				return ;
 			}
 //			List<User> userList = systemService.findUser(user);
@@ -333,7 +333,7 @@ public class UserApiController extends BaseController{
 		    	 outputJson(response, JsonUtil.beanToJson(putResponseData(401, "修改密码失败，请重新操作！", "")));
 		    	 return;
 		     }
-			systemService.updateUserInfo(userUpdate);
+			systemService.updatePasswordById(userUpdate.getId(), userUpdate.getLoginName(), passwordNew);
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",userUpdate)));
 		} catch (Exception e) {
 			e.printStackTrace();
