@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.cms.entity.Article;
 import com.thinkgem.jeesite.modules.cms.entity.Category;
+import com.thinkgem.jeesite.modules.cms.entity.Link;
 import com.thinkgem.jeesite.modules.cms.service.ArticleDataService;
 import com.thinkgem.jeesite.modules.cms.service.ArticleService;
+import com.thinkgem.jeesite.modules.cms.service.LinkService;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 
 /**
@@ -35,6 +37,8 @@ public class MainApiController extends BaseController{
 	private ArticleService articleService;
 	@Autowired
 	private ArticleDataService articleDataService;
+	@Autowired
+	private LinkService linkServic;
 	/**
 	 * 
 	 * 轮播图引导图 接口
@@ -67,6 +71,29 @@ public class MainApiController extends BaseController{
 ////				anew.setCategory(a.getCategory());
 //				newList.add(anew);
 //			}
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",list)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
+			return;
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * 轮播图引导图 接口
+	 */
+	@RequestMapping(value="hdscrollImages")
+	public void hdscrollImages(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		try {
+			if (!validate(request, response)) {
+				return;
+			}
+			Link link = new Link();
+			String categoryId = "a8a520660019430f92fde5c71eb5968a" ;
+			link.setCategory(new Category(categoryId));//引导页分类ID
+			List<Link> list = linkServic.findList(link);
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",list)));
 		} catch (Exception e) {
 			e.printStackTrace();
