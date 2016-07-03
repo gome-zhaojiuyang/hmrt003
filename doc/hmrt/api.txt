@@ -14,8 +14,6 @@
 
 -----------------------------------华丽丽的分割线--------------------------------------------------
 
-注册
-http://localhost:8181/jeesite/f/userApi/reg?loginName=zjy001&password=zjy001&name=zjy001&level=C&hospital=城北医院
 登录
 http://localhost:8181/jeesite/f/userApi/login?loginName=zjy001&password=zjy001
 重置密码
@@ -185,3 +183,9 @@ http://localhost:8080/jeesite/f/mainApi/hdscrollImages
   ]
 }
 
+密码找回填写验证码
+http://localhost:8080/jeesite/f/userApi/getCode?loginName=13466658642&flag=2
+{"code":200}
+
+密码找回
+http://localhost:8080/jeesite/f/userApi/findPwd?loginName=13466658642&passwordNew=000000&vcode=588104

@@ -94,6 +94,9 @@ public class UserApiController extends BaseController{
 		    		JsonNode jsonnode=createNewIMUserSingleNode.get("entities");
 		    		JsonNode json=jsonnode.get(0).get("uuid");
 		    		user.setOpenid(json.asText());
+			    }else{
+			    	outputJson(response, JsonUtil.beanToJson(putResponseData(401, "注册失败！请重新注册", "")));
+			    	return;
 			    }
 		    }
 			
@@ -247,20 +250,90 @@ public class UserApiController extends BaseController{
 			userUpdate.setId(userid);
 			userUpdate.setPassword(passwordNew);
 			userUpdate.setToken(tokenNew);
-			systemService.updateUserInfo(userUpdate);
 			//更新环信密码
 		     ObjectNode json2 = JsonNodeFactory.instance.objectNode();
 		     json2.put("newpassword", huanxinnewpassword);
 		     ObjectNode modifyIMUserPasswordWithAdminTokenNode = HuanXinService.modifyIMUserPasswordWithAdminToken(loginName, json2);
 		     if (null != modifyIMUserPasswordWithAdminTokenNode&&modifyIMUserPasswordWithAdminTokenNode.get("statusCode").toString().equals("200")) {
 		    	 logger.info("重置IM用户密码成功 " + modifyIMUserPasswordWithAdminTokenNode.toString());
+		     }else{
+		    	 outputJson(response, JsonUtil.beanToJson(putResponseData(401, "重置密码失败，请重新操作！", "")));
+		    	 return;
 		     }
+			systemService.updateUserInfo(userUpdate);
 			
 //			Map<String, Object> map = new HashMap<String, Object>();
 //			map.put("userid", userid);
 //			map.put("token", tokenNew);
 //			map.put("easemobId", Md5.encrypt(loginName));
 //			map.put("easemobPassword", Md5.encrypt(passwordNew));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",userUpdate)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
+			return;
+		}
+		 
+	}
+	
+	/**
+	 * findPwd
+	 */
+	@RequestMapping(value="findPwd")
+	public void findPwd(HttpServletRequest request, HttpServletResponse response,Model model) throws Exception{
+		try {
+			if (!validate(request, response)) {
+				return;
+			}
+//			if (!validateToken(request, response)) {
+//				return;
+//			}
+//			String token = StringUtils.toString(request.getParameter("token"));
+			String loginName = StringUtils.toString(request.getParameter("loginName"));
+			String passwordNew = StringUtils.toString(request.getParameter("passwordNew"));
+			String vcode = StringUtils.toString(request.getParameter("vcode"));
+			
+			if(StringUtils.isEmpty(loginName)){
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "登录账号不能为空！", "")));
+				return ;
+			}
+			if(StringUtils.isEmpty(passwordNew)){
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "新密码不能为空！", "")));
+				return ;
+			}
+			String cacheCode = RandomNum.USERMAP.get(loginName);
+			if(StringUtils.isEmpty(cacheCode)){
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请先发送手机验证码", "")));
+				return ;
+			}
+			String [] code = cacheCode.split("_");
+			if(!vcode.equals(code[0])){
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "验证码错误,请重新输入！", "")));
+				return ;
+			}
+			
+			String huanxinnewpassword =  StringUtils.toString(request.getParameter("passwordNew"));
+			passwordNew = Md5.encrypt(ConstantsConfig.USER_SALT+Md5.encrypt(passwordNew));
+			String 	tokenNew	= String.valueOf(Math.abs((int)new Date().getTime()));
+			
+			User userUpdate = systemService.getUserByLoginName(loginName);
+			if(userUpdate==null){
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "用户不存在,请输入正确手机号！", "")));
+				return ;
+			}
+			userUpdate.setPassword(passwordNew);
+			userUpdate.setToken(tokenNew);
+			//更新环信密码
+		     ObjectNode json2 = JsonNodeFactory.instance.objectNode();
+		     json2.put("newpassword", huanxinnewpassword);
+		     ObjectNode modifyIMUserPasswordWithAdminTokenNode = HuanXinService.modifyIMUserPasswordWithAdminToken(loginName, json2);
+		     if (null != modifyIMUserPasswordWithAdminTokenNode&&modifyIMUserPasswordWithAdminTokenNode.get("statusCode").toString().equals("200")) {
+		    	 logger.info("重置IM用户密码成功 " + modifyIMUserPasswordWithAdminTokenNode.toString());
+		     }else{
+		    	 outputJson(response, JsonUtil.beanToJson(putResponseData(401, "修改密码失败，请重新操作！", "")));
+		    	 return;
+		     }
+			systemService.updateUserInfo(userUpdate);
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",userUpdate)));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -360,11 +433,20 @@ public class UserApiController extends BaseController{
 			
 			User user = new User();
 			user.setLoginName(loginName);
-			//判断是否已经注册过
-			if(!systemService.validateUser(user)){
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "此用户已经被注册！", "")));
-				return ;
+			if("1".equals(flag)){
+				//注册判断是否已经注册过
+				if(!systemService.validateUser(user)){
+					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "此用户已经被注册！", "")));
+					return ;
+				}
+			}else{
+				//找回密码判断是否已经注册过
+				if(systemService.validateUser(user)){
+					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "用户不存在！", "")));
+					return ;
+				}
 			}
+			
 			
 			//Map map = new HashMap();
 			if(RandomNum.USERMAP.get(loginName) == null||"".equals(RandomNum.USERMAP.get(loginName))){
@@ -374,7 +456,7 @@ public class UserApiController extends BaseController{
 				//map.put("message", "请把验证码填到验证码框内");
 				RandomNum.USERMAP.put(loginName, cacheCode);
 				System.out.println("手机验证码："+code);
-				if("1".equals(flag)){
+				if("1".equals(flag)||"2".equals(flag)){
 					SmsTemplat.templateSMS("25808", loginName, code);
 				}
 			}else{
@@ -383,7 +465,7 @@ public class UserApiController extends BaseController{
 				String cacheCode = RandomNum.USERMAP.get(loginName);
 				String [] code = cacheCode.split("_");
 				System.out.println("手机验证码："+code[0]);
-				if("1".equals(flag)){
+				if("1".equals(flag)||"2".equals(flag)){
 					SmsTemplat.templateSMS("25808", loginName, code[0]);
 				}
 			}
