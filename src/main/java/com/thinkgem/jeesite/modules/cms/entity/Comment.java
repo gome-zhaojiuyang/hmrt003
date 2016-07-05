@@ -31,9 +31,12 @@ public class Comment extends DataEntity<Comment> {
 	private Date auditDate;	// 审核时间
 	private String delFlag;	// 删除标记删除标记（0：正常；1：删除；2：审核）
 
+	private String userName ;
+    private String userPhoto ;
 	public Comment() {
 		super();
-		this.delFlag = DEL_FLAG_AUDIT;
+		//this.delFlag = DEL_FLAG_AUDIT;
+		this.delFlag = DEL_FLAG_NORMAL;
 	}
 	
 	public Comment(String id){
@@ -134,5 +137,19 @@ public class Comment extends DataEntity<Comment> {
 	public void setDelFlag(String delFlag) {
 		this.delFlag = delFlag;
 	}
+	public String getUserName() {
+		return userName;
+	}
 
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserPhoto() {
+		return userPhoto;
+	}
+
+	public void setUserPhoto(String userPhoto) {
+		this.userPhoto = userPhoto;
+	}
 }

@@ -13,10 +13,14 @@
 		a.create_date AS "createDate",
 		a.audit_user_id AS "auditUser.id",
 		a.audit_date AS "auditDate",
-		a.del_flag AS "delFlag"
+		a.del_flag AS "delFlag",
+		a.create_by AS "createBy.id",
+		u.name AS "userName",
+		u.photo AS "userPhoto"
 	</sql>
 	
 	<sql id="cmsCommentDaoJoins">
+		LEFT JOIN sys_user u ON u.id = a.create_by
 	</sql>
     
 	<select id="get" resultType="Comment">
@@ -34,6 +38,10 @@
 		<include refid="cmsCommentDaoJoins"/>
 		<where>
 			a.del_flag = #{delFlag}
+			<if test="contentId != null and contentId != ''">
+				AND a.content_id = #{contentId}  
+			</if>
+			
 			<if test="title != null and title != ''">
 				AND a.title LIKE 
 					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
@@ -81,7 +89,8 @@
 			create_date,
 			audit_user_id,
 			audit_date,
-			del_flag
+			del_flag,
+			create_by
 		) VALUES (
 			#{id},
 			#{category.id},
@@ -93,7 +102,8 @@
 			#{createDate},
 			#{auditUser.id},
 			#{auditDate},
-			#{delFlag}
+			#{delFlag},
+			#{createBy.id}
 		)
 	</insert>
 	

@@ -244,15 +244,15 @@ public class activityApiController extends BaseController {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,articleid不能为空！", "")));
 				return;
 			}
-			if (StringUtils.isEmpty(request.getParameter("name"))) {
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,name不能为空！", "")));
-				return;
-			}
+//			if (StringUtils.isEmpty(request.getParameter("name"))) {
+//				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,name不能为空！", "")));
+//				return;
+//			}
 			
-//			String userid = StringUtils.toString(request.getParameter("userid"));
+			String userid = StringUtils.toString(request.getParameter("userid"));
 			String articleid = StringUtils.toString(request.getParameter("articleid"));
 			String content = StringUtils.replaceHtml(StringUtils.toString(request.getParameter("content")));
-			String name = StringUtils.replaceHtml(StringUtils.toString(request.getParameter("name")));
+			//String name = StringUtils.replaceHtml(StringUtils.toString(request.getParameter("name")));
 
 			Article caseinfo = articleService.get(articleid);
 			if(caseinfo==null){
@@ -260,7 +260,8 @@ public class activityApiController extends BaseController {
 				return;
 			}
 			
-			User user = (User)request.getAttribute("user");
+			User user = systemService.getUser(userid);
+			//User user = (User)request.getAttribute("user");
 			Comment comment = new Comment();
 			comment.setCategory(new Category(caseinfo.getCategory().getId()));
 			comment.setDelFlag(Article.DEL_FLAG_NORMAL);
@@ -269,7 +270,7 @@ public class activityApiController extends BaseController {
 			comment.setTitle(caseinfo.getTitle());
 			
 			comment.setContent(content);
-			comment.setName(name);
+			//comment.setName(name);
 			comment.setIp(IPUtils.getIpAddr(request));
 			comment.setCreateDate(new Date());
 			commentService.save(comment);
@@ -314,15 +315,15 @@ public class activityApiController extends BaseController {
 //			String userid = StringUtils.toString(request.getParameter("userid"));
 			String articleid = StringUtils.toString(request.getParameter("articleid"));
 			
-			Article caseinfo = articleService.get(articleid);
-			if(caseinfo==null){
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,id["+articleid+"]错误！", "")));
-				return;
-			}
+			//Article caseinfo = articleService.get(articleid);
+//			if(caseinfo==null){
+//				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,id["+articleid+"]错误！", "")));
+//				return;
+//			}
 			
 //			User user = (User)request.getAttribute("user");
 			Comment comment = new Comment();
-			comment.setCategory(new Category(caseinfo.getCategory().getId()));
+			//comment.setCategory(new Category(caseinfo.getCategory().getId()));
 			comment.setContentId(articleid);
 			Page<Comment> page = commentService.findPage(new Page<Comment>(request,response), comment);
 			//bug
