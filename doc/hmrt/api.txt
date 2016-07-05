@@ -22,8 +22,8 @@ http://localhost:8181/jeesite/f/userApi/resetPwd?userid=xxx&loginName=zjy001&pas
 http://localhost:8181/jeesite/f/userApi/queryUserInfo?token=943619130&userid=480f1b965cb748a18561242d0f7f7f6a&targetUserid=480f1b965cb748a18561242d0f7f7f6a
 
 查询用户积分日志
-http://localhost:8181/jeesite/f/scoreApi/queryByUserid?userid=480f1b965cb748a18561242d0f7f7f6a
 
+http://120.26.241.215:8181/jeesite/f/scoreApi/queryByUserid?token=943619130&userid=480f1b965cb748a18561242d0f7f7f6a
 添加患者
 http://localhost:8181/jeesite/f/patientApi/save?token=123456&userid=1&name=张三&sex=0&birthday=1990-12-12&age=23&mobile=13720098878&idNumber=130834198789876545&visitDt=2016-09-09&department=无&snType1=snType1&snNo1=snNo1&snType2=snType2&snNo2=snNo2&phone=01098909876&email=1@1.com&address=北京市&profession=医生&contact=李四&introduce=王五&remark=remark
 保存标签
