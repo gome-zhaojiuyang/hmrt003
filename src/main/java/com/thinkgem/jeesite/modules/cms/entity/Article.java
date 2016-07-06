@@ -63,9 +63,17 @@ public class Article extends DataEntity<Article> {
     private Date visitDt	;
     
     
-    
+    private int commentcount;
     
 	
+
+	public int getCommentcount() {
+		return commentcount;
+	}
+
+	public void setCommentcount(int commentcount) {
+		this.commentcount = commentcount;
+	}
 
 	public Date getVisitDt() {
 		return visitDt;

@@ -40,6 +40,8 @@
 		,p.sex as "pSex"
 		,p.profession as "pProfession"
 		,p.visit_dt as "visitDt"
+		
+		,tt.commentcount as "commentcount"
 	</sql>
 	
 	<sql id="cmsArticleJoins">
@@ -47,6 +49,7 @@
 		<!-- JOIN sys_office o ON o.id = c.office_id -->
 		JOIN sys_user u ON u.id = a.create_by
 		LEFT JOIN hmrt_patient p on a.patientid=p.id
+		LEFT JOIN (select count(*) as commentcount,t.content_id  from cms_comment t group by t.content_id) tt on tt.content_id=a.id
 	</sql>
     
 	<select id="get" resultType="Article">

@@ -33,6 +33,7 @@ public class ApiUtils {
 			articleMap.put("weight", article.getWeight().toString());
 			//articleMap.put("category", article.getCategory());
 			articleMap.put("id", article.getId());
+			articleMap.put("commentcount", article.getCommentcount()+"");
 			articleMapList.add(articleMap);
 		}
 		
