@@ -76,8 +76,8 @@
 				<td>
 					${hmrtScoreRule.url}
 				</td>
-				<td>
-					${hmrtScoreRule.status}
+				<td><c:if test ="${hmrtScoreRule.status==0}">禁用</c:if>
+					<c:if test ="${hmrtScoreRule.status==1}">启用</c:if>
 				</td>
 				<td>
 					<fmt:formatDate value="${hmrtScoreRule.createDt}" pattern="yyyy-MM-dd HH:mm:ss"/>
