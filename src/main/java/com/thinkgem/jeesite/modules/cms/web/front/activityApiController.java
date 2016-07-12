@@ -325,9 +325,10 @@ public class activityApiController extends BaseController {
 			Comment comment = new Comment();
 			//comment.setCategory(new Category(caseinfo.getCategory().getId()));
 			comment.setContentId(articleid);
-			Page<Comment> page = commentService.findPage(new Page<Comment>(request,response), comment);
-			//bug
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", page)));
+			List<Comment> list = commentService.findList(comment);
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", list)));
+			//Page<Comment> page = commentService.findPage(new Page<Comment>(request,response), comment);
+			//outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", page)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
