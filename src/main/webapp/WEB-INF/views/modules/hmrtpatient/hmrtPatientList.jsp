@@ -69,11 +69,11 @@
 				<th>手机号</th>
 				<th>身份证号</th>
 				<th>就诊日期</th>
-				<th>部门</th>
+				<!-- <th>部门</th>
 				<th>编号类型1</th>
 				<th>编号1</th>
 				<th>编号类型2</th>
-				<th>编号2</th>
+				<th>编号2</th> -->
 				<th>固定电话</th>
 				<th>邮箱</th>
 				<th>患者地址</th>
@@ -91,8 +91,8 @@
 				<td><a href="${ctx}/hmrtpatient/hmrtPatient/form?id=${hmrtPatient.id}">
 					${hmrtPatient.name}
 				</a></td>
-				<td>
-					${hmrtPatient.sex}
+				<td><c:if test ="${hmrtPatient.sex==0}">男</c:if>
+					<c:if test ="${hmrtPatient.sex==1}">女</c:if>
 				</td>
 				<td>
 					<fmt:formatDate value="${hmrtPatient.birthday}" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -109,7 +109,7 @@
 				<td>
 					<fmt:formatDate value="${hmrtPatient.visitDt}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
-				<td>
+			<%-- 	<td>
 					${hmrtPatient.department}
 				</td>
 				<td>
@@ -123,7 +123,7 @@
 				</td>
 				<td>
 					${hmrtPatient.snNo2}
-				</td>
+				</td> --%>
 				<td>
 					${hmrtPatient.phone}
 				</td>
