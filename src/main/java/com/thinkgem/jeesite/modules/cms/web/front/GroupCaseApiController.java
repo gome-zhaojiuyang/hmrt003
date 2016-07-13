@@ -3,6 +3,8 @@
  */
 package com.thinkgem.jeesite.modules.cms.web.front;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -97,12 +99,10 @@ public class GroupCaseApiController extends BaseController {
 		outputJson(response, JsonUtil.beanToJson(putResponseData(200, "获取成功", entity)));
 	}
 	
-	@RequiresPermissions("hmrtgroupcase:hmrtGroupCase:view")
-	@RequestMapping(value = {"list", ""})
-	public String list(HmrtGroupCase hmrtGroupCase, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<HmrtGroupCase> page = hmrtGroupCaseService.findPage(new Page<HmrtGroupCase>(request, response), hmrtGroupCase); 
-		model.addAttribute("page", page);
-		return "modules/hmrtgroupcase/hmrtGroupCaseList";
+	@RequestMapping(value = "list")
+	public void list(HmrtGroupCase hmrtGroupCase, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		List<HmrtGroupCase> list= hmrtGroupCaseService.findList(hmrtGroupCase);
+		outputJson(response, JsonUtil.beanToJson(putResponseData(200, "获取成功", list)));
 	}
 
 	@RequiresPermissions("hmrtgroupcase:hmrtGroupCase:view")

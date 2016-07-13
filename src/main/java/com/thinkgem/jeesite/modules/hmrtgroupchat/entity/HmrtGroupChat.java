@@ -4,28 +4,30 @@
 package com.thinkgem.jeesite.modules.hmrtgroupchat.entity;
 
 import org.hibernate.validator.constraints.Length;
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import com.thinkgem.jeesite.common.persistence.DataEntity;
 
 /**
- * 分组聊天Entity
- * @author 赵九扬
- * @version 2016-06-18
+ * 讨论聊天内容备份Entity
+ * @author zhuhb
+ * @version 2016-07-12
  */
 public class HmrtGroupChat extends DataEntity<HmrtGroupChat> {
 	
 	private static final long serialVersionUID = 1L;
-	private String groupid;		// 分组ID
-	private String userid;		// 用户ID
-	private String articleid;		// 文章ID
-	private String content;		// 内容
-	private Date createDt;		// 创建时间
-	private String beginContent;		// 开始 内容
-	private String endContent;		// 结束 内容
-	private Date beginCreateDt;		// 开始 创建时间
-	private Date endCreateDt;		// 结束 创建时间
+	private String to;		// 讨论组
+	private String from;		// 来自
+	private String chattype;		// 类型
+	private String msg;		// 消息内容
+	private String type;		// 消息类型
+	private String length;		// 消息长度
+	private String url;		// url
+	private String filename;		// 文件名字
+	private String secret;		// secret
+	private String lat;		// 纬度
+	private String lng;		// 精度
+	private String addr;		// 地址
+	private Long timestamp;		// timestamp
 	
 	public HmrtGroupChat() {
 		super();
@@ -35,81 +37,118 @@ public class HmrtGroupChat extends DataEntity<HmrtGroupChat> {
 		super(id);
 	}
 
-	@Length(min=0, max=64, message="分组ID长度必须介于 0 和 64 之间")
-	public String getGroupid() {
-		return groupid;
+	@Length(min=0, max=32, message="讨论组长度必须介于 0 和 32 之间")
+	public String getTo() {
+		return to;
 	}
 
-	public void setGroupid(String groupid) {
-		this.groupid = groupid;
+	public void setTo(String to) {
+		this.to = to;
 	}
 	
-	@Length(min=0, max=64, message="用户ID长度必须介于 0 和 64 之间")
-	public String getUserid() {
-		return userid;
+	@Length(min=0, max=32, message="来自长度必须介于 0 和 32 之间")
+	public String getFrom() {
+		return from;
 	}
 
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setFrom(String from) {
+		this.from = from;
 	}
 	
-	@Length(min=0, max=64, message="文章ID长度必须介于 0 和 64 之间")
-	public String getArticleid() {
-		return articleid;
+	@Length(min=0, max=10, message="类型长度必须介于 0 和 10 之间")
+	public String getChattype() {
+		return chattype;
 	}
 
-	public void setArticleid(String articleid) {
-		this.articleid = articleid;
+	public void setChattype(String chattype) {
+		this.chattype = chattype;
 	}
 	
-	@Length(min=0, max=512, message="内容长度必须介于 0 和 512 之间")
-	public String getContent() {
-		return content;
+	@Length(min=0, max=2000, message="消息内容长度必须介于 0 和 2000 之间")
+	public String getMsg() {
+		return msg;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	public Date getCreateDt() {
-		return createDt;
+	@Length(min=0, max=10, message="消息类型长度必须介于 0 和 10 之间")
+	public String getType() {
+		return type;
 	}
 
-	public void setCreateDt(Date createDt) {
-		this.createDt = createDt;
+	public void setType(String type) {
+		this.type = type;
 	}
 	
-	public String getBeginContent() {
-		return beginContent;
+	@Length(min=0, max=100, message="消息长度长度必须介于 0 和 100 之间")
+	public String getLength() {
+		return length;
 	}
 
-	public void setBeginContent(String beginContent) {
-		this.beginContent = beginContent;
+	public void setLength(String length) {
+		this.length = length;
 	}
 	
-	public String getEndContent() {
-		return endContent;
+	@Length(min=0, max=200, message="url长度必须介于 0 和 200 之间")
+	public String getUrl() {
+		return url;
 	}
 
-	public void setEndContent(String endContent) {
-		this.endContent = endContent;
-	}
-		
-	public Date getBeginCreateDt() {
-		return beginCreateDt;
-	}
-
-	public void setBeginCreateDt(Date beginCreateDt) {
-		this.beginCreateDt = beginCreateDt;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	
-	public Date getEndCreateDt() {
-		return endCreateDt;
+	@Length(min=0, max=50, message="文件名字长度必须介于 0 和 50 之间")
+	public String getFilename() {
+		return filename;
 	}
 
-	public void setEndCreateDt(Date endCreateDt) {
-		this.endCreateDt = endCreateDt;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
-		
+	
+	@Length(min=0, max=200, message="secret长度必须介于 0 和 200 之间")
+	public String getSecret() {
+		return secret;
+	}
+
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
+	
+	public String getLat() {
+		return lat;
+	}
+
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+	
+	public String getLng() {
+		return lng;
+	}
+
+	public void setLng(String lng) {
+		this.lng = lng;
+	}
+	
+	@Length(min=0, max=200, message="地址长度必须介于 0 和 200 之间")
+	public String getAddr() {
+		return addr;
+	}
+
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+	
+	public Long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Long timestamp) {
+		this.timestamp = timestamp;
+	}
+	
 }

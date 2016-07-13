@@ -3,12 +3,20 @@
 <mapper namespace="com.thinkgem.jeesite.modules.hmrtgroupchat.dao.HmrtGroupChatDao">
     
 	<sql id="hmrtGroupChatColumns">
+		a.to AS "to",
 		a.id AS "id",
-		a.groupid AS "groupid",
-		a.userid AS "userid",
-		a.articleid AS "articleid",
-		a.content AS "content",
-		a.create_dt AS "createDt"
+		a.from AS "from",
+		a.chattype AS "chattype",
+		a.msg AS "msg",
+		a.type AS "type",
+		a.length AS "length",
+		a.url AS "url",
+		a.filename AS "filename",
+		a.secret AS "secret",
+		a.lat AS "lat",
+		a.lng AS "lng",
+		a.addr AS "addr",
+		a.timestamp AS "timestamp"
 	</sql>
 	
 	<sql id="hmrtGroupChatJoins">
@@ -29,20 +37,14 @@
 		<include refid="hmrtGroupChatJoins"/>
 		<where>
 			
-			<if test="groupid != null and groupid != ''">
-				AND a.groupid = #{groupid}
+			<if test="to != null and to != ''">
+				AND a.to = #{to}
 			</if>
-			<if test="userid != null and userid != ''">
-				AND a.userid = #{userid}
+			<if test="from != null and from != ''">
+				AND a.from = #{from}
 			</if>
-			<if test="articleid != null and articleid != ''">
-				AND a.articleid = #{articleid}
-			</if>
-			<if test="beginContent != null and endContent != null and beginContent != '' and endContent != ''">
-				AND a.content BETWEEN #{beginContent} AND #{endContent}
-			</if>
-			<if test="beginCreateDt != null and endCreateDt != null and beginCreateDt != '' and endCreateDt != ''">
-				AND a.create_dt BETWEEN #{beginCreateDt} AND #{endCreateDt}
+			<if test="timestamp != null and timestamp != ''">
+				AND a.timestamp = #{timestamp}
 			</if>
 		</where>
 		<choose>
@@ -73,29 +75,53 @@
 	
 	<insert id="insert">
 		INSERT INTO hmrt_group_chat(
+			to,
 			id,
-			groupid,
-			userid,
-			articleid,
-			content,
-			create_dt
+			from,
+			chattype,
+			msg,
+			type,
+			length,
+			url,
+			filename,
+			secret,
+			lat,
+			lng,
+			addr,
+			timestamp
 		) VALUES (
+			#{to},
 			#{id},
-			#{groupid},
-			#{userid},
-			#{articleid},
-			#{content},
-			#{createDt}
+			#{from},
+			#{chattype},
+			#{msg},
+			#{type},
+			#{length},
+			#{url},
+			#{filename},
+			#{secret},
+			#{lat},
+			#{lng},
+			#{addr},
+			#{timestamp}
 		)
 	</insert>
 	
 	<update id="update">
 		UPDATE hmrt_group_chat SET 	
-			groupid = #{groupid},
-			userid = #{userid},
-			articleid = #{articleid},
-			content = #{content},
-			create_dt = #{createDt}
+			to = #{to},
+			from = #{from},
+			chattype = #{chattype},
+			msg = #{msg},
+			type = #{type},
+			length = #{length},
+			url = #{url},
+			filename = #{filename},
+			secret = #{secret},
+			lat = #{lat},
+			lng = #{lng},
+			addr = #{addr},
+			timestamp = #{timestamp}
 		WHERE id = #{id}
 	</update>
 	

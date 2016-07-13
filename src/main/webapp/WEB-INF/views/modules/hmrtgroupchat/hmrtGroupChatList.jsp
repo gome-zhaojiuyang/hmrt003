@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <html>
 <head>
-	<title>分组聊天管理</title>
+	<title>讨论聊天内容备份管理</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -18,32 +18,21 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/hmrtgroupchat/hmrtGroupChat/">分组聊天列表</a></li>
-		<shiro:hasPermission name="hmrtgroupchat:hmrtGroupChat:edit"><li><a href="${ctx}/hmrtgroupchat/hmrtGroupChat/form">分组聊天添加</a></li></shiro:hasPermission>
+		<li class="active"><a href="${ctx}/hmrtgroupchat/hmrtGroupChat/">讨论聊天内容备份列表</a></li>
+		<!--<shiro:hasPermission name="hmrtgroupchat:hmrtGroupChat:edit"><li><a href="${ctx}/hmrtgroupchat/hmrtGroupChat/form">讨论聊天内容备份添加</a></li></shiro:hasPermission>  -->
 	</ul>
 	<form:form id="searchForm" modelAttribute="hmrtGroupChat" action="${ctx}/hmrtgroupchat/hmrtGroupChat/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
-			<li><label>分组ID：</label>
-				<form:input path="groupid" htmlEscape="false" maxlength="64" class="input-medium"/>
+			<li><label>讨论组：</label>
+				<form:input path="to" htmlEscape="false" maxlength="32" class="input-medium"/>
 			</li>
-			<li><label>用户ID：</label>
-				<form:input path="userid" htmlEscape="false" maxlength="64" class="input-medium"/>
+			<li><label>来自：</label>
+				<form:input path="from" htmlEscape="false" maxlength="32" class="input-medium"/>
 			</li>
-			<li><label>文章ID：</label>
-				<form:input path="articleid" htmlEscape="false" maxlength="64" class="input-medium"/>
-			</li>
-			<li><label>内容：</label>
-				<form:input path="content" htmlEscape="false" maxlength="512" class="input-medium"/>
-			</li>
-			<li><label>创建时间：</label>
-				<input name="beginCreateDt" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					value="<fmt:formatDate value="${hmrtGroupChat.beginCreateDt}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/> - 
-				<input name="endCreateDt" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					value="<fmt:formatDate value="${hmrtGroupChat.endCreateDt}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+			<li><label>timestamp：</label>
+				<form:input path="timestamp" htmlEscape="false" maxlength="20" class="input-medium"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
@@ -53,11 +42,16 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>分组ID</th>
-				<th>用户ID</th>
-				<th>文章ID</th>
-				<th>内容</th>
-				<th>创建时间</th>
+				<th>讨论组</th>
+				<th>来自</th>
+				<th>消息内容</th>
+				<th>消息类型</th>
+				<th>url</th>
+				<th>文件名字</th>
+				<th>纬度</th>
+				<th>精度</th>
+				<th>地址</th>
+				<th>timestamp</th>
 				<shiro:hasPermission name="hmrtgroupchat:hmrtGroupChat:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -65,23 +59,38 @@
 		<c:forEach items="${page.list}" var="hmrtGroupChat">
 			<tr>
 				<td><a href="${ctx}/hmrtgroupchat/hmrtGroupChat/form?id=${hmrtGroupChat.id}">
-					${hmrtGroupChat.groupid}
+					${hmrtGroupChat.to}
 				</a></td>
 				<td>
-					${hmrtGroupChat.userid}
+					${hmrtGroupChat.from}
 				</td>
 				<td>
-					${hmrtGroupChat.articleid}
+					${hmrtGroupChat.msg}
 				</td>
 				<td>
-					${hmrtGroupChat.content}
+					${hmrtGroupChat.type}
 				</td>
 				<td>
-					<fmt:formatDate value="${hmrtGroupChat.createDt}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					${hmrtGroupChat.url}
+				</td>
+				<td>
+					${hmrtGroupChat.filename}
+				</td>
+				<td>
+					${hmrtGroupChat.lat}
+				</td>
+				<td>
+					${hmrtGroupChat.lng}
+				</td>
+				<td>
+					${hmrtGroupChat.addr}
+				</td>
+				<td>
+					${hmrtGroupChat.timestamp}
 				</td>
 				<shiro:hasPermission name="hmrtgroupchat:hmrtGroupChat:edit"><td>
     				<a href="${ctx}/hmrtgroupchat/hmrtGroupChat/form?id=${hmrtGroupChat.id}">修改</a>
-					<a href="${ctx}/hmrtgroupchat/hmrtGroupChat/delete?id=${hmrtGroupChat.id}" onclick="return confirmx('确认要删除该分组聊天吗？', this.href)">删除</a>
+					<a href="${ctx}/hmrtgroupchat/hmrtGroupChat/delete?id=${hmrtGroupChat.id}" onclick="return confirmx('确认要删除该讨论聊天内容备份吗？', this.href)">删除</a>
 				</td></shiro:hasPermission>
 			</tr>
 		</c:forEach>
