@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.cms.entity.Article;
@@ -21,6 +22,7 @@ import com.thinkgem.jeesite.modules.cms.service.ArticleDataService;
 import com.thinkgem.jeesite.modules.cms.service.ArticleService;
 import com.thinkgem.jeesite.modules.cms.utils.ApiUtils;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
+import com.thinkgem.jeesite.modules.hmrtscorelog.entity.HmrtScoreLog;
 
 /**
  * 网站Controller
@@ -53,8 +55,32 @@ public class InfoRepoApiController extends BaseController {
 			caseinfo.setCategory(new Category("fab0ae2c1c0c4aa7ac1d9d60f6f8973b"));
 			caseinfo.setDelFlag(Article.DEL_FLAG_NORMAL);
 			//caseinfo.setIsarchive("1");//0普通病例 1归档病例 属于病例库
-			List<Article> list = articleService.findList(caseinfo);
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ApiUtils.articleList2MapList(list, articleDataService))));
+//			List<Article> list = articleService.findList(caseinfo);
+//			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ApiUtils.caseList2MapList(list, articleDataService))));
+//		
+		
+//			HmrtScoreLog hmrtScoreLog = new HmrtScoreLog();
+//			hmrtScoreLog.setUserid(userid);
+			Page<Article> page = articleService.findPage(new Page<Article>(request,response), caseinfo);
+			for(Article article :page.getList()){
+				article.setHits(null);
+				article.setCommentcount(null);
+				article.setUserPhoto(null);
+				article.setWeight(null);
+				article.setUserName(null);
+				article.setUser(null);
+				article.setDescription(null);
+				article.setWeight(null);
+				article.setCreateDate(null);
+				article.setDescription(null);
+				article.setDiagnoseInfo(null);
+				article.setIsarchive(null);
+				article.setPatientid(null);
+				article.setConditionInfo(null);
+//				article.setArticleData(articleDataService.get(article.getId()));
+				article.setContent(articleDataService.get(article.getId()).getContent());
+			}
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",page)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));
@@ -92,7 +118,7 @@ public class InfoRepoApiController extends BaseController {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,id["+id+"]错误！", "")));
 				return;
 			}
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ApiUtils.article2Map(caseinfo, articleDataService))));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ApiUtils.case2Map(caseinfo, articleDataService))));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", "")));

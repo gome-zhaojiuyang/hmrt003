@@ -19,6 +19,9 @@ public class Entity2Map<T> {
 		Map map = Maps.newHashMap();
 		try {
 			map  = BeanUtils.describe(t);
+			if(map.get("url")!=null&&!"null".equals(map.get("url"))&&!"".equals(map.get("url"))){
+				map.put("url", "http://120.26.241.215:8181"+map.get("url"));
+			}
 			if(map.get("createDate")!=null&&!"null".equals(map.get("createDate"))&&!"".equals(map.get("createDate"))){
 //				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.UK);
