@@ -96,7 +96,7 @@ public class BackupChatRecordTask {
 				switch(messtype){
 				case "txt":
 					hmrt.setTmsg(b.get("msg").asText().replace("\n", ""));
-					hmrt.setTlength("0");
+					//hmrt.setTlength("0");
 					hmrtGroupChatService.save(hmrt);
 					continue;
 				case "img":
