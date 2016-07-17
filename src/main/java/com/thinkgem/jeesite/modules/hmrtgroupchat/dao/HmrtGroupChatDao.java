@@ -8,9 +8,9 @@ import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
 import com.thinkgem.jeesite.modules.hmrtgroupchat.entity.HmrtGroupChat;
 
 /**
- * 讨论聊天内容备份DAO接口
+ * 讨论组聊天记录DAO接口
  * @author zhuhb
- * @version 2016-07-12
+ * @version 2016-07-17
  */
 @MyBatisDao
 public interface HmrtGroupChatDao extends CrudDao<HmrtGroupChat> {

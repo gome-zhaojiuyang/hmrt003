@@ -3,32 +3,43 @@
  */
 package com.thinkgem.jeesite.modules.hmrtgroupchat.entity;
 
+import java.util.Date;
+
 import org.hibernate.validator.constraints.Length;
 
 import com.thinkgem.jeesite.common.persistence.DataEntity;
 
 /**
- * 讨论聊天内容备份Entity
+ * 讨论组聊天记录Entity
  * @author zhuhb
- * @version 2016-07-12
+ * @version 2016-07-17
  */
 public class HmrtGroupChat extends DataEntity<HmrtGroupChat> {
 	
 	private static final long serialVersionUID = 1L;
-	private String to;		// 讨论组
-	private String from;		// 来自
-	private String chattype;		// 类型
-	private String msg;		// 消息内容
-	private String type;		// 消息类型
-	private String length;		// 消息长度
-	private String url;		// url
-	private String filename;		// 文件名字
-	private String secret;		// secret
-	private String lat;		// 纬度
-	private String lng;		// 精度
-	private String addr;		// 地址
-	private Long timestamp;		// timestamp
+	private String tfrom;		// 来自
+	private String tchattype;		// chat类型
+	private String tmsg;		// 消息
+	private String ttype;		// 消息类型
+	private String tlength;		// 长度
+	private String turl;		// URL
+	private String tfilename;		// 文件名
+	private String tsecret;		// t_secret
+	private String tlat;		// 纬度
+	private String tlng;		// 经度
+	private String taddr;		// 地址
+	private Long ttimestamp;		// t_timestamp
+	private String tto;		// 接收
+	private Date tdate;
 	
+	public Date getTdate() {
+		return new Date(ttimestamp);
+	}
+
+	public void setTdate(Date tdate) {
+		this.tdate = tdate;
+	}
+
 	public HmrtGroupChat() {
 		super();
 	}
@@ -37,118 +48,118 @@ public class HmrtGroupChat extends DataEntity<HmrtGroupChat> {
 		super(id);
 	}
 
-	@Length(min=0, max=32, message="讨论组长度必须介于 0 和 32 之间")
-	public String getTo() {
-		return to;
-	}
-
-	public void setTo(String to) {
-		this.to = to;
-	}
-	
 	@Length(min=0, max=32, message="来自长度必须介于 0 和 32 之间")
-	public String getFrom() {
-		return from;
+	public String getTfrom() {
+		return tfrom;
 	}
 
-	public void setFrom(String from) {
-		this.from = from;
+	public void setTfrom(String tfrom) {
+		this.tfrom = tfrom;
 	}
 	
-	@Length(min=0, max=10, message="类型长度必须介于 0 和 10 之间")
-	public String getChattype() {
-		return chattype;
+	@Length(min=0, max=10, message="chat类型长度必须介于 0 和 10 之间")
+	public String getTchattype() {
+		return tchattype;
 	}
 
-	public void setChattype(String chattype) {
-		this.chattype = chattype;
+	public void setTchattype(String tchattype) {
+		this.tchattype = tchattype;
 	}
 	
-	@Length(min=0, max=2000, message="消息内容长度必须介于 0 和 2000 之间")
-	public String getMsg() {
-		return msg;
+	@Length(min=0, max=2000, message="消息长度必须介于 0 和 2000 之间")
+	public String getTmsg() {
+		return tmsg;
 	}
 
-	public void setMsg(String msg) {
-		this.msg = msg;
+	public void setTmsg(String tmsg) {
+		this.tmsg = tmsg;
 	}
 	
 	@Length(min=0, max=10, message="消息类型长度必须介于 0 和 10 之间")
-	public String getType() {
-		return type;
+	public String getTtype() {
+		return ttype;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setTtype(String ttype) {
+		this.ttype = ttype;
 	}
 	
-	@Length(min=0, max=100, message="消息长度长度必须介于 0 和 100 之间")
-	public String getLength() {
-		return length;
+	@Length(min=0, max=100, message="长度长度必须介于 0 和 100 之间")
+	public String getTlength() {
+		return tlength;
 	}
 
-	public void setLength(String length) {
-		this.length = length;
+	public void setTlength(String tlength) {
+		this.tlength = tlength;
 	}
 	
-	@Length(min=0, max=200, message="url长度必须介于 0 和 200 之间")
-	public String getUrl() {
-		return url;
+	@Length(min=0, max=200, message="URL长度必须介于 0 和 200 之间")
+	public String getTurl() {
+		return turl;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setTurl(String turl) {
+		this.turl = turl;
 	}
 	
-	@Length(min=0, max=50, message="文件名字长度必须介于 0 和 50 之间")
-	public String getFilename() {
-		return filename;
+	@Length(min=0, max=50, message="文件名长度必须介于 0 和 50 之间")
+	public String getTfilename() {
+		return tfilename;
 	}
 
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setTfilename(String tfilename) {
+		this.tfilename = tfilename;
 	}
 	
-	@Length(min=0, max=200, message="secret长度必须介于 0 和 200 之间")
-	public String getSecret() {
-		return secret;
+	@Length(min=0, max=200, message="t_secret长度必须介于 0 和 200 之间")
+	public String getTsecret() {
+		return tsecret;
 	}
 
-	public void setSecret(String secret) {
-		this.secret = secret;
+	public void setTsecret(String tsecret) {
+		this.tsecret = tsecret;
 	}
 	
-	public String getLat() {
-		return lat;
+	public String getTlat() {
+		return tlat;
 	}
 
-	public void setLat(String lat) {
-		this.lat = lat;
+	public void setTlat(String tlat) {
+		this.tlat = tlat;
 	}
 	
-	public String getLng() {
-		return lng;
+	public String getTlng() {
+		return tlng;
 	}
 
-	public void setLng(String lng) {
-		this.lng = lng;
+	public void setTlng(String tlng) {
+		this.tlng = tlng;
 	}
 	
 	@Length(min=0, max=200, message="地址长度必须介于 0 和 200 之间")
-	public String getAddr() {
-		return addr;
+	public String getTaddr() {
+		return taddr;
 	}
 
-	public void setAddr(String addr) {
-		this.addr = addr;
+	public void setTaddr(String taddr) {
+		this.taddr = taddr;
 	}
 	
-	public Long getTimestamp() {
-		return timestamp;
+	public Long getTtimestamp() {
+		return ttimestamp;
 	}
 
-	public void setTimestamp(Long timestamp) {
-		this.timestamp = timestamp;
+	public void setTtimestamp(Long ttimestamp) {
+		this.ttimestamp = ttimestamp;
+	}
+	
+	@Length(min=0, max=32, message="接收长度必须介于 0 和 32 之间")
+	public String getTto() {
+		return tto;
+	}
+
+	public void setTto(String tto) {
+		this.tto = tto;
 	}
 	
 }
