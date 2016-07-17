@@ -55,7 +55,7 @@
 				<th>纬度</th>
 				<th>经度</th>
 				<th>地址</th>
-				<th>t_timestamp</th>
+				<th>时间</th>
 				<th>接收</th>
 				<shiro:hasPermission name="hmrtgroupchat:hmrtGroupChat:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
