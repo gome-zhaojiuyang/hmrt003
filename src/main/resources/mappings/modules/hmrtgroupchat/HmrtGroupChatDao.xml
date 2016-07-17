@@ -3,20 +3,20 @@
 <mapper namespace="com.thinkgem.jeesite.modules.hmrtgroupchat.dao.HmrtGroupChatDao">
     
 	<sql id="hmrtGroupChatColumns">
-		a.to AS "to",
 		a.id AS "id",
-		a.from AS "from",
-		a.chattype AS "chattype",
-		a.msg AS "msg",
-		a.type AS "type",
-		a.length AS "length",
-		a.url AS "url",
-		a.filename AS "filename",
-		a.secret AS "secret",
-		a.lat AS "lat",
-		a.lng AS "lng",
-		a.addr AS "addr",
-		a.timestamp AS "timestamp"
+		a.t_from AS "tfrom",
+		a.t_chattype AS "tchattype",
+		a.t_msg AS "tmsg",
+		a.t_type AS "ttype",
+		a.t_length AS "tlength",
+		a.t_url AS "turl",
+		a.t_filename AS "tfilename",
+		a.t_secret AS "tsecret",
+		a.t_lat AS "tlat",
+		a.t_lng AS "tlng",
+		a.t_addr AS "taddr",
+		a.t_timestamp AS "ttimestamp",
+		a.t_to AS "tto"
 	</sql>
 	
 	<sql id="hmrtGroupChatJoins">
@@ -37,14 +37,20 @@
 		<include refid="hmrtGroupChatJoins"/>
 		<where>
 			
-			<if test="to != null and to != ''">
-				AND a.to = #{to}
+			<if test="tfrom != null and tfrom != ''">
+				AND a.t_from LIKE 
+					<if test="dbName == 'oracle'">'%'||#{tfrom}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{tfrom}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{tfrom},'%')</if>
 			</if>
-			<if test="from != null and from != ''">
-				AND a.from = #{from}
+			<if test="ttype != null and ttype != ''">
+				AND a.t_type = #{ttype}
 			</if>
-			<if test="timestamp != null and timestamp != ''">
-				AND a.timestamp = #{timestamp}
+			<if test="tto != null and tto != ''">
+				AND a.t_to LIKE 
+					<if test="dbName == 'oracle'">'%'||#{tto}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{tto}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{tto},'%')</if>
 			</if>
 		</where>
 		<choose>
@@ -75,53 +81,53 @@
 	
 	<insert id="insert">
 		INSERT INTO hmrt_group_chat(
-			to,
 			id,
-			from,
-			chattype,
-			msg,
-			type,
-			length,
-			url,
-			filename,
-			secret,
-			lat,
-			lng,
-			addr,
-			timestamp
+			t_from,
+			t_chattype,
+			t_msg,
+			t_type,
+			t_length,
+			t_url,
+			t_filename,
+			t_secret,
+			t_lat,
+			t_lng,
+			t_addr,
+			t_timestamp,
+			t_to
 		) VALUES (
-			#{to},
 			#{id},
-			#{from},
-			#{chattype},
-			#{msg},
-			#{type},
-			#{length},
-			#{url},
-			#{filename},
-			#{secret},
-			#{lat},
-			#{lng},
-			#{addr},
-			#{timestamp}
+			#{tfrom},
+			#{tchattype},
+			#{tmsg},
+			#{ttype},
+			#{tlength},
+			#{turl},
+			#{tfilename},
+			#{tsecret},
+			#{tlat},
+			#{tlng},
+			#{taddr},
+			#{ttimestamp},
+			#{tto}
 		)
 	</insert>
 	
 	<update id="update">
 		UPDATE hmrt_group_chat SET 	
-			to = #{to},
-			from = #{from},
-			chattype = #{chattype},
-			msg = #{msg},
-			type = #{type},
-			length = #{length},
-			url = #{url},
-			filename = #{filename},
-			secret = #{secret},
-			lat = #{lat},
-			lng = #{lng},
-			addr = #{addr},
-			timestamp = #{timestamp}
+			t_from = #{tfrom},
+			t_chattype = #{tchattype},
+			t_msg = #{tmsg},
+			t_type = #{ttype},
+			t_length = #{tlength},
+			t_url = #{turl},
+			t_filename = #{tfilename},
+			t_secret = #{tsecret},
+			t_lat = #{tlat},
+			t_lng = #{tlng},
+			t_addr = #{taddr},
+			t_timestamp = #{ttimestamp},
+			t_to = #{tto}
 		WHERE id = #{id}
 	</update>
 	

@@ -189,3 +189,9 @@ http://localhost:8080/jeesite/f/userApi/getCode?loginName=13466658642&flag=2
 
 密码找回
 http://localhost:8080/jeesite/f/userApi/findPwd?loginName=13466658642&passwordNew=000000&vcode=588104
+
+获取群组与病例对应列表
+http://120.26.241.215:8181/jeesite/f/groupcaseApi/list
+{"code":200,"msg":"获取成功","data":[{"groupId":"1212","caseId":"123456","description":"描述","owner":"zhuhb","groupname":"测试"},{"groupId":"12121","caseId":"123456","description":"11描述","owner":"zhuhb","groupname":"11测试"},{"groupId":"1467349180753","caseId":"cd3a0df11c9a4ddcb379b20570991382","owner":"1","groupname":"ç¾¤è"},{"groupId":"1467349238037","caseId":"cd3a0df11c9a4ddcb379b20570991382","owner":"1","groupname":"ç¾¤è"},{"groupId":"1467349888280","caseId":"cb181301c1234a8a9b18fffac5bdc194","owner":"1","groupname":"ç¾¤è"},{"groupId":"1467349982337","caseId":"cd3a0df11c9a4ddcb379b20570991382","owner":"1","groupname":"ç¾¤è"},{"groupId":"1467354898733","caseId":"cd3a0df11c9a4ddcb379b20570991382","owner":"1","groupname":"ç¾¤è"},{"groupId":"1467354924950","caseId":"cd3a0df11c9a4ddcb379b20570991382","owner":"1","groupname":"ç¾¤è"},{"groupId":"1467355074794","caseId":"ad74d201940d41dd9668ba0d71dab396","owner":"1","groupname":"ç¾¤è"},{"groupId":"1467523348424","caseId":"cd3a0df11c9a4ddcb379b20570991382","owner":"1","groupname":"ç¾¤è"},{"groupId":"1467534037694","caseId":"ad74d201940d41dd9668ba0d71dab396","owner":"1","groupname":"ç¾¤è"}]}
+
+

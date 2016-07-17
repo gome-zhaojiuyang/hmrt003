@@ -14,9 +14,9 @@ import com.thinkgem.jeesite.modules.hmrtgroupchat.entity.HmrtGroupChat;
 import com.thinkgem.jeesite.modules.hmrtgroupchat.dao.HmrtGroupChatDao;
 
 /**
- * 讨论聊天内容备份Service
+ * 讨论组聊天记录Service
  * @author zhuhb
- * @version 2016-07-12
+ * @version 2016-07-17
  */
 @Service
 @Transactional(readOnly = true)

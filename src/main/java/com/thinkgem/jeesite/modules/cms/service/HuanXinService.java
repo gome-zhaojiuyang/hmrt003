@@ -91,10 +91,15 @@ public class HuanXinService {
         **/
         ObjectNode queryStrNode = factory.objectNode();
         //queryStrNode.put("ql", "select+*+where+from='fumk'+and+to='mm2'");
-        queryStrNode.put("ql", "select+*+where+from='fumk'");
+        //queryStrNode.put("ql", "select+*+where+from='fumk'");
         //queryStrNode.put("ql", "select+*+where+to='1465110593908'");
         //queryStrNode.put("limit", "20");
+        //queryStrNode.put("ql", "select+*+where+chat_type='chat'");
+        queryStrNode.put("ql", "select+*+where+timestamp>1468759700002");
+        queryStrNode.put("limit", "1000");
+        //queryStrNode.put("chat_type", "groupchat");
         ObjectNode messages = getChatMessages(queryStrNode);
+        System.out.println(messages);
 		
 	}
 	
@@ -230,7 +235,9 @@ public class HuanXinService {
 			if (null != queryStrNode && queryStrNode.get("cursor") != null && !StringUtils.isEmpty(queryStrNode.get("cursor").asText())) {
 				rest = rest + "&cursor=" + queryStrNode.get("cursor").asText();
 			}
-		
+			if (null != queryStrNode && queryStrNode.get("chat_type") != null && !StringUtils.isEmpty(queryStrNode.get("chat_type").asText())) {
+				rest = rest + "&chat_type=" + queryStrNode.get("chat_type").asText();
+			}
 			URL chatMessagesUrl = HTTPClientUtils.getURL(Constants.APPKEY.replace("#", "/") + "/chatmessages?" + rest);
 			
 			objectNode = HTTPClientUtils.sendHTTPRequest(chatMessagesUrl, credential, null, HTTPMethod.METHOD_GET);

@@ -23,9 +23,9 @@ import com.thinkgem.jeesite.modules.hmrtgroupchat.entity.HmrtGroupChat;
 import com.thinkgem.jeesite.modules.hmrtgroupchat.service.HmrtGroupChatService;
 
 /**
- * 讨论聊天内容备份Controller
+ * 讨论组聊天记录Controller
  * @author zhuhb
- * @version 2016-07-12
+ * @version 2016-07-17
  */
 @Controller
 @RequestMapping(value = "${adminPath}/hmrtgroupchat/hmrtGroupChat")
@@ -68,7 +68,7 @@ public class HmrtGroupChatController extends BaseController {
 			return form(hmrtGroupChat, model);
 		}
 		hmrtGroupChatService.save(hmrtGroupChat);
-		addMessage(redirectAttributes, "保存讨论聊天内容备份成功");
+		addMessage(redirectAttributes, "保存讨论组聊天记录成功");
 		return "redirect:"+Global.getAdminPath()+"/hmrtgroupchat/hmrtGroupChat/?repage";
 	}
 	
@@ -76,7 +76,7 @@ public class HmrtGroupChatController extends BaseController {
 	@RequestMapping(value = "delete")
 	public String delete(HmrtGroupChat hmrtGroupChat, RedirectAttributes redirectAttributes) {
 		hmrtGroupChatService.delete(hmrtGroupChat);
-		addMessage(redirectAttributes, "删除讨论聊天内容备份成功");
+		addMessage(redirectAttributes, "删除讨论组聊天记录成功");
 		return "redirect:"+Global.getAdminPath()+"/hmrtgroupchat/hmrtGroupChat/?repage";
 	}
 
