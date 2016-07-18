@@ -260,10 +260,10 @@ public abstract class BaseController {
 		List<HmrtScoreRule> list = hmrtScoreRuleService.findList(hmrtScoreRule) ;
 		for(HmrtScoreRule rule : list){
 			int score = Integer.parseInt(rule.getScore());
-			User uu = new User();
-			uu.setId(user.getId());
-			uu.setScore(String.valueOf(Integer.parseInt(user.getScore())+score));
-			systemService.updateUserInfo(uu);
+//			User uu = new User();
+//			uu.setId(user.getId());
+			user.setScore(String.valueOf(Integer.parseInt(user.getScore())+score));
+			systemService.updateUserInfo(user);
 			//积分日志
 			HmrtScoreLog hmrtScoreLog = new HmrtScoreLog();
 			hmrtScoreLog.setUserid(user.getId());

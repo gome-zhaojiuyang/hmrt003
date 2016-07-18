@@ -251,15 +251,15 @@ public class UserApiController extends BaseController{
 			userUpdate.setPassword(passwordNew);
 			userUpdate.setToken(tokenNew);
 			//更新环信密码
-		     ObjectNode json2 = JsonNodeFactory.instance.objectNode();
-		     json2.put("newpassword", huanxinnewpassword);
-		     ObjectNode modifyIMUserPasswordWithAdminTokenNode = HuanXinService.modifyIMUserPasswordWithAdminToken(loginName, json2);
-		     if (null != modifyIMUserPasswordWithAdminTokenNode&&modifyIMUserPasswordWithAdminTokenNode.get("statusCode").toString().equals("200")) {
-		    	 logger.info("重置IM用户密码成功 " + modifyIMUserPasswordWithAdminTokenNode.toString());
-		     }else{
-		    	 outputJson(response, JsonUtil.beanToJson(putResponseData(401, "重置密码失败，请重新操作！", "")));
-		    	 return;
-		     }
+//		     ObjectNode json2 = JsonNodeFactory.instance.objectNode();
+//		     json2.put("newpassword", huanxinnewpassword);
+//		     ObjectNode modifyIMUserPasswordWithAdminTokenNode = HuanXinService.modifyIMUserPasswordWithAdminToken(loginName, json2);
+//		     if (null != modifyIMUserPasswordWithAdminTokenNode&&modifyIMUserPasswordWithAdminTokenNode.get("statusCode").toString().equals("200")) {
+//		    	 logger.info("重置IM用户密码成功 " + modifyIMUserPasswordWithAdminTokenNode.toString());
+//		     }else{
+//		    	 outputJson(response, JsonUtil.beanToJson(putResponseData(401, "重置密码失败，请重新操作！", "")));
+//		    	 return;
+//		     }
 			systemService.updateUserInfo(userUpdate);
 			
 //			Map<String, Object> map = new HashMap<String, Object>();
