@@ -19,6 +19,15 @@ public class Entity2Map<T> {
 		Map map = Maps.newHashMap();
 		try {
 			map  = BeanUtils.describe(t);
+			
+			if(map.get("url")!=null&&!"null".equals(map.get("url"))&&!"".equals(map.get("url"))){
+				String url = "http://120.26.241.215:8181"+(String)map.get("url");
+				map.put("url", url);
+			}
+			if(map.get("imageSrc")!=null&&!"null".equals(map.get("imageSrc"))&&!"".equals(map.get("imageSrc"))){
+				String imageSrc = "http://120.26.241.215:8181"+(String)map.get("imageSrc");
+				map.put("imageSrc", imageSrc);
+			}
 			if(map.get("createDate")!=null&&!"null".equals(map.get("createDate"))&&!"".equals(map.get("createDate"))){
 //				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.UK);
@@ -73,6 +82,7 @@ public class Entity2Map<T> {
 			map.remove("posidList");
 			map.remove("posid");
 			map.remove("keywords");
+			map.remove("image");
 			Iterator it = map.keySet().iterator();
 			while(it.hasNext()){
 				Object key = (Object)it.next();

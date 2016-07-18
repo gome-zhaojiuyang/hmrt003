@@ -57,6 +57,24 @@ public class ApiUtils {
 		articleMap.put("id", article.getId());
 		return articleMap ;
 	}
+	public static Map<String,String> case2Map(Article article,ArticleDataService articleDataService ){
+		Map<String,String> articleMap = Maps.newHashMap();
+		articleMap.put("title", article.getTitle());
+//		articleMap.put("begindata", DateUtils.formatDateTime(article.getBeginDate()));
+//		articleMap.put("enddata", DateUtils.formatDateTime(article.getEndDate()));
+		//articleMap.put("allowcomment", article.getArticleData().getAllowComment());
+//		articleMap.put("creatdata", DateUtils.formatDateTime(article.getCreateDate()));
+//		articleMap.put("image", article.getImage());
+//		articleMap.put("imageSrc", article.getImageSrc());
+		articleMap.put("content", articleDataService.get(article.getId()).getContent());
+//		articleMap.put("diagnoseInfo", article.getDiagnoseInfo());
+//		articleMap.put("conditionInfo", article.getConditionInfo());
+		articleMap.put("desc", article.getDescription());
+		articleMap.put("weight", null);
+		//articleMap.put("category", article.getCategory());
+		articleMap.put("id", article.getId());
+		return articleMap ;
+	}
 	public static Map<String,String> article2MapCaseDetail(Article article,ArticleDataService articleDataService ){
 		Map<String,String> articleMap = Maps.newHashMap();
 		articleMap.put("userName", article.getUserName());
