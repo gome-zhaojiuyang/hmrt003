@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.hmrtgroupchat.dao.HmrtGroupChatDao">
+    
+	<sql id="hmrtGroupChatColumns">
+		a.id AS "id",
+		a.t_from AS "tfrom",
+		a.t_chattype AS "tchattype",
+		a.t_msg AS "tmsg",
+		a.t_type AS "ttype",
+		a.t_length AS "tlength",
+		a.t_url AS "turl",
+		a.t_filename AS "tfilename",
+		a.t_secret AS "tsecret",
+		a.t_lat AS "tlat",
+		a.t_lng AS "tlng",
+		a.t_addr AS "taddr",
+		a.t_timestamp AS "ttimestamp",
+		a.t_to AS "tto"
+	</sql>
+	
+	<sql id="hmrtGroupChatJoins">
+	</sql>
+    
+	<select id="get" resultType="HmrtGroupChat">
+		SELECT 
+			<include refid="hmrtGroupChatColumns"/>
+		FROM hmrt_group_chat a
+		<include refid="hmrtGroupChatJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="HmrtGroupChat">
+		SELECT 
+			<include refid="hmrtGroupChatColumns"/>
+		FROM hmrt_group_chat a
+		<include refid="hmrtGroupChatJoins"/>
+		<where>
+			
+			<if test="tfrom != null and tfrom != ''">
+				AND a.t_from LIKE 
+					<if test="dbName == 'oracle'">'%'||#{tfrom}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{tfrom}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{tfrom},'%')</if>
+			</if>
+			<if test="ttype != null and ttype != ''">
+				AND a.t_type = #{ttype}
+			</if>
+			<if test="tto != null and tto != ''">
+				AND a.t_to LIKE 
+					<if test="dbName == 'oracle'">'%'||#{tto}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{tto}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{tto},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="HmrtGroupChat">
+		SELECT 
+			<include refid="hmrtGroupChatColumns"/>
+		FROM hmrt_group_chat a
+		<include refid="hmrtGroupChatJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO hmrt_group_chat(
+			id,
+			t_from,
+			t_chattype,
+			t_msg,
+			t_type,
+			t_length,
+			t_url,
+			t_filename,
+			t_secret,
+			t_lat,
+			t_lng,
+			t_addr,
+			t_timestamp,
+			t_to
+		) VALUES (
+			#{id},
+			#{tfrom},
+			#{tchattype},
+			#{tmsg},
+			#{ttype},
+			#{tlength},
+			#{turl},
+			#{tfilename},
+			#{tsecret},
+			#{tlat},
+			#{tlng},
+			#{taddr},
+			#{ttimestamp},
+			#{tto}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE hmrt_group_chat SET 	
+			t_from = #{tfrom},
+			t_chattype = #{tchattype},
+			t_msg = #{tmsg},
+			t_type = #{ttype},
+			t_length = #{tlength},
+			t_url = #{turl},
+			t_filename = #{tfilename},
+			t_secret = #{tsecret},
+			t_lat = #{tlat},
+			t_lng = #{tlng},
+			t_addr = #{taddr},
+			t_timestamp = #{ttimestamp},
+			t_to = #{tto}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM hmrt_group_chat
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

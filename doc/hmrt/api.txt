@@ -51,7 +51,7 @@ http://localhost:8181/jeesite/f/userApi/queryTargetDoctor?token=943619130&userid
 查询资料库列表信息
 http://localhost:8181/jeesite/f/infoRepoApi/queryInfoRepoList
 查询资料库资料详情信息
-http://localhost:8181/jeesite/f/infoRepoApi/queryInfoRepoById?id=ce84211b7fef44a6b82002be02110239
+http://localhost:8181/jeesite/f/infoRepoApi/queryInfoRepoById?id=XXXX
 查询病例库列表信息
 http://localhost:8181/jeesite/f/caseApi/queryArchiveList
 查询病例库资料详情信息

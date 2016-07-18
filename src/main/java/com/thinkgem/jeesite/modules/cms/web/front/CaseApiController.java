@@ -341,29 +341,12 @@ public class CaseApiController extends BaseController {
 //			}
 			//病例表 Article
 			Article caseinfo = new Article();
-			caseinfo.setCategory(new Category("7d15c72b33594cf0bdb5b1e7c0ad251e"));
+			caseinfo.setCategory(new Category("5e88c94f3fed4443a0025bac35e25f33"));
 			caseinfo.setDelFlag(Article.DEL_FLAG_NORMAL);
 			caseinfo.setIsarchive("1");//0普通病例 1归档病例 属于病例库
-			Page<Article> page = articleService.findPage(new Page<Article>(request,response), caseinfo);
-			for(Article article :page.getList()){
-				article.setHits(null);
-				article.setCommentcount(null);
-				article.setUserPhoto(null);
-				article.setWeight(null);
-				article.setUserName(null);
-				article.setUser(null);
-				article.setDescription(null);
-				article.setWeight(null);
-				article.setCreateDate(null);
-				article.setDescription(null);
-				article.setDiagnoseInfo(null);
-				article.setIsarchive(null);
-				article.setPatientid(null);
-				article.setConditionInfo(null);
-//				article.setArticleData(articleDataService.get(article.getId()));
-				article.setContent(articleDataService.get(article.getId()).getContent());
-			}
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200,"",page)));
+			List<Article> list = articleService.findList(caseinfo);
+			
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ApiUtils.articleList2MapList(list, articleDataService))));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
