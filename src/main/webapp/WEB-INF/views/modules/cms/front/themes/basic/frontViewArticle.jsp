@@ -3,7 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>${article.title} - ${category.name}</title>
+	<title>${article.title}  </title>
+<%-- 	<title>${article.title} - ${category.name} </title> --%>
 	<meta name="decorator" content="cms_default_${site.theme}"/>
 	<meta name="description" content="${article.description} ${category.description}" />
 	<meta name="keywords" content="${article.keywords} ${category.keywords}" />
@@ -25,7 +26,7 @@
 </head>
 <body>
 	<div class="row">
-	   <div class="span2">
+	   <%-- <div class="span2">
 	   	 <h4>栏目列表</h4>
 		 <ol>
 		 	<cms:frontCategoryList categoryList="${categoryList}"/>
@@ -34,12 +35,12 @@
 		 <ol>
 		 	<cms:frontArticleHitsTop category="${category}"/>
 		 </ol>
-	   </div>
-	   <div class="span10">
+	   </div> --%>
+	   <%-- <div class="span10">
 		 <ul class="breadcrumb">
 		    <cms:frontCurrentPosition category="${category}"/>
 		 </ul>
-	   </div>
+	   </div> --%>
 	   <div class="span10">
 	     <div class="row">
 	       <div class="span10">
@@ -54,13 +55,13 @@
 				正在加载评论...
 			</div>
 	     </div>
-	     <div class="row">
+	    <%--  <div class="row">
 	       <div class="span10">
 			<h5>相关文章</h5>
 			<ol><c:forEach items="${relationList}" var="relation">
 				<li style="float:left;width:230px;"><a href="${ctx}/view-${relation[0]}-${relation[1]}${urlSuffix}">${fns:abbr(relation[2],30)}</a></li>
 			</c:forEach></ol>
-	  	  </div>
+	  	  </div> --%>
   	    </div>
   	  </div>
    </div>
