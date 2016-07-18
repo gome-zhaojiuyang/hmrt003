@@ -17,7 +17,7 @@
 登录
 http://localhost:8181/jeesite/f/userApi/login?loginName=zjy001&password=zjy001
 重置密码
-http://localhost:8181/jeesite/f/userApi/resetPwd?userid=480f1b965cb748a18561242d0f7f7f6a&token=xx&loginName=zjy001&password=zjy001&passwordNew=zjy00000001
+http://localhost:8181/jeesite/f/userApi/resetPwd?userid=480f1b965cb748a18561242d0f7f7f6a&token=29349660&loginName=zjy001&password=zjy001&passwordNew=zjy00000001
 查询用户信息
 http://localhost:8181/jeesite/f/userApi/queryUserInfo?token=943619130&userid=480f1b965cb748a18561242d0f7f7f6a&targetUserid=480f1b965cb748a18561242d0f7f7f6a
 

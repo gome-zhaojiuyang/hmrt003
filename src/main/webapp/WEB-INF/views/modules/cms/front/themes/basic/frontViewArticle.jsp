@@ -50,11 +50,11 @@
 			<div style="border-top:1px solid #ddd;padding:10px;margin:25px 0;">发布者：${article.user.name} &nbsp; 点击数：${article.hits} &nbsp; 发布时间：<fmt:formatDate value="${article.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/> &nbsp; 更新时间：<fmt:formatDate value="${article.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
   	       </div>
   	     </div>
-	     <div class="row">
+	     <!-- <div class="row">
 			<div id="comment" class="hide span10">
 				正在加载评论...
 			</div>
-	     </div>
+	     </div> -->
 	    <%--  <div class="row">
 	       <div class="span10">
 			<h5>相关文章</h5>
