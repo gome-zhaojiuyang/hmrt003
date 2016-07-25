@@ -358,6 +358,10 @@
 			,token =#{token}
 			,openid =#{openid}
 			,income =#{income}
+			,password =#{password}
+			,cert =#{cert}
+			,dept =#{dept}
+			,prof =#{prof}
 		WHERE id = #{id}
 	</update>
 	

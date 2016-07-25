@@ -67,11 +67,14 @@ public class UserApiController extends BaseController{
 			//这是邀请码  备用
 			String inviteCode = StringUtils.toString(request.getParameter("inviteCode")); 
 			String cacheCode = RandomNum.USERMAP.get(loginName);
-			String [] code = cacheCode.split("_");
-			if(!vcode.equals(code[0])){
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "验证码错误,请重新输入！", "")));
-				return ;
+			if(cacheCode!=null){
+				String [] code = cacheCode.split("_");
+				if(!vcode.equals(code[0])){
+					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "验证码错误,请重新输入！", "")));
+					return ;
+				}
 			}
+			
 			
 			String 	token 	= String.valueOf(Math.abs((int)new Date().getTime()));
 			User user = new User();
@@ -363,11 +366,22 @@ public class UserApiController extends BaseController{
 			String score = StringUtils.toString(request.getParameter("score"));
 			String isturn = StringUtils.toString(request.getParameter("isturn"));
 			String income = StringUtils.toString(request.getParameter("income"));
+			String dept = StringUtils.toString(request.getParameter("dept"));
+			String cert = StringUtils.toString(request.getParameter("cert"));
+			String prof = StringUtils.toString(request.getParameter("prof"));
+			String name = StringUtils.toString(request.getParameter("name"));
 			 
-			User user = new User();
+			User user =(User) request.getAttribute("user");
+			if(user==null){
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "用户信息异常！", "")));
+				return ;
+			}
 			user.setId(userid);
 			if(StringUtils.isNotEmpty(hospital)){
 				user.setHospital(hospital);
+			}
+			if(StringUtils.isNotEmpty(hospital)){
+				user.setName(name);
 			}
 			if(StringUtils.isNotEmpty(score)){
 				user.setScore(score);
@@ -377,6 +391,15 @@ public class UserApiController extends BaseController{
 			}
 			if(StringUtils.isNotEmpty(income)){
 				user.setIncome(income);
+			}
+			if(StringUtils.isNotEmpty(dept)){
+				user.setDept(dept);
+			}
+			if(StringUtils.isNotEmpty(cert)){
+				user.setCert(cert);
+			}
+			if(StringUtils.isNotEmpty(prof)){
+				user.setProf(prof);
 			}
 			systemService.updateUserInfo(user);
 			

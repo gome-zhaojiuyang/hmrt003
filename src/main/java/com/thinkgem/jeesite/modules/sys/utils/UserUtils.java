@@ -75,7 +75,8 @@ public class UserUtils {
 	 * @return 取不到返回null
 	 */
 	public static User getByLoginName(String loginName){
-		User user = (User)CacheUtils.get(USER_CACHE, USER_CACHE_LOGIN_NAME_ + loginName);
+//		User user = (User)CacheUtils.get(USER_CACHE, USER_CACHE_LOGIN_NAME_ + loginName);
+		User user = null;
 		if (user == null){
 			user = userDao.getByLoginName(new User(null, loginName));
 			if (user == null){

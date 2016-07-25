@@ -61,6 +61,9 @@ public class User extends DataEntity<User> {
 	private String token ;//
 	private String openid;//第三方登录ID
 	private String income;//收入
+	private String cert;//医师证
+	private String dept;//科室
+	private String prof;//职称
 	
 
 //	map.put("easemobId", Constants.EMCHAT_PREFIX+member.getId());
@@ -68,6 +71,30 @@ public class User extends DataEntity<User> {
 	
 	
 	
+
+	public String getCert() {
+		return cert;
+	}
+
+	public void setCert(String cert) {
+		this.cert = cert;
+	}
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public String getProf() {
+		return prof;
+	}
+
+	public void setProf(String prof) {
+		this.prof = prof;
+	}
 
 	public String getLevel() {
 		return level;

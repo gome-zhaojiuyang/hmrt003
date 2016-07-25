@@ -16,14 +16,20 @@
 
 登录
 http://localhost:8181/jeesite/f/userApi/login?loginName=zjy001&password=zjy001
+http://localhost:8181/jeesite/f/userApi/login?loginName=13720048836&password=1111111
 重置密码
-http://localhost:8181/jeesite/f/userApi/resetPwd?userid=480f1b965cb748a18561242d0f7f7f6a&token=29349660&loginName=zjy001&password=zjy001&passwordNew=zjy00000001
+http://localhost:8181/jeesite/f/userApi/resetPwd?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&loginName=zjy002&password=zjy002&passwordNew=zjy222
 查询用户信息
 http://localhost:8181/jeesite/f/userApi/queryUserInfo?token=943619130&userid=480f1b965cb748a18561242d0f7f7f6a&targetUserid=480f1b965cb748a18561242d0f7f7f6a
+修改用户信息
+http://localhost:8181/jeesite/f/userApi/updateUserInfo?token=28267553&userid=480f1b965cb748a18561242d0f7f7f6a&name=张医生&hospital=北京医科大学&dept=XX科室&cert=XX医师证&prof=XX职称
+积分规则说明接口
+--27b2670c3fca43c7a368a2e0a97df4d4
 
+http://localhost:8181/jeesite/f/scoreApi/queryByArticleid?token=28267553&userid=480f1b965cb748a18561242d0f7f7f6a&articleid=27b2670c3fca43c7a368a2e0a97df4d4
 查询用户积分日志
 
-http://120.26.241.215:8181/jeesite/f/scoreApi/queryByUserid?token=943619130&userid=480f1b965cb748a18561242d0f7f7f6a
+http://120.26.241.215:8181/jeesite/f/scoreApi/queryByUserid?token=28267553&userid=480f1b965cb748a18561242d0f7f7f6a
 添加患者
 http://localhost:8181/jeesite/f/patientApi/save?token=123456&userid=1&name=张三&sex=0&birthday=1990-12-12&age=23&mobile=13720098878&idNumber=130834198789876545&visitDt=2016-09-09&department=无&snType1=snType1&snNo1=snNo1&snType2=snType2&snNo2=snNo2&phone=01098909876&email=1@1.com&address=北京市&profession=医生&contact=李四&introduce=王五&remark=remark
 保存标签
