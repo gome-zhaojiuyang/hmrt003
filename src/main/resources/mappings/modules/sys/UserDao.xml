@@ -110,6 +110,9 @@
     	,a.token AS "token"
     	,a.openid AS "openid"
     	,a.income AS "income"
+    	,a.dept AS dept
+    	,a.prof AS prof
+    	,a.cert AS cert
     	<!-- ,
         r.id AS "roleList.id",
         r.office_id AS "roleList.office.id",
