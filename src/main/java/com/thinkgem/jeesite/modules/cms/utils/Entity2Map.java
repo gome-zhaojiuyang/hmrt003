@@ -82,7 +82,7 @@ public class Entity2Map<T> {
 			map.remove("posidList");
 			map.remove("posid");
 			map.remove("keywords");
-			map.remove("image");
+			//map.remove("image");
 			Iterator it = map.keySet().iterator();
 			while(it.hasNext()){
 				Object key = (Object)it.next();
