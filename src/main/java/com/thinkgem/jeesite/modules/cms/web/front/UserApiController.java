@@ -425,8 +425,12 @@ public class UserApiController extends BaseController{
 			if (!validateToken(request, response)) {
 				return;
 			}
+			String name = StringUtils.toString(request.getParameter("name"));
 			User user = new User();
 			user.setLevel("E");
+			if(StringUtils.isNotEmpty(name)){
+				user.setName(name);
+			}
 			List<User> userList = systemService.findUser(user);
 //			List<Map<String,String>> userMapList = new ArrayList<Map<String,String>>();
 //			for(User u : userList){

@@ -53,7 +53,10 @@ http://localhost:8181/jeesite/f/caseApi/queryById?token=123456&userid=1&id=XXX
 
 查询专家医生
 http://localhost:8181/jeesite/f/userApi/queryTargetDoctor?token=943619130&userid=480f1b965cb748a18561242d0f7f7f6a
+http://120.26.241.215:8181/jeesite/f/userApi/queryTargetDoctor?token=943619130&userid=480f1b965cb748a18561242d0f7f7f6a
 
+好友检索
+http://localhost:8181/jeesite/f/userApi/queryTargetDoctor?token=28267553&userid=480f1b965cb748a18561242d0f7f7f6a&name=王
 查询资料库列表信息
 http://localhost:8181/jeesite/f/infoRepoApi/queryInfoRepoList
 查询资料库资料详情信息
