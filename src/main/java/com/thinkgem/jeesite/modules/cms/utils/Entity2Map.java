@@ -62,10 +62,13 @@ public class Entity2Map<T> {
 				String createDate1= DateUtils.formatDate(createDate, "yyyy-MM-dd");
 				String createDate2= DateUtils.formatDate(createDate, "HH:mm");
 				String createDate3= DateUtils.formatDate(createDate, "yyyy-MM-dd HH:mm:ss");
+				String createDt= DateUtils.formatDate(createDate, "yyyy-MM-dd HH:mm");
 				map.put("createDate1", createDate1);
 				map.put("createDate2", createDate2);
 				map.put("createDate3", createDate3);
-				map.remove("createDt");
+				map.put("createDt", createDt);
+//				map.remove("createDt");
+				
 				map.remove("url");
 			}
 			map.remove("page");
