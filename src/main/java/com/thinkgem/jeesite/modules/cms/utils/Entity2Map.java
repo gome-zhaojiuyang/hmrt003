@@ -48,6 +48,26 @@ public class Entity2Map<T> {
 				map.remove("createDate");
 				map.remove("url");
 			}
+			if(map.get("createDt")!=null&&!"null".equals(map.get("createDt"))&&!"".equals(map.get("createDt"))){
+//				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.UK);
+				Date createDate = new Date();
+				try {
+					createDate = sdf.parse((String) map.get("createDt"));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//				Date createDate = DateUtils.parseDate(map.get("createDate"));
+				String createDate1= DateUtils.formatDate(createDate, "yyyy-MM-dd");
+				String createDate2= DateUtils.formatDate(createDate, "HH:mm");
+				String createDate3= DateUtils.formatDate(createDate, "yyyy-MM-dd HH:mm:ss");
+				map.put("createDate1", createDate1);
+				map.put("createDate2", createDate2);
+				map.put("createDate3", createDate3);
+				map.remove("createDt");
+				map.remove("url");
+			}
 			map.remove("page");
 			map.remove("class");
 			map.remove("global");
