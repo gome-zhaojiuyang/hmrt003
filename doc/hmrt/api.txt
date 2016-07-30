@@ -20,7 +20,7 @@ http://localhost:8181/jeesite/f/userApi/login?loginName=13720048836&password=111
 重置密码
 http://localhost:8181/jeesite/f/userApi/resetPwd?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&loginName=zjy002&password=zjy002&passwordNew=zjy222
 查询用户信息
-http://localhost:8181/jeesite/f/userApi/queryUserInfo?token=943619130&userid=480f1b965cb748a18561242d0f7f7f6a&targetUserid=480f1b965cb748a18561242d0f7f7f6a
+http://localhost:8181/jeesite/f/userApi/queryUserInfo?token=991361361&userid=6843736f37844ba89cf6dcec2031ea56&targetUserid=6843736f37844ba89cf6dcec2031ea56
 修改用户信息
 http://localhost:8181/jeesite/f/userApi/updateUserInfo?token=28267553&userid=480f1b965cb748a18561242d0f7f7f6a&name=张医生&hospital=北京医科大学&dept=XX科室&cert=XX医师证&prof=XX职称
 积分规则说明接口

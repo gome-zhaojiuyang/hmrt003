@@ -361,6 +361,7 @@
 			,token =#{token}
 			,openid =#{openid}
 			,income =#{income}
+			,name =#{name}
 			,password =#{password}
 			,cert =#{cert}
 			,dept =#{dept}
