@@ -56,7 +56,8 @@ public class UserUtils {
 	 * @return 取不到返回null
 	 */
 	public static User get(String id){
-		User user = (User)CacheUtils.get(USER_CACHE, USER_CACHE_ID_ + id);
+//		User user = (User)CacheUtils.get(USER_CACHE, USER_CACHE_ID_ + id);
+		User user = null;
 		if (user ==  null){
 			user = userDao.get(id);
 			if (user == null){
