@@ -3,7 +3,11 @@
  */
 package com.thinkgem.jeesite.modules.cms.web.front;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.cms.entity.Article;
@@ -281,10 +286,20 @@ public class CaseApiController extends BaseController {
 					pProfession = ","+pProfession;
 				}
 				a.setConditionInfo("患者"+pSex+pAge1+pProfession+","+a.getConditionInfo());
-				a.setpSex(null);
+				a.setpSex(pSex);
+				
 				a.setpAge(null);
+				a.setAge(a.getpAge1()+"岁");
+				a.setpAge1(null);
 				a.setpProfession(null);
 				a.setpName(null);
+				String visit= DateUtils.formatDate(a.getVisitDt(), "yyyy年MM月dd日");
+				a.setVisitDt1(visit);
+				a.setVisitDt(null);
+				a.setConditionInfo(null);
+				a.setUserPhoto(null);
+				a.setDiagnoseInfo(null);
+				a.setCreateDate(null);
 			}
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", page)));
 		} catch (Exception e) {

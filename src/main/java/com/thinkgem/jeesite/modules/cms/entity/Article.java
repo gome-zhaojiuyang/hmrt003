@@ -61,9 +61,26 @@ public class Article extends DataEntity<Article> {
     private String pSex	;
     private String pProfession	;
     private Date visitDt	;
+    private String visitDt1	;
+    private String age;
     
-    
-    private Integer commentcount;
+    public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public String getVisitDt1() {
+		return visitDt1;
+	}
+
+	public void setVisitDt1(String visitDt1) {
+		this.visitDt1 = visitDt1;
+	}
+
+	private Integer commentcount;
     private String content ;
 	
 
