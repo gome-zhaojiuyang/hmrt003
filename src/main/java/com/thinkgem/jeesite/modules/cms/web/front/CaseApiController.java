@@ -296,9 +296,9 @@ public class CaseApiController extends BaseController {
 				String visit= DateUtils.formatDate(a.getVisitDt(), "yyyy年MM月dd日");
 				a.setVisitDt1(visit);
 				a.setVisitDt(null);
-				a.setConditionInfo(null);
+//				a.setConditionInfo(null);
 				a.setUserPhoto(null);
-				a.setDiagnoseInfo(null);
+//				a.setDiagnoseInfo(null);
 				a.setCreateDate(null);
 			}
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", page)));
