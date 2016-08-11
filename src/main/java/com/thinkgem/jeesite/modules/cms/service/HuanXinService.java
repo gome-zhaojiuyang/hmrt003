@@ -27,16 +27,17 @@ public class HuanXinService {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-//		/**
-//         * 注册IM用户[单个]
-//         */
-//        ObjectNode datanode = JsonNodeFactory.instance.objectNode();
-//        datanode.put("username","kenshinnuser10001");
-//        datanode.put("password", Constants.DEFAULT_PASSWORD);
-//        ObjectNode createNewIMUserSingleNode = createNewIMUserSingle(datanode);
-//        if (null != createNewIMUserSingleNode) {
-//            LOGGER.info("注册IM用户[单个]: " + createNewIMUserSingleNode.toString());
-//        }
+		/**
+         * 注册IM用户[单个]
+         */
+        ObjectNode datanode = JsonNodeFactory.instance.objectNode();
+        datanode.put("username","zhubxxx");
+        datanode.put("password", Constants.DEFAULT_PASSWORD);
+        datanode.put("nickname", "zhubxxx");
+        ObjectNode createNewIMUserSingleNode = createNewIMUserSingle(datanode);
+        if (null != createNewIMUserSingleNode) {
+            LOGGER.info("注册IM用户[单个]: " + createNewIMUserSingleNode.toString());
+        }
         
 //      /**
 //      * IM用户登录
@@ -86,20 +87,20 @@ public class HuanXinService {
 //         LOGGER.info("删除IM用户[单个]: " + deleteIMUserByuserNameNode.toString());
 //     }
         
-        /**
-        * 聊天消息 获取最新的20条记录
-        **/
-        ObjectNode queryStrNode = factory.objectNode();
-        //queryStrNode.put("ql", "select+*+where+from='fumk'+and+to='mm2'");
-        //queryStrNode.put("ql", "select+*+where+from='fumk'");
-        //queryStrNode.put("ql", "select+*+where+to='1465110593908'");
-        //queryStrNode.put("limit", "20");
-        //queryStrNode.put("ql", "select+*+where+chat_type='chat'");
-        queryStrNode.put("ql", "select+*+where+timestamp>1468759700002");
-        queryStrNode.put("limit", "1000");
-        //queryStrNode.put("chat_type", "groupchat");
-        ObjectNode messages = getChatMessages(queryStrNode);
-        System.out.println(messages);
+//        /**
+//        * 聊天消息 获取最新的20条记录
+//        **/
+//        ObjectNode queryStrNode = factory.objectNode();
+//        //queryStrNode.put("ql", "select+*+where+from='fumk'+and+to='mm2'");
+//        //queryStrNode.put("ql", "select+*+where+from='fumk'");
+//        //queryStrNode.put("ql", "select+*+where+to='1465110593908'");
+//        //queryStrNode.put("limit", "20");
+//        //queryStrNode.put("ql", "select+*+where+chat_type='chat'");
+//        queryStrNode.put("ql", "select+*+where+timestamp>1468759700002");
+//        queryStrNode.put("limit", "1000");
+//        //queryStrNode.put("chat_type", "groupchat");
+//        ObjectNode messages = getChatMessages(queryStrNode);
+//        System.out.println(messages);
 		
 	}
 	

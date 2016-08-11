@@ -61,8 +61,14 @@ public class UserApiController extends BaseController{
 				return ;
 			}
 			
+			if (StringUtils.isEmpty(request.getParameter("name"))) {
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,name不能为空！", "")));
+				return ;
+			}
+			
 			String loginName 	= StringUtils.toString(request.getParameter("loginName"));
 			String password 	= StringUtils.toString(request.getParameter("password"));
+			String name = StringUtils.toString(request.getParameter("name"));
 			String vcode = StringUtils.toString(request.getParameter("vcode"));
 			//这是邀请码  备用
 			String inviteCode = StringUtils.toString(request.getParameter("inviteCode")); 
@@ -89,6 +95,7 @@ public class UserApiController extends BaseController{
 			ObjectNode datanode = JsonNodeFactory.instance.objectNode();
 		    datanode.put("username",loginName);
 		    datanode.put("password", password);
+		    datanode.put("nickname", name);
 		    ObjectNode createNewIMUserSingleNode = HuanXinService.createNewIMUserSingle(datanode);
 		    if (null != createNewIMUserSingleNode) {
 		    	logger.info("注册IM用户[单个]: " + createNewIMUserSingleNode.toString());
@@ -111,7 +118,7 @@ public class UserApiController extends BaseController{
 			roleList.add(role);
 			user.setRoleList(roleList);
 			user.setPassword(password);
-			user.setName(loginName);
+			user.setName(name);
 			user.setToken(token);
 			user.setCreateDate(new Date());
 			systemService.saveUser(user);
