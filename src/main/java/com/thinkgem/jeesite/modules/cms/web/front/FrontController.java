@@ -101,8 +101,8 @@ public class FrontController extends BaseController{
 	 */
 	@RequestMapping(value = "list-{categoryId}${urlSuffix}")
 	public String list(@PathVariable String categoryId, @RequestParam(required=false, defaultValue="1") Integer pageNo,
-			@RequestParam(required=false, defaultValue="15") Integer pageSize, Model model) {
-		Category category = categoryService.get(categoryId);
+			@RequestParam(required=false, defaultValue="2") Integer pageSize, Model model) {
+		Category category = categoryService.get(categoryId); 
 		if (category==null){
 			Site site = CmsUtils.getSite(Site.defaultSiteId());
 			model.addAttribute("site", site);
@@ -169,6 +169,11 @@ public class FrontController extends BaseController{
 			            CmsUtils.addViewConfigAttribute(model, category);
 			            CmsUtils.addViewConfigAttribute(model, article.getViewConfig());
 						return "modules/cms/front/themes/"+site.getTheme()+"/"+getTpl(article);
+					}else{
+						for(Article art:page.getList()){
+							art.setArticleData(articleDataService.get(art.getId()));
+						}
+						
 					}
 				}else if ("link".equals(category.getModule())){
 					Page<Link> page = new Page<Link>(1, -1);

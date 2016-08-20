@@ -8,6 +8,9 @@
 	<meta name="decorator" content="cms_default_${site.theme}"/>
 	<meta name="description" content="${article.description} ${category.description}" />
 	<meta name="keywords" content="${article.keywords} ${category.keywords}" />
+	<link rel="stylesheet" type="text/css" href="${ctxStatic}/css/style.css">
+    <script src="${ctxStatic}/js/zepto.min.js"></script>
+    <script src="${ctxStatic}/js/swipe.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			if ("${category.allowComment}"=="1" && "${article.articleData.allowComment}"=="1"){
@@ -41,6 +44,38 @@
 		    <cms:frontCurrentPosition category="${category}"/>
 		 </ul>
 	   </div> --%>
+		<div class="wrapper">
+			<div class="container">
+				<div class="header">
+					${article.title} <span class="data"><fmt:formatDate value="${article.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+				</div>
+				<div class="content">
+					<%-- <div class="banner">
+						<img src="${ctxStatic}/images/banner.jpg">
+					</div> --%>
+					<div class="paragraph">
+						${article.articleData.content}
+					</div>
+					<%-- <div class="operator clear">
+						<span class="likes">点击数：${article.hits}</span>
+					</div>
+					<div class="comment">
+						<ul class="comment-list">
+							<c:forEach items="${relationList}" var="relation">
+								<li><span class="nickname">
+								<a href="${ctx}/view-${relation[0]}-${relation[1]}${urlSuffix}">${fns:abbr(relation[2],30)}</a>
+								</span>
+								</li>
+							</c:forEach>
+						</ul>
+					</div> --%>
+				</div>
+			</div>
+		</div>
+
+
+
+		<%-- 
 	   <div class="span10">
 	     <div class="row">
 	       <div class="span10">
@@ -49,7 +84,7 @@
 			<div>${article.articleData.content}</div>
 			<div style="border-top:1px solid #ddd;padding:10px;margin:25px 0;">发布者：${article.user.name} &nbsp; 点击数：${article.hits} &nbsp; 发布时间：<fmt:formatDate value="${article.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/> &nbsp; 更新时间：<fmt:formatDate value="${article.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
   	       </div>
-  	     </div>
+  	     </div> --%>
 	     <!-- <div class="row">
 			<div id="comment" class="hide span10">
 				正在加载评论...
