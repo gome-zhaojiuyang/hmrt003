@@ -174,16 +174,17 @@ img {
     margin: 2.8125%;
     padding-top: 22.65625%;*/
     position: relative;
-    margin-top:10%;
+    margin-top:5%;
     float: left;
     background-color: #f8f8f8;
+    /*padding-bottom: 250px;*/
 }
 .item .item-right{
     width: 63.125%;
     float: right;
     padding: 0 4.6875%;
     box-sizing: border-box;
-    margin-top: 5%;
+    margin-bottom: 5%;
 }
 .item .item-right .item-title{
     font-size:1.1666666667rem;

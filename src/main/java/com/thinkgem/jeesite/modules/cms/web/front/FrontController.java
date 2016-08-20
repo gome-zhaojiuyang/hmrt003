@@ -101,7 +101,7 @@ public class FrontController extends BaseController{
 	 */
 	@RequestMapping(value = "list-{categoryId}${urlSuffix}")
 	public String list(@PathVariable String categoryId, @RequestParam(required=false, defaultValue="1") Integer pageNo,
-			@RequestParam(required=false, defaultValue="2") Integer pageSize, Model model) {
+			@RequestParam(required=false, defaultValue="20000") Integer pageSize, Model model) {
 		Category category = categoryService.get(categoryId); 
 		if (category==null){
 			Site site = CmsUtils.getSite(Site.defaultSiteId());

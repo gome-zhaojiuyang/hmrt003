@@ -14,7 +14,7 @@
 	
 </head>
 <body>
-	<div class="row">
+	<div class="row wrapper list-wrapper">
 	  <%--  <div class="span2">
 	   	 <h4>栏目列表</h4>
 		 <ol>
@@ -34,12 +34,14 @@
   	  
   	  
 	   <div class="container ">
+	   			
 	   		 <c:if test="${category.module eq 'article'}">
 			<c:forEach items="${page.list}" var="article">
+				<section>
 				 <div class="group clear">
                 <div class="item ">
                     <div class="item-left">
-                        <img src="http://120.26.241.215:8181/${article.image}" width="100px" heiht="100px">
+                        <img src="http://120.26.241.215:8181/${article.image}" width="100px" height="140px">
                     </div>
                     <div class="item-right">
                         <p class="item-title"><a href="${article.url}" style="color:${article.color}" title="${article.title }">${fns:abbr(article.title,18)}</a></p>
@@ -47,9 +49,10 @@
                     </div>
                 </div>
             </div>
+                </section>
 				<%-- <li><span class="pull-right"><fmt:formatDate value="${article.updateDate}" pattern="yyyy.MM.dd"/></span><a href="${article.url}" style="color:${article.color}">${fns:abbr(article.title,96)}</a></li> --%>
 			</c:forEach>
-			<div class="pagination">${page}</div>
+			<%-- <div class="pagination">${page}</div> --%>
 			<script type="text/javascript">
 				function page(n,s){
 					location="${ctx}/list-${category.id}${urlSuffix}?pageNo="+n+"&pageSize="+s;

@@ -13,7 +13,11 @@
 3.服务器IP是120.26.241.215，替换下面URL中的localhost即可！
 
 -----------------------------------华丽丽的分割线--------------------------------------------------
+病例列表
 http://localhost:8181/jeesite/f/list-7d15c72b33594cf0bdb5b1e7c0ad251e.html
+http://120.26.241.215:8181/jeesite/f/list-7d15c72b33594cf0bdb5b1e7c0ad251e.html
+资料库列表
+http://120.26.241.215:8181/jeesite/f/list-fab0ae2c1c0c4aa7ac1d9d60f6f8973b.html
 登录
 http://localhost:8181/jeesite/f/userApi/login?loginName=zjy001&password=zjy001
 http://localhost:8181/jeesite/f/userApi/login?loginName=13720048836&password=1111111
