@@ -11,18 +11,23 @@
                      userid  用户ID
                      token   登录返回的临时用户校验令牌
 3.服务器IP是120.26.241.215，替换下面URL中的localhost即可！
+轮播图
+http://120.26.241.215:8181/jeesite/f/mainApi/hdscrollImages
 
 -----------------------------------华丽丽的分割线--------------------------------------------------
 资源上传
 http://localhost:8181/jeesite/f/uploadApi/uploadImages?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&caseid=19d4f257076447fdaea2a35ff67630d3&imgName=test.jpg&imgStr=11111
+http://120.26.241.215:8181/jeesite/f/uploadApi/uploadImages?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&caseid=19d4f257076447fdaea2a35ff67630d3&imgName=test.jpg&imgStr=11111
 
 根据病例ID查看图片列表
 http://localhost:8181/jeesite/f/caseApi/queryImagesByCaseId?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&caseid=19d4f257076447fdaea2a35ff67630d3
+http://120.26.241.215:8181/jeesite/f/caseApi/queryImagesByCaseId?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&caseid=19d4f257076447fdaea2a35ff67630d3
 
 病例列表
 http://localhost:8181/jeesite/f/list-7d15c72b33594cf0bdb5b1e7c0ad251e.html
 http://120.26.241.215:8181/jeesite/f/list-7d15c72b33594cf0bdb5b1e7c0ad251e.html
 资料库列表
+http://localhost:8181/jeesite/f/list-fab0ae2c1c0c4aa7ac1d9d60f6f8973b.html
 http://120.26.241.215:8181/jeesite/f/list-fab0ae2c1c0c4aa7ac1d9d60f6f8973b.html
 登录
 http://localhost:8181/jeesite/f/userApi/login?loginName=zjy001&password=zjy001
@@ -50,6 +55,7 @@ http://localhost:8181/jeesite/f/tagsApi/deleteUserTag?token=123456&userid=1&id=x
 http://localhost:8181/jeesite/f/caseApi/save?token=123456&userid=1&patientid=b7014b49011e4a6489888394806ad7a1&tagsids=994dc7a107574325b99766470f1d3081,81bb226ba28140b38ca34f0e2f0d0fbb&diagnoseInfo=诊断&conditionInfo=病情
 修改病例
 http://localhost:8181/jeesite/f/caseApi/updateById?token=123456&userid=1&id=XXX&patientid=b7014b49011e4a6489888394806ad7a1&tagsids=994dc7a107574325b99766470f1d3081,81bb226ba28140b38ca34f0e2f0d0fbb&diagnoseInfo=诊断&conditionInfo=病情
+http://120.26.241.215:8181/jeesite/f/caseApi/updateById?token=123456&userid=1&id=XXX&patientid=b7014b49011e4a6489888394806ad7a1&tagsids=994dc7a107574325b99766470f1d3081,81bb226ba28140b38ca34f0e2f0d0fbb&diagnoseInfo=诊断&conditionInfo=病情
 删除病例
 http://localhost:8181/jeesite/f/caseApi/deleteById?token=123456&userid=1&id=XXX
 查询患者

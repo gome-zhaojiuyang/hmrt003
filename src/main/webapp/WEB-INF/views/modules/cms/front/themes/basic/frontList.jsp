@@ -37,18 +37,18 @@
 	   			
 	   		 <c:if test="${category.module eq 'article'}">
 			<c:forEach items="${page.list}" var="article">
-				<section>
-				 <div class="group clear">
-                <div class="item ">
-                    <div class="item-left">
-                        <img src="http://120.26.241.215:8181/${article.image}" width="100px" height="140px">
-                    </div>
-                    <div class="item-right">
-                        <p class="item-title"><a href="${article.url}" style="color:${article.color}" title="${article.title }">${fns:abbr(article.title,18)}</a></p>
-                        <p class="item-desc">${fns:abbr(article.articleData.content,200)}</p>
-                    </div>
-                </div>
-            </div>
+				<section >
+				 <div class="group clear" onclick="javascript:location.href='${article.url}'">
+	                <div class="item ">
+	                    <div class="item-left">
+	                        <img src="http://120.26.241.215:8181/${article.image}" width="100px" height="140px">
+	                    </div>
+	                    <div class="item-right">
+	                        <p class="item-title"><a href="${article.url}" style="color:${article.color}" title="${article.title }">${fns:abbr(article.title,18)}</a></p>
+	                        <p class="item-desc">${fns:abbr(article.articleData.content,200)}</p>
+	                    </div>
+	                </div>
+	            </div>
                 </section>
 				<%-- <li><span class="pull-right"><fmt:formatDate value="${article.updateDate}" pattern="yyyy.MM.dd"/></span><a href="${article.url}" style="color:${article.color}">${fns:abbr(article.title,96)}</a></li> --%>
 			</c:forEach>
