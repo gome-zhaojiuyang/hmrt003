@@ -91,7 +91,7 @@ public class CaseApiController extends BaseController {
 //			String tagsids = StringUtils.toString(request.getParameter("tagsids"));
 			String diagnoseInfo = StringUtils.toString(request.getParameter("diagnoseInfo"));
 			String conditionInfo = StringUtils.toString(request.getParameter("conditionInfo"));
-
+			
 			HmrtPatient hmrtPatient = hmrtPatientService.get(patientid);
 			if(hmrtPatient==null){
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,patientid["+patientid+"]错误，无此患者！", "")));
@@ -104,8 +104,12 @@ public class CaseApiController extends BaseController {
 			caseinfo.setIsarchive("0");//// 0否 1是 是否归档到病例库 默认1
 			caseinfo.setTitle(user.getName() + "添加病例信息");
 			caseinfo.setCategory(new Category("3d1a11de802c4e99a210c4650c816660"));// 资料库
-			caseinfo.setDiagnoseInfo(diagnoseInfo);
-			caseinfo.setConditionInfo(conditionInfo);
+			if(!"".equals(diagnoseInfo)){
+				caseinfo.setDiagnoseInfo(diagnoseInfo);
+			}
+			if(!"".equals(conditionInfo)){
+				caseinfo.setConditionInfo(conditionInfo);
+			}
 			caseinfo.setUser(user);
 			caseinfo.setPatientid(patientid);
 			caseinfo.setCreateBy(user);
@@ -285,12 +289,11 @@ public class CaseApiController extends BaseController {
 				}
 				a.setConditionInfo("患者"+pSex+pAge1+pProfession+","+a.getConditionInfo());
 				a.setpSex(pSex);
-				
 				a.setpAge(null);
 				a.setAge(a.getpAge1()+"岁");
 				a.setpAge1(null);
 				a.setpProfession(null);
-				a.setpName(null);
+//				a.setpName(null);
 				String visit= DateUtils.formatDate(a.getVisitDt(), "yyyy年MM月dd日");
 				a.setVisitDt1(visit);
 				a.setVisitDt(null);
@@ -308,35 +311,7 @@ public class CaseApiController extends BaseController {
 		
 	}
 	
-	/**
-	 * 
-	 * 查询用户病例资源图片接口
-	 */
-	@RequestMapping(value = "queryImagesByCaseId")
-	public void queryImagesById(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-		try {
-			if (!validate(request, response)) {
-				return;
-			}
-			if (!validateToken(request, response)) {
-				return;
-			}
-			if (StringUtils.isEmpty(request.getParameter("caseid"))) {
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,caseid不能为空！", "")));
-				return;
-			}
-			String caseid = StringUtils.toString(request.getParameter("caseid"));
-			HmrtUpload hmrtUpload=new HmrtUpload();
-			hmrtUpload.setCaseid(caseid);
-			List<HmrtUpload> list = hmrtUploadService.findList(hmrtUpload);
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", list)));
-		} catch (Exception e) {
-			e.printStackTrace();
-			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
-			return;
-		}
-		
-	}
+	
 	/**
 	 * 
 	 * 查询用户病例详情接口

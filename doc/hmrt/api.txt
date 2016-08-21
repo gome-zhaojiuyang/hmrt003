@@ -61,6 +61,7 @@ http://localhost:8181/jeesite/f/caseApi/deleteById?token=123456&userid=1&id=XXX
 查询患者
 http://localhost:8181/jeesite/f/patientApi/queryById?token=123456&userid=1&id=XXX
 查询我的病例列表
+http://localhost:8181/jeesite/f/caseApi/queryListByUserid?token=1406648756&userid=6843736f37844ba89cf6dcec2031ea56&pageNo=1
 http://120.26.241.215:8181/jeesite/f/caseApi/queryListByUserid?token=123456&userid=1&pageNo=1
 http://localhost:8181/jeesite/f/caseApi/queryListByUserid?token=902038182&userid=baa93fdc03ba4299a775341dba33d5a2&pageNo=1
 查询病例详情

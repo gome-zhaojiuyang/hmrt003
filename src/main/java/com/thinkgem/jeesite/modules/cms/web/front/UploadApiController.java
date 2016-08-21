@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +45,7 @@ public class UploadApiController extends BaseController {
 	 * 上传图片
 	 */
 	@RequestMapping(value = "uploadImages")
-	public void queryActivityList(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+	public void uploadImages(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		try {
 			if (!validate(request, response)) {
 				return;
@@ -52,14 +53,7 @@ public class UploadApiController extends BaseController {
 			if (!validateToken(request, response)) {
 				return;
 			}
-//			//病例表 Article
-//			Article caseinfo = new Article();
-//			caseinfo.setCategory(new Category("a1699b0aedce4cdb9c0551d4b36568b0"));
-//			caseinfo.setDelFlag(Article.DEL_FLAG_NORMAL);
-//			//caseinfo.setIsarchive("1");//0普通病例 1归档病例 属于病例库
-//			List<Article> list = articleService.findList(caseinfo);
 			//获取存储路径  
-//		    HttpServletRequest request = ServletActionContext.getRequest();  
 			if (StringUtils.isEmpty(request.getParameter("caseid"))) {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,caseid不能为空！", "")));
 				return ;
@@ -83,33 +77,43 @@ public class UploadApiController extends BaseController {
 			String title = request.getParameter("title") ;// 
 			String type = request.getParameter("type") ;// 010图片  020文字
 			String imgNames = request.getParameter("imgNames") ;
-			String imgPaths = request.getParameter("imgPaths") ;
+//			String imgPaths = request.getParameter("imgPaths") ;
 			String desc = "" ;
 			if("010".equals(type)){
-				if(imgNames.split(",").length!=imgPaths.split(",").length){
-					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,图片名称和路径个数不匹配不能为空！", "")));
-					return ;
+//				if(imgNames.split(",").length!=imgPaths.split(",").length){
+//					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,图片名称和路径个数不匹配不能为空！", "")));
+//					return ;
+//				}
+				String[] imgName =imgNames.split(",");
+				HmrtUpload hmrtUpload = new HmrtUpload();
+				hmrtUpload.setGroupid(IdGen.uuid());
+				hmrtUpload.setCreateDate(new Date());
+				hmrtUpload.setUpdateDate(new Date());
+				hmrtUpload.setUserid(request.getParameter("userid"));
+				hmrtUpload.setCaseid(request.getParameter("caseid"));
+				hmrtUpload.setTitle(title);
+				hmrtUpload.setRemark("保存图片信息");
+				hmrtUpload.setType(type);
+				for(int i=0;i<imgName.length;i++){
+					String projectPath = "upload";
+				    String path = Global.getConfig("webroot.basedir") +File.separator+projectPath; 
+				    System.out.println("upload>>>path"+path);
+				    File file = new File(path);  
+				    if(!file.exists()){  
+				        file.mkdir();  
+				    }  
+				    String visitPath = Global.getConfig("cas.project.url") 
+				    		+ File.separator + projectPath + 
+				    		File.separator + imgName[i];
+				    String imgPath  = path + File.separator + imgName[i];  
+				    System.out.println("imgPath"+imgPath);
+				    System.out.println("visitPath"+visitPath);
+				    String imgStr = request.getParameter("imgStr");  
+				    boolean flag = string2Image(imgStr, imgPath); 
+				    hmrtUpload.setPath(visitPath);
+				    hmrtUploadService.save(hmrtUpload);
 				}
-				String projectPath = "upload";
-			    String path = Global.getConfig("webroot.basedir") +File.separator+projectPath; 
-			    System.out.println("upload>>>path"+path);
-			    File file = new File(path);  
-			    if(!file.exists()){  
-			        file.mkdir();  
-			    }  
-			    String visitPath = Global.getConfig("cas.project.url") + File.separator + projectPath + File.separator +request.getParameter("imgName");
-			    String imgPath  = path + File.separator + request.getParameter("imgName");  
-			    System.out.println("imgPath"+imgPath);
-			    System.out.println("visitPath"+visitPath);
-			    String imgStr = request.getParameter("imgStr");  
-			    boolean flag = string2Image(imgStr, imgPath); 
-			    HmrtUpload hmrtUpload = new HmrtUpload();
-			    hmrtUpload.setUserid(request.getParameter("userid"));
-			    hmrtUpload.setCaseid(request.getParameter("caseid"));
-			    hmrtUpload.setPath(visitPath);
-			    hmrtUpload.setRemark(request.getParameter("imgName"));
-			    
-			    hmrtUploadService.save(hmrtUpload);
+				
 				
 			}if("020".equals(type)){
 				if (StringUtils.isEmpty(request.getParameter("desc"))) {
@@ -122,12 +126,13 @@ public class UploadApiController extends BaseController {
 			    hmrtUpload.setCaseid(request.getParameter("caseid"));
 			    hmrtUpload.setGroupid(IdGen.uuid());
 			    hmrtUpload.setTitle(title);
-			    hmrtUpload.setRemark(request.getParameter("imgName"));
+			    hmrtUpload.setDesc(desc);
+			    hmrtUpload.setRemark("保存文字信息");
 			    hmrtUpload.setCreateDate(new Date());
 			    hmrtUpload.setUpdateDate(new Date());
+			    hmrtUpload.setType(type);
 			    hmrtUploadService.save(hmrtUpload);
 			}
-//		    JacksonUtil.responseJSON(response, flag);  
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ConstantsConfig.RESULT_SUCCESS)));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -136,6 +141,36 @@ public class UploadApiController extends BaseController {
 		}
 		
 	}
+	/**
+	 * 
+	 * 查询用户病例资源图片接口
+	 */
+	@RequestMapping(value = "queryImagesByCaseId")
+	public void queryImagesById(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		try {
+			if (!validate(request, response)) {
+				return;
+			}
+			if (!validateToken(request, response)) {
+				return;
+			}
+			if (StringUtils.isEmpty(request.getParameter("caseid"))) {
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,caseid不能为空！", "")));
+				return;
+			}
+			String caseid = StringUtils.toString(request.getParameter("caseid"));
+			HmrtUpload hmrtUpload=new HmrtUpload();
+			hmrtUpload.setCaseid(caseid);
+			List<HmrtUpload> list = hmrtUploadService.findList(hmrtUpload);
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", list)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
+			return;
+		}
+		
+	}
+	
 	/** 
 	 * 通过BASE64Decoder解码，并生成图片 
 	 * @param imgStr 解码后的string 
