@@ -85,8 +85,7 @@ public class CaseApiController extends BaseController {
 //				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,conditionInfo不能为空！", "")));
 //				return;
 //			}
-			// String userid =
-			// StringUtils.toString(request.getParameter("userid"));
+			String id = StringUtils.toString(request.getParameter("id"));
 			String patientid = StringUtils.toString(request.getParameter("patientid"));
 //			String tagsids = StringUtils.toString(request.getParameter("tagsids"));
 			String diagnoseInfo = StringUtils.toString(request.getParameter("diagnoseInfo"));
@@ -104,6 +103,9 @@ public class CaseApiController extends BaseController {
 			caseinfo.setIsarchive("0");//// 0否 1是 是否归档到病例库 默认1
 			caseinfo.setTitle(user.getName() + "添加病例信息");
 			caseinfo.setCategory(new Category("3d1a11de802c4e99a210c4650c816660"));// 资料库
+			if(!"".equals(id)){
+				caseinfo.setId(id);
+			}
 			if(!"".equals(diagnoseInfo)){
 				caseinfo.setDiagnoseInfo(diagnoseInfo);
 			}

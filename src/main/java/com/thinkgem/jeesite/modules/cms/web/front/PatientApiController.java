@@ -53,6 +53,7 @@ public class PatientApiController extends BaseController{
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,userid不能为空！", "")));
 				return ;
 			}
+			String id = StringUtils.toString(request.getParameter("id"));
 			String userid = StringUtils.toString(request.getParameter("userid"));
 			String name = StringUtils.toString(request.getParameter("name"));
 			String sex = StringUtils.toString(request.getParameter("sex"));
@@ -79,6 +80,9 @@ public class PatientApiController extends BaseController{
 			
 			//保存 
 			HmrtPatient hmrtPatient = new HmrtPatient() ;
+			if(!"".equals(id)){
+				hmrtPatient.setId(id);
+			}
 			hmrtPatient.setUserid(userid);
 			hmrtPatient.setAddress(address);
 			hmrtPatient.setAge(age);
