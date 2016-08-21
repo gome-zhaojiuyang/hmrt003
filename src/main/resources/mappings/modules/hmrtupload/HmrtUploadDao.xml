@@ -21,6 +21,19 @@
 	<sql id="hmrtUploadJoins">
 	</sql>
     
+	<select id="getResByCaseId" resultType="HmrtUpload">
+		SELECT  GROUP_CONCAT( t.path) as path,t.descText,t.title,t.groupid ,t.type
+		FROM hmrt_upload t
+		<where>
+				<if test="caseid != null and caseid != ''">
+					AND t.caseid = #{caseid} 
+				</if>
+				<if test="status != null and status != ''">
+					AND t.status = #{status} 
+				</if>
+		</where>
+ 		GROUP BY  t.groupid
+	</select>
 	<select id="get" resultType="HmrtUpload">
 		SELECT 
 			<include refid="hmrtUploadColumns"/>

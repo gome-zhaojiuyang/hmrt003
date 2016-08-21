@@ -3,8 +3,6 @@
  */
 package com.thinkgem.jeesite.modules.cms.web.front;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,7 +27,6 @@ import com.thinkgem.jeesite.modules.hmrtarticletags.entity.HmrtArticleTags;
 import com.thinkgem.jeesite.modules.hmrtarticletags.service.HmrtArticleTagsService;
 import com.thinkgem.jeesite.modules.hmrtpatient.entity.HmrtPatient;
 import com.thinkgem.jeesite.modules.hmrtpatient.service.HmrtPatientService;
-import com.thinkgem.jeesite.modules.hmrtupload.entity.HmrtUpload;
 import com.thinkgem.jeesite.modules.hmrtupload.service.HmrtUploadService;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 

@@ -22,6 +22,9 @@ import com.thinkgem.jeesite.modules.hmrtupload.dao.HmrtUploadDao;
 @Transactional(readOnly = true)
 public class HmrtUploadService extends CrudService<HmrtUploadDao, HmrtUpload> {
 
+	public List<HmrtUpload> getResByCaseId(HmrtUpload hmrtUpload) {
+		return dao.getResByCaseId(hmrtUpload);
+	}
 	public HmrtUpload get(String id) {
 		return super.get(id);
 	}

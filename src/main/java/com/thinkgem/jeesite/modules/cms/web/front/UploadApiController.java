@@ -26,6 +26,7 @@ import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.hmrtupload.entity.HmrtUpload;
 import com.thinkgem.jeesite.modules.hmrtupload.service.HmrtUploadService;
+import com.thoughtworks.xstream.core.ReferenceByIdMarshaller.IDGenerator;
 
 /**
  * 网站Controller
@@ -62,38 +63,33 @@ public class UploadApiController extends BaseController {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,title不能为空！", "")));
 				return ;
 			}
-			if (StringUtils.isEmpty(request.getParameter("imgNames"))) {
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,imgNames不能为空！", "")));
-				return ;
-			}
-			if (StringUtils.isEmpty(request.getParameter("imgPaths"))) {
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,imgPaths不能为空！", "")));
-				return ;
-			}
 			if (StringUtils.isEmpty(request.getParameter("type"))) {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,type不能为空！", "")));
 				return ;
 			}
+			String userid = request.getParameter("userid") ;// 
+			String caseid = request.getParameter("caseid") ;// 
 			String title = request.getParameter("title") ;// 
 			String type = request.getParameter("type") ;// 010图片  020文字
-			String imgNames = request.getParameter("imgNames") ;
-//			String imgPaths = request.getParameter("imgPaths") ;
 			
 			if("010".equals(type)){
-//				if(imgNames.split(",").length!=imgPaths.split(",").length){
-//					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,图片名称和路径个数不匹配不能为空！", "")));
-//					return ;
-//				}
+				if (StringUtils.isEmpty(request.getParameter("imgNames"))) {
+					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,imgNames不能为空！", "")));
+					return ;
+				}
+				if (StringUtils.isEmpty(request.getParameter("imgStrs"))) {
+					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,imgStrs不能为空！", "")));
+					return ;
+				}
+				String imgNames = request.getParameter("imgNames") ;
+				String imgStrs = request.getParameter("imgStrs") ;
+				if(imgNames.split(",").length!=imgStrs.split(",").length){
+					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,图片名称和图片字符流个数不匹配不能为空！", "")));
+					return ;
+				}
+				
 				String[] imgName =imgNames.split(",");
-				HmrtUpload hmrtUpload = new HmrtUpload();
-				hmrtUpload.setGroupid(IdGen.uuid());
-				hmrtUpload.setCreateDate(new Date());
-				hmrtUpload.setUpdateDate(new Date());
-				hmrtUpload.setUserid(request.getParameter("userid"));
-				hmrtUpload.setCaseid(request.getParameter("caseid"));
-				hmrtUpload.setTitle(title);
-				hmrtUpload.setRemark("保存图片信息");
-				hmrtUpload.setType(type);
+				String groupid = IdGen.uuid();
 				for(int i=0;i<imgName.length;i++){
 					String projectPath = "upload";
 				    String path = Global.getConfig("webroot.basedir") +File.separator+projectPath; 
@@ -108,8 +104,18 @@ public class UploadApiController extends BaseController {
 				    String imgPath  = path + File.separator + imgName[i];  
 				    System.out.println("imgPath"+imgPath);
 				    System.out.println("visitPath"+visitPath);
-				    String imgStr = request.getParameter("imgStr");  
+				    String imgStr = imgStrs.split(",")[i];  
 				    boolean flag = string2Image(imgStr, imgPath); 
+				    HmrtUpload hmrtUpload = new HmrtUpload();
+					hmrtUpload.setGroupid(groupid);
+					hmrtUpload.setCreateDate(new Date());
+					hmrtUpload.setUpdateDate(new Date());
+					hmrtUpload.setUserid(userid);
+					hmrtUpload.setCaseid(caseid);
+					hmrtUpload.setTitle(title);
+					hmrtUpload.setRemark("保存图片信息");
+					hmrtUpload.setType(type);
+					hmrtUpload.setStatus("010");
 				    hmrtUpload.setPath(visitPath);
 				    hmrtUploadService.save(hmrtUpload);
 				}
@@ -120,17 +126,18 @@ public class UploadApiController extends BaseController {
 					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,descText不能为空！", "")));
 					return ;
 				}
-				String  desctext = request.getParameter("desctext");
+				String  descText = request.getParameter("descText");
 				HmrtUpload hmrtUpload = new HmrtUpload();
-			    hmrtUpload.setUserid(request.getParameter("userid"));
-			    hmrtUpload.setCaseid(request.getParameter("caseid"));
+			    hmrtUpload.setUserid(userid);
+			    hmrtUpload.setCaseid(caseid);
 			    hmrtUpload.setGroupid(IdGen.uuid());
 			    hmrtUpload.setTitle(title);
-			    hmrtUpload.setDesctext(desctext);
+			    hmrtUpload.setDesctext(descText);
 			    hmrtUpload.setRemark("保存文字信息");
 			    hmrtUpload.setCreateDate(new Date());
 			    hmrtUpload.setUpdateDate(new Date());
 			    hmrtUpload.setType(type);
+			    hmrtUpload.setStatus("010");
 			    hmrtUploadService.save(hmrtUpload);
 			}
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ConstantsConfig.RESULT_SUCCESS)));
@@ -162,7 +169,7 @@ public class UploadApiController extends BaseController {
 			HmrtUpload hmrtUpload=new HmrtUpload();
 			hmrtUpload.setCaseid(caseid);
 			hmrtUpload.setStatus("010");//  状态010启用  020禁用
-			List<HmrtUpload> list = hmrtUploadService.findList(hmrtUpload);
+			List<HmrtUpload> list = hmrtUploadService.getResByCaseId(hmrtUpload);
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", list)));
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -16,11 +16,15 @@ http://120.26.241.215:8181/jeesite/f/mainApi/hdscrollImages
 
 -----------------------------------华丽丽的分割线--------------------------------------------------
 资源上传
-http://localhost:8181/jeesite/f/uploadApi/uploadImages?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&caseid=19d4f257076447fdaea2a35ff67630d3&imgName=test.jpg&imgStr=11111
+http://localhost:8181/jeesite/f/uploadApi/uploadImages?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&caseid=19d4f257076447fdaea2a35ff67630d3&type=010&imgNames=test1.jpg,test2.jpg&imgStrs=11111,22222&title=测试图片标题1
+http://localhost:8181/jeesite/f/uploadApi/uploadImages?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&caseid=19d4f257076447fdaea2a35ff67630d3&type=020&descText=描述1&title=测试文字标题1
 
 根据病例ID查看图片列表
-http://localhost:8181/jeesite/f/caseApi/queryImagesByCaseId?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&caseid=19d4f257076447fdaea2a35ff67630d3
-http://120.26.241.215:8181/jeesite/f/caseApi/queryImagesByCaseId?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&caseid=19d4f257076447fdaea2a35ff67630d3
+http://localhost:8181/jeesite/f/uploadApi/queryImagesByCaseId?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&caseid=19d4f257076447fdaea2a35ff67630d3
+http://120.26.241.215:8181/jeesite/f/uploadApi/queryImagesByCaseId?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&caseid=19d4f257076447fdaea2a35ff67630d3
+删除资源接口
+http://localhost:8181/jeesite/f/uploadApi/deleteByGroupId?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&groupid=be00af1fe2624c5c92c570dc425747d4
+http://120.26.241.215:8181/jeesite/f/uploadApi/deleteByGroupId?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&groupid=be00af1fe2624c5c92c570dc425747d4
 
 病例列表
 http://localhost:8181/jeesite/f/list-7d15c72b33594cf0bdb5b1e7c0ad251e.html

@@ -3,8 +3,11 @@
  */
 package com.thinkgem.jeesite.modules.hmrtupload.dao;
 
+import java.util.List;
+
 import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
+import com.thinkgem.jeesite.modules.cms.entity.Category;
 import com.thinkgem.jeesite.modules.hmrtupload.entity.HmrtUpload;
 
 /**
@@ -14,5 +17,5 @@ import com.thinkgem.jeesite.modules.hmrtupload.entity.HmrtUpload;
  */
 @MyBatisDao
 public interface HmrtUploadDao extends CrudDao<HmrtUpload> {
-	
+	public List<HmrtUpload> getResByCaseId(HmrtUpload hmrtUpload);
 }
