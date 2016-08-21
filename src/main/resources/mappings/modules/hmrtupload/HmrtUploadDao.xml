@@ -7,7 +7,15 @@
 		a.userid AS "userid",
 		a.caseid AS "caseid",
 		a.remark AS "remark",
-		a.path AS "path"
+		a.path AS "path",
+		a.title AS "title",
+		a.groupid AS "groupid",
+		a.type AS "type",
+		a.desc AS "desc",
+		a.status AS "status",
+		a.createdate AS "createdate",
+		a.updatedate AS "updatedate",
+		a.resname AS "resname"
 	</sql>
 	
 	<sql id="hmrtUploadJoins">
@@ -28,6 +36,57 @@
 		<include refid="hmrtUploadJoins"/>
 		<where>
 			
+			<if test="userid != null and userid != ''">
+				AND a.userid = #{userid}
+			</if>
+			<if test="caseid != null and caseid != ''">
+				AND a.caseid = #{caseid}
+			</if>
+			<if test="remark != null and remark != ''">
+				AND a.remark LIKE 
+					<if test="dbName == 'oracle'">'%'||#{remark}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{remark}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{remark},'%')</if>
+			</if>
+			<if test="path != null and path != ''">
+				AND a.path LIKE 
+					<if test="dbName == 'oracle'">'%'||#{path}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{path}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{path},'%')</if>
+			</if>
+			<if test="title != null and title != ''">
+				AND a.title LIKE 
+					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
+			</if>
+			<if test="groupid != null and groupid != ''">
+				AND a.groupid = #{groupid}
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+			<if test="desc != null and desc != ''">
+				AND a.desc LIKE 
+					<if test="dbName == 'oracle'">'%'||#{desc}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{desc}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{desc},'%')</if>
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="createdate != null and createdate != ''">
+				AND a.createdate = #{createdate}
+			</if>
+			<if test="updatedate != null and updatedate != ''">
+				AND a.updatedate = #{updatedate}
+			</if>
+			<if test="resname != null and resname != ''">
+				AND a.resname LIKE 
+					<if test="dbName == 'oracle'">'%'||#{resname}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{resname}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{resname},'%')</if>
+			</if>
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
@@ -61,13 +120,29 @@
 			userid,
 			caseid,
 			remark,
-			path
+			path,
+			title,
+			groupid,
+			type,
+			desc,
+			status,
+			createdate,
+			updatedate,
+			resname
 		) VALUES (
 			#{id},
 			#{userid},
 			#{caseid},
 			#{remark},
-			#{path}
+			#{path},
+			#{title},
+			#{groupid},
+			#{type},
+			#{desc},
+			#{status},
+			#{createdate},
+			#{updatedate},
+			#{resname}
 		)
 	</insert>
 	
@@ -76,7 +151,15 @@
 			userid = #{userid},
 			caseid = #{caseid},
 			remark = #{remark},
-			path = #{path}
+			path = #{path},
+			title = #{title},
+			groupid = #{groupid},
+			type = #{type},
+			desc = #{desc},
+			status = #{status},
+			createdate = #{createdate},
+			updatedate = #{updatedate},
+			resname = #{resname}
 		WHERE id = #{id}
 	</update>
 	

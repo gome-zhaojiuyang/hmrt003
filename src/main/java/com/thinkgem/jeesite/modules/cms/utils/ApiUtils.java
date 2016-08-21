@@ -82,7 +82,10 @@ public class ApiUtils {
 //		articleMap.put("enddata", DateUtils.formatDateTime(article.getEndDate()));
 		//articleMap.put("allowcomment", article.getArticleData().getAllowComment());
 //		articleMap.put("creatdata", DateUtils.formatDateTime(article.getCreateDate()));
-		articleMap.put("visitDt", DateUtils.formatDate(article.getVisitDt(),null));
+		if(article.getVisitDt()!=null&&!"".equals(article.getVisitDt())){
+			
+			articleMap.put("visitDt", DateUtils.formatDate(article.getVisitDt(),null));
+		}
 		articleMap.put("image", article.getImage());
 		articleMap.put("imageSrc", article.getImageSrc());
 		//articleMap.put("content", articleDataService.get(article.getId()).getContent());
@@ -92,6 +95,7 @@ public class ApiUtils {
 		articleMap.put("weight", null);
 		//articleMap.put("category", article.getCategory());
 		articleMap.put("id", article.getId());
+		articleMap.put("patientid", article.getPatientid());
 		return articleMap ;
 	}
 

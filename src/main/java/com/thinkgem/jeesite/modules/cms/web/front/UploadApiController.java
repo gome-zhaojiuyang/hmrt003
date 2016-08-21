@@ -18,12 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
-import com.thinkgem.jeesite.modules.cms.service.ArticleDataService;
 import com.thinkgem.jeesite.modules.cms.service.ArticleService;
-import com.thinkgem.jeesite.modules.cms.service.CommentService;
 import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
-import com.thinkgem.jeesite.modules.hmrtlike.service.HmrtLikeService;
 import com.thinkgem.jeesite.modules.hmrtupload.entity.HmrtUpload;
 import com.thinkgem.jeesite.modules.hmrtupload.service.HmrtUploadService;
 
@@ -65,14 +62,38 @@ public class UploadApiController extends BaseController {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,caseid不能为空！", "")));
 				return ;
 			}
-			if (StringUtils.isEmpty(request.getParameter("imgName"))) {
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,imgName不能为空！", "")));
+			if (StringUtils.isEmpty(request.getParameter("title"))) {
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,title不能为空！", "")));
 				return ;
 			}
-			if (StringUtils.isEmpty(request.getParameter("imgStr"))) {
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,imgStr不能为空！", "")));
+			if (StringUtils.isEmpty(request.getParameter("imgNames"))) {
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,imgNames不能为空！", "")));
 				return ;
 			}
+			if (StringUtils.isEmpty(request.getParameter("imgPaths"))) {
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,imgPaths不能为空！", "")));
+				return ;
+			}
+			if (StringUtils.isEmpty(request.getParameter("type"))) {
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,type不能为空！", "")));
+				return ;
+			}
+			String type = request.getParameter("type") ;// 010图片  020文字
+			String imgNames = request.getParameter("imgNames") ;
+			String imgPaths = request.getParameter("imgPaths") ;
+			if("010".equals(type)){
+				if(imgNames.split(",").length!=imgPaths.split(",").length){
+					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,图片名称和路径个数不匹配不能为空！", "")));
+					return ;
+				}
+			}if("020".equals(type)){
+				if (StringUtils.isEmpty(request.getParameter("desc"))) {
+					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,desc不能为空！", "")));
+					return ;
+				}
+			}
+			
+			
 			String projectPath = "upload";
 		    String path = Global.getConfig("webroot.basedir") +File.separator+projectPath; 
 		    System.out.println("upload>>>path"+path);

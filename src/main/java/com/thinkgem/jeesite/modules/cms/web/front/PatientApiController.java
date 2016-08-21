@@ -41,7 +41,7 @@ public class PatientApiController extends BaseController{
 	 * 保存患者信息
 	 */
 	@RequestMapping(value="save")
-	public void scrollImages(HttpServletRequest request, HttpServletResponse response,Model model) throws Exception{
+	public void save(HttpServletRequest request, HttpServletResponse response,Model model) throws Exception{
 		try {
 			if (!validate(request, response)) {
 				return;
