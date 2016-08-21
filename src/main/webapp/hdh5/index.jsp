@@ -25,7 +25,7 @@ String userid = request.getParameter("userid");
             <div class="loop-wrapper" id="loop_wrapper">
                 <ul class="loop-list">
                 </ul>
-                <ul class="dot nav">
+                <ul class="dot nav" id="dot_nav">
                    
                 </ul>
                 <i id="active"></i>
@@ -58,7 +58,12 @@ String userid = request.getParameter("userid");
 	  }
 	});
 	
-	$.getJSON(serverUrl+'/f/mainApi/hdscrollImages', { }, function(data){
+	
+	function tourl(url){
+		window.location.href=url;
+	}
+	
+    $.getJSON(serverUrl+'/f/mainApi/hdscrollImages', { }, function(data){
 		  if(data.data&&data.code==200){
 			  var arr = data.data;
 			  for(var i=0;i<arr.length;i++){
@@ -69,28 +74,24 @@ String userid = request.getParameter("userid");
 				  var im = path+image;
 				  $(".loop-list").append('<li><img src="'+im+'" onclick="tourl(\''+href+'\')"></li>');
 				  if(i==0){
-					  $(".dot nav").append('<li class="active"></li>');
+					  $("#dot_nav").append('<li class="active"></li>');
 				  }else{
-					  $(".dot nav").append('<li class=""></li>');
+					  $("#dot_nav").append('<li class=""></li>');
 				  }
 			  }
+			  var mySwipe = Swipe(document.getElementById('loop_wrapper'), {
+			        startSlide: 0,
+			        auto: 3000,
+			        continuous: true,
+			        touchend: function (index, element) {
+			        },
+			        transitionEnd: function (index, element) {
+			            $('.nav li').removeClass('active').eq(index).addClass('active');
+			        }
+			    });
+			    $('.loop-list li').css('display', 'block');
 		  }
 		});
-	function tourl(url){
-		window.location.href=url;
-	}
-	
-    var mySwipe = Swipe(document.getElementById('loop_wrapper'), {
-        startSlide: 0,
-        auto: 3000,
-        continuous: true,
-        touchend: function (index, element) {
-        },
-        transitionEnd: function (index, element) {
-            $('.nav li').removeClass('active').eq(index).addClass('active');
-        }
-    });
-    $('.loop-list li').css('display', 'block');
 </script>
 </body>
 </html>
