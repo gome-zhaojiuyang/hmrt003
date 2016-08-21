@@ -3,12 +3,7 @@
  */
 package com.thinkgem.jeesite.modules.cms.web.front;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,12 +24,13 @@ import com.thinkgem.jeesite.modules.cms.service.ArticleDataService;
 import com.thinkgem.jeesite.modules.cms.service.ArticleService;
 import com.thinkgem.jeesite.modules.cms.utils.ApiUtils;
 import com.thinkgem.jeesite.modules.cms.utils.ConstantsConfig;
-import com.thinkgem.jeesite.modules.cms.utils.Entity2Map;
 import com.thinkgem.jeesite.modules.cms.utils.JsonUtil;
 import com.thinkgem.jeesite.modules.hmrtarticletags.entity.HmrtArticleTags;
 import com.thinkgem.jeesite.modules.hmrtarticletags.service.HmrtArticleTagsService;
 import com.thinkgem.jeesite.modules.hmrtpatient.entity.HmrtPatient;
 import com.thinkgem.jeesite.modules.hmrtpatient.service.HmrtPatientService;
+import com.thinkgem.jeesite.modules.hmrtupload.entity.HmrtUpload;
+import com.thinkgem.jeesite.modules.hmrtupload.service.HmrtUploadService;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 
 /**
@@ -54,6 +50,8 @@ public class CaseApiController extends BaseController {
 	private ArticleDataService articleDataService;
 	@Autowired
 	private HmrtPatientService hmrtPatientService;
+	@Autowired
+	private HmrtUploadService hmrtUploadService;
 	/**
 	 * 
 	 * 创建病例接口
@@ -302,6 +300,36 @@ public class CaseApiController extends BaseController {
 				a.setCreateDate(null);
 			}
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", page)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
+			return;
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * 查询用户病例资源图片接口
+	 */
+	@RequestMapping(value = "queryImagesByCaseId")
+	public void queryImagesById(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		try {
+			if (!validate(request, response)) {
+				return;
+			}
+			if (!validateToken(request, response)) {
+				return;
+			}
+			if (StringUtils.isEmpty(request.getParameter("caseid"))) {
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,caseid不能为空！", "")));
+				return;
+			}
+			String caseid = StringUtils.toString(request.getParameter("caseid"));
+			HmrtUpload hmrtUpload=new HmrtUpload();
+			hmrtUpload.setCaseid(caseid);
+			List<HmrtUpload> list = hmrtUploadService.findList(hmrtUpload);
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", list)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));

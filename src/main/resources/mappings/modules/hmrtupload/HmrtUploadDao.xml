@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.hmrtupload.dao.HmrtUploadDao">
+    
+	<sql id="hmrtUploadColumns">
+		a.id AS "id",
+		a.userid AS "userid",
+		a.caseid AS "caseid",
+		a.remark AS "remark",
+		a.path AS "path"
+	</sql>
+	
+	<sql id="hmrtUploadJoins">
+	</sql>
+    
+	<select id="get" resultType="HmrtUpload">
+		SELECT 
+			<include refid="hmrtUploadColumns"/>
+		FROM hmrt_upload a
+		<include refid="hmrtUploadJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="HmrtUpload">
+		SELECT 
+			<include refid="hmrtUploadColumns"/>
+		FROM hmrt_upload a
+		<include refid="hmrtUploadJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="HmrtUpload">
+		SELECT 
+			<include refid="hmrtUploadColumns"/>
+		FROM hmrt_upload a
+		<include refid="hmrtUploadJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO hmrt_upload(
+			id,
+			userid,
+			caseid,
+			remark,
+			path
+		) VALUES (
+			#{id},
+			#{userid},
+			#{caseid},
+			#{remark},
+			#{path}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE hmrt_upload SET 	
+			userid = #{userid},
+			caseid = #{caseid},
+			remark = #{remark},
+			path = #{path}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM hmrt_upload
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

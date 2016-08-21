@@ -13,6 +13,12 @@
 3.服务器IP是120.26.241.215，替换下面URL中的localhost即可！
 
 -----------------------------------华丽丽的分割线--------------------------------------------------
+资源上传
+http://localhost:8181/jeesite/f/uploadApi/uploadImages?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&caseid=19d4f257076447fdaea2a35ff67630d3&imgName=test.jpg&imgStr=11111
+
+根据病例ID查看图片列表
+http://localhost:8181/jeesite/f/caseApi/queryImagesByCaseId?userid=899a7351dc444ad4b23456ae55edb050&token=943660160&caseid=19d4f257076447fdaea2a35ff67630d3
+
 病例列表
 http://localhost:8181/jeesite/f/list-7d15c72b33594cf0bdb5b1e7c0ad251e.html
 http://120.26.241.215:8181/jeesite/f/list-7d15c72b33594cf0bdb5b1e7c0ad251e.html
