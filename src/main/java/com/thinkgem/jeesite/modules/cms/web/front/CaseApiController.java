@@ -57,7 +57,7 @@ public class CaseApiController extends BaseController {
 	 * 创建病例接口
 	 */
 	@RequestMapping(value = "save")
-	public void scrollImages(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+	public void save(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		try {
 			if (!validate(request, response)) {
 				return;
@@ -77,14 +77,14 @@ public class CaseApiController extends BaseController {
 //				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,tagsids不能为空！", "")));
 //				return;
 //			}
-			if (StringUtils.isEmpty(request.getParameter("diagnoseInfo"))) {
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,diagnoseInfo不能为空！", "")));
-				return;
-			}
-			if (StringUtils.isEmpty(request.getParameter("conditionInfo"))) {
-				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,conditionInfo不能为空！", "")));
-				return;
-			}
+//			if (StringUtils.isEmpty(request.getParameter("diagnoseInfo"))) {
+//				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,diagnoseInfo不能为空！", "")));
+//				return;
+//			}
+//			if (StringUtils.isEmpty(request.getParameter("conditionInfo"))) {
+//				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,conditionInfo不能为空！", "")));
+//				return;
+//			}
 			// String userid =
 			// StringUtils.toString(request.getParameter("userid"));
 			String patientid = StringUtils.toString(request.getParameter("patientid"));

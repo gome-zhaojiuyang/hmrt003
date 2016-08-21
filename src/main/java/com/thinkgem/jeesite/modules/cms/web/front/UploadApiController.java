@@ -6,6 +6,7 @@ package com.thinkgem.jeesite.modules.cms.web.front;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.thinkgem.jeesite.common.config.Global;
+import com.thinkgem.jeesite.common.utils.IdGen;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.cms.service.ArticleService;
@@ -78,44 +80,55 @@ public class UploadApiController extends BaseController {
 				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,type不能为空！", "")));
 				return ;
 			}
+			String title = request.getParameter("title") ;// 
 			String type = request.getParameter("type") ;// 010图片  020文字
 			String imgNames = request.getParameter("imgNames") ;
 			String imgPaths = request.getParameter("imgPaths") ;
+			String desc = "" ;
 			if("010".equals(type)){
 				if(imgNames.split(",").length!=imgPaths.split(",").length){
 					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,图片名称和路径个数不匹配不能为空！", "")));
 					return ;
 				}
+				String projectPath = "upload";
+			    String path = Global.getConfig("webroot.basedir") +File.separator+projectPath; 
+			    System.out.println("upload>>>path"+path);
+			    File file = new File(path);  
+			    if(!file.exists()){  
+			        file.mkdir();  
+			    }  
+			    String visitPath = Global.getConfig("cas.project.url") + File.separator + projectPath + File.separator +request.getParameter("imgName");
+			    String imgPath  = path + File.separator + request.getParameter("imgName");  
+			    System.out.println("imgPath"+imgPath);
+			    System.out.println("visitPath"+visitPath);
+			    String imgStr = request.getParameter("imgStr");  
+			    boolean flag = string2Image(imgStr, imgPath); 
+			    HmrtUpload hmrtUpload = new HmrtUpload();
+			    hmrtUpload.setUserid(request.getParameter("userid"));
+			    hmrtUpload.setCaseid(request.getParameter("caseid"));
+			    hmrtUpload.setPath(visitPath);
+			    hmrtUpload.setRemark(request.getParameter("imgName"));
+			    
+			    hmrtUploadService.save(hmrtUpload);
+				
 			}if("020".equals(type)){
 				if (StringUtils.isEmpty(request.getParameter("desc"))) {
 					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,desc不能为空！", "")));
 					return ;
 				}
+				desc = request.getParameter("desc");
+				HmrtUpload hmrtUpload = new HmrtUpload();
+			    hmrtUpload.setUserid(request.getParameter("userid"));
+			    hmrtUpload.setCaseid(request.getParameter("caseid"));
+			    hmrtUpload.setGroupid(IdGen.uuid());
+			    hmrtUpload.setTitle(title);
+			    hmrtUpload.setRemark(request.getParameter("imgName"));
+			    hmrtUpload.setCreateDate(new Date());
+			    hmrtUpload.setUpdateDate(new Date());
+			    hmrtUploadService.save(hmrtUpload);
 			}
-			
-			
-			String projectPath = "upload";
-		    String path = Global.getConfig("webroot.basedir") +File.separator+projectPath; 
-		    System.out.println("upload>>>path"+path);
-		    File file = new File(path);  
-		    if(!file.exists()){  
-		        file.mkdir();  
-		    }  
-		    String visitPath = Global.getConfig("cas.project.url") + File.separator + projectPath + File.separator +request.getParameter("imgName");
-		    String imgPath  = path + File.separator + request.getParameter("imgName");  
-		    System.out.println("imgPath"+imgPath);
-		    System.out.println("visitPath"+visitPath);
-		    String imgStr = request.getParameter("imgStr");  
-		    boolean flag = string2Image(imgStr, imgPath); 
-		    HmrtUpload hmrtUpload = new HmrtUpload();
-		    hmrtUpload.setUserid(request.getParameter("userid"));
-		    hmrtUpload.setCaseid(request.getParameter("caseid"));
-		    hmrtUpload.setPath(visitPath);
-		    hmrtUpload.setRemark(request.getParameter("imgName"));
-		    
-		    hmrtUploadService.save(hmrtUpload);
 //		    JacksonUtil.responseJSON(response, flag);  
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", hmrtUpload)));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ConstantsConfig.RESULT_SUCCESS)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！", ConstantsConfig.RESULT_ERROR)));
