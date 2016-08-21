@@ -161,6 +161,7 @@ public class UploadApiController extends BaseController {
 			String caseid = StringUtils.toString(request.getParameter("caseid"));
 			HmrtUpload hmrtUpload=new HmrtUpload();
 			hmrtUpload.setCaseid(caseid);
+			hmrtUpload.setStatus("010");//  状态010启用  020禁用
 			List<HmrtUpload> list = hmrtUploadService.findList(hmrtUpload);
 			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", list)));
 		} catch (Exception e) {
@@ -170,7 +171,39 @@ public class UploadApiController extends BaseController {
 		}
 		
 	}
-	
+	/**
+	 * 
+	 * 删除用户病例资源图片接口
+	 */
+	@RequestMapping(value = "deleteByGroupId")
+	public void deleteByGroupId(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		try {
+			if (!validate(request, response)) {
+				return;
+			}
+			if (!validateToken(request, response)) {
+				return;
+			}
+			if (StringUtils.isEmpty(request.getParameter("groupid"))) {
+				outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,groupid不能为空！", "")));
+				return;
+			}
+			String groupid = StringUtils.toString(request.getParameter("groupid"));
+			HmrtUpload hmrtUpload=new HmrtUpload();
+			hmrtUpload.setGroupid(groupid);
+			List<HmrtUpload> list = hmrtUploadService.findList(hmrtUpload);
+			for(HmrtUpload upload : list){
+				upload.setStatus("020");//  状态010启用  020禁用
+				hmrtUploadService.save(upload);
+			}
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ConstantsConfig.RESULT_SUCCESS)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));
+			return;
+		}
+		
+	}
 	/** 
 	 * 通过BASE64Decoder解码，并生成图片 
 	 * @param imgStr 解码后的string 

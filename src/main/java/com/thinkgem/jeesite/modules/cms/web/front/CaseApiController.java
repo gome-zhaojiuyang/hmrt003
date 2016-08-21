@@ -296,8 +296,10 @@ public class CaseApiController extends BaseController {
 				a.setpAge1(null);
 				a.setpProfession(null);
 //				a.setpName(null);
-				String visit= DateUtils.formatDate(a.getVisitDt(), "yyyy年MM月dd日");
-				a.setVisitDt1(visit);
+				if(a.getVisitDt()!=null&&!"".equals(a.getVisitDt())){
+					String visit= DateUtils.formatDate(a.getVisitDt(), "yyyy年MM月dd日");
+					a.setVisitDt1(visit);
+				}
 				a.setVisitDt(null);
 //				a.setConditionInfo(null);
 				a.setUserPhoto(null);
