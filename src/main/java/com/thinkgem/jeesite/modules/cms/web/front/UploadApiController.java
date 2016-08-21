@@ -98,7 +98,7 @@ public class UploadApiController extends BaseController {
 				    if(!file.exists()){  
 				        file.mkdir();  
 				    }  
-				    String visitPath = Global.getConfig("cas.project.url") 
+				    String visitPath = Global.getConfig("image.project.url") 
 				    		+ File.separator + projectPath + 
 				    		File.separator + imgName[i];
 				    String imgPath  = path + File.separator + imgName[i];  
