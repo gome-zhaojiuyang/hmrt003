@@ -46,20 +46,23 @@
 			<li><label>010图片  020文字：</label>
 				<form:input path="type" htmlEscape="false" maxlength="8" class="input-medium"/>
 			</li>
-			<li><label>文字详情：</label>
-				<form:input path="desc" htmlEscape="false" maxlength="512" class="input-medium"/>
-			</li>
 			<li><label>状态010启用  020禁用：</label>
 				<form:input path="status" htmlEscape="false" maxlength="8" class="input-medium"/>
 			</li>
 			<li><label>创建时间：</label>
-				<input name="createdate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					value="<fmt:formatDate value="${hmrtUpload.createdate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+				<input name="beginCreatedate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
+					value="<fmt:formatDate value="${hmrtUpload.beginCreatedate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/> - 
+				<input name="endCreatedate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
+					value="<fmt:formatDate value="${hmrtUpload.endCreatedate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</li>
 			<li><label>更新时间：</label>
-				<input name="updatedate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					value="<fmt:formatDate value="${hmrtUpload.updatedate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+				<input name="beginUpdatedate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
+					value="<fmt:formatDate value="${hmrtUpload.beginUpdatedate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/> - 
+				<input name="endUpdatedate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
+					value="<fmt:formatDate value="${hmrtUpload.endUpdatedate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</li>
 			<li><label>资源名称：</label>
@@ -80,7 +83,6 @@
 				<th>标题</th>
 				<th>分组id</th>
 				<th>010图片  020文字</th>
-				<th>文字详情</th>
 				<th>状态010启用  020禁用</th>
 				<th>创建时间</th>
 				<th>更新时间</th>
@@ -111,9 +113,6 @@
 				</td>
 				<td>
 					${hmrtUpload.type}
-				</td>
-				<td>
-					${hmrtUpload.desc}
 				</td>
 				<td>
 					${hmrtUpload.status}

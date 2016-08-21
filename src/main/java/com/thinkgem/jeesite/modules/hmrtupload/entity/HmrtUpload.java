@@ -20,15 +20,19 @@ public class HmrtUpload extends DataEntity<HmrtUpload> {
 	private String userid;		// 用户id
 	private String caseid;		// 关联其他id 例如病历上传 关联articleid
 	private String remark;		// 图片备注
-	private String path;		// 图片链接地址
+	private String path;		// 图片链接地址 
 	private String title;		// 标题
 	private String groupid;		// 分组id
 	private String type;		// 010图片  020文字
-	private String desc;		// 文字详情
+	private String desctext;		// 文字详情
 	private String status;		// 状态010启用  020禁用
 	private Date createdate;		// 创建时间
 	private Date updatedate;		// 更新时间
 	private String resname;		// 资源名称
+	private Date beginCreatedate;		// 开始 创建时间
+	private Date endCreatedate;		// 结束 创建时间
+	private Date beginUpdatedate;		// 开始 更新时间
+	private Date endUpdatedate;		// 结束 更新时间
 	
 	public HmrtUpload() {
 		super();
@@ -102,12 +106,12 @@ public class HmrtUpload extends DataEntity<HmrtUpload> {
 	}
 	
 	@Length(min=0, max=512, message="文字详情长度必须介于 0 和 512 之间")
-	public String getDesc() {
-		return desc;
+	public String getDesctext() {
+		return desctext;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDesctext(String desctext) {
+		this.desctext = desctext;
 	}
 	
 	@Length(min=0, max=8, message="状态010启用  020禁用长度必须介于 0 和 8 之间")
@@ -146,4 +150,36 @@ public class HmrtUpload extends DataEntity<HmrtUpload> {
 		this.resname = resname;
 	}
 	
+	public Date getBeginCreatedate() {
+		return beginCreatedate;
+	}
+
+	public void setBeginCreatedate(Date beginCreatedate) {
+		this.beginCreatedate = beginCreatedate;
+	}
+	
+	public Date getEndCreatedate() {
+		return endCreatedate;
+	}
+
+	public void setEndCreatedate(Date endCreatedate) {
+		this.endCreatedate = endCreatedate;
+	}
+		
+	public Date getBeginUpdatedate() {
+		return beginUpdatedate;
+	}
+
+	public void setBeginUpdatedate(Date beginUpdatedate) {
+		this.beginUpdatedate = beginUpdatedate;
+	}
+	
+	public Date getEndUpdatedate() {
+		return endUpdatedate;
+	}
+
+	public void setEndUpdatedate(Date endUpdatedate) {
+		this.endUpdatedate = endUpdatedate;
+	}
+		
 }

@@ -44,7 +44,9 @@
 		FROM hmrt_patient a
 		<include refid="hmrtPatientJoins"/>
 		<where>
-			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
 			<if test="userid != null and userid != ''">
 				AND a.userid = #{userid}
 			</if>

@@ -127,7 +127,7 @@ public class CaseApiController extends BaseController {
 //				hmrtArticleTags.setTagsid(tagsid);
 //				hmrtArticleTagsService.save(hmrtArticleTags);
 //			}
-			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", ConstantsConfig.RESULT_SUCCESS)));
+			outputJson(response, JsonUtil.beanToJson(putResponseData(200, "", caseinfo.getId())));
 		} catch (Exception e) {
 			e.printStackTrace();
 			outputJson(response, JsonUtil.beanToJson(putResponseData(500, "服务器端错误！",  ConstantsConfig.RESULT_ERROR)));

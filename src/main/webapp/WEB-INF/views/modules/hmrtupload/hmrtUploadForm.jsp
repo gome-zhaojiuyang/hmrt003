@@ -78,7 +78,7 @@
 		<div class="control-group">
 			<label class="control-label">文字详情：</label>
 			<div class="controls">
-				<form:input path="desc" htmlEscape="false" maxlength="512" class="input-xlarge "/>
+				<form:input path="desctext" htmlEscape="false" maxlength="512" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">

@@ -11,7 +11,7 @@
 		a.title AS "title",
 		a.groupid AS "groupid",
 		a.type AS "type",
-		a.desc AS "desc",
+		a.desctext AS "desctext",
 		a.status AS "status",
 		a.createdate AS "createdate",
 		a.updatedate AS "updatedate",
@@ -66,20 +66,14 @@
 			<if test="type != null and type != ''">
 				AND a.type = #{type}
 			</if>
-			<if test="desc != null and desc != ''">
-				AND a.desc LIKE 
-					<if test="dbName == 'oracle'">'%'||#{desc}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+#{desc}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',#{desc},'%')</if>
-			</if>
 			<if test="status != null and status != ''">
 				AND a.status = #{status}
 			</if>
-			<if test="createdate != null and createdate != ''">
-				AND a.createdate = #{createdate}
+			<if test="beginCreatedate != null and endCreatedate != null and beginCreatedate != '' and endCreatedate != ''">
+				AND a.createdate BETWEEN #{beginCreatedate} AND #{endCreatedate}
 			</if>
-			<if test="updatedate != null and updatedate != ''">
-				AND a.updatedate = #{updatedate}
+			<if test="beginUpdatedate != null and endUpdatedate != null and beginUpdatedate != '' and endUpdatedate != ''">
+				AND a.updatedate BETWEEN #{beginUpdatedate} AND #{endUpdatedate}
 			</if>
 			<if test="resname != null and resname != ''">
 				AND a.resname LIKE 
@@ -124,7 +118,7 @@
 			title,
 			groupid,
 			type,
-			desc,
+			desctext,
 			status,
 			createdate,
 			updatedate,
@@ -138,7 +132,7 @@
 			#{title},
 			#{groupid},
 			#{type},
-			#{desc},
+			#{desctext},
 			#{status},
 			#{createdate},
 			#{updatedate},
@@ -155,7 +149,7 @@
 			title = #{title},
 			groupid = #{groupid},
 			type = #{type},
-			desc = #{desc},
+			desctext = #{desctext},
 			status = #{status},
 			createdate = #{createdate},
 			updatedate = #{updatedate},

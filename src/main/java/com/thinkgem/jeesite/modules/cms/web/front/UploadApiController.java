@@ -78,7 +78,7 @@ public class UploadApiController extends BaseController {
 			String type = request.getParameter("type") ;// 010图片  020文字
 			String imgNames = request.getParameter("imgNames") ;
 //			String imgPaths = request.getParameter("imgPaths") ;
-			String desc = "" ;
+			
 			if("010".equals(type)){
 //				if(imgNames.split(",").length!=imgPaths.split(",").length){
 //					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,图片名称和路径个数不匹配不能为空！", "")));
@@ -116,17 +116,17 @@ public class UploadApiController extends BaseController {
 				
 				
 			}if("020".equals(type)){
-				if (StringUtils.isEmpty(request.getParameter("desc"))) {
-					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,desc不能为空！", "")));
+				if (StringUtils.isEmpty(request.getParameter("descText"))) {
+					outputJson(response, JsonUtil.beanToJson(putResponseData(401, "请求参数错误,descText不能为空！", "")));
 					return ;
 				}
-				desc = request.getParameter("desc");
+				String  desctext = request.getParameter("desctext");
 				HmrtUpload hmrtUpload = new HmrtUpload();
 			    hmrtUpload.setUserid(request.getParameter("userid"));
 			    hmrtUpload.setCaseid(request.getParameter("caseid"));
 			    hmrtUpload.setGroupid(IdGen.uuid());
 			    hmrtUpload.setTitle(title);
-			    hmrtUpload.setDesc(desc);
+			    hmrtUpload.setDesctext(desctext);
 			    hmrtUpload.setRemark("保存文字信息");
 			    hmrtUpload.setCreateDate(new Date());
 			    hmrtUpload.setUpdateDate(new Date());
