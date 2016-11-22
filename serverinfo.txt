@@ -1,3 +1,7 @@
 139.224.195.180
 root wangfei1A
 http://139.224.195.180:8080/
+/Users/zhaojiuyang/workspace/hmrt003/target/jeesite.war
+
+
+ /root/hmrt003/target/jeesite.war
